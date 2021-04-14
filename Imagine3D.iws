@@ -10,8 +10,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9d27fe89-6abc-4378-8290-090649aabaa8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/textures/gui/button_pressed.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/textures/gui/button_press.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Imagine3D.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Imagine3D.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Imagine3D.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/Imagine3D.ipr" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Imagine3D.iws" beforeDir="false" afterPath="$PROJECT_DIR$/Imagine3D.iws" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/terrain/Block.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/terrain/Block.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/terrain/BlockType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/terrain/BlockType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/terrain/IBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/terrain/IBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/terrain/TerrainManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/terrain/TerrainManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/terrain/blocks/PlatformBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/terrain/blocks/PlatformBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/terrain/blocks/WaterBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/terrain/blocks/WaterBlock.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,7 +64,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="create.test.in.the.same.root" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/textures/gui" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
@@ -68,6 +76,7 @@
       <recent name="io.yedox.imagine3D.item" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\Imagine3D\src\main\resources\textures\gui" />
       <recent name="F:\Imagine3D\src\main\resources\fonts" />
       <recent name="F:\Imagine3D\src\main\resources\shaders" />
       <recent name="F:\Imagine3D\data" />
@@ -192,6 +201,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
