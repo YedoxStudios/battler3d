@@ -10,9 +10,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9d27fe89-6abc-4378-8290-090649aabaa8" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Imagine3D.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/Imagine3D.ipr" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Imagine3D.iws" beforeDir="false" afterPath="$PROJECT_DIR$/Imagine3D.iws" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/config/version_info.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config/version_info.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/textures/gui/button_pressed.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/textures/gui/button_press.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,7 +55,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="create.test.in.the.same.root" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../B3DServer/Java" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/textures/gui" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
