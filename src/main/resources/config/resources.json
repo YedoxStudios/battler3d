@@ -1,0 +1,10 @@
+{
+  "texts.button.play": "Start",
+  "texts.button.settings": "Options",
+  "texts.button.exit": "Exit",
+  "texts.button.play_again": "Play Again",
+
+  "texts.label.game_over": "You Died!",
+  "texts.label.chatbox_hint": "Tell something to your friends...",
+  "texts.label.loading_screen_heading": "Preparing a level for you..."
+}

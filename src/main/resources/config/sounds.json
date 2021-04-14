@@ -1,0 +1,7 @@
+{
+  "ui.click": "sounds/ui/click.wav",
+  "player.death": "sounds/player/death.wav",
+  "music.bit1": "sounds/music/8bit1.wav",
+  "music.bit2": "sounds/music/8bit2.wav",
+  "music.bit3": "sounds/music/8bit3.wav"
+}
