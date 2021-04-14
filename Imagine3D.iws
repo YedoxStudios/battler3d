@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
-      <artifact name="Battler3D.jar" />
+      <artifact name="Imagine3D.jar" />
     </artifacts-to-build>
   </component>
   <component name="AutoImportSettings">
@@ -59,26 +59,26 @@
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
-      <recent name="io.yedox.battler3d.item" />
+      <recent name="io.yedox.imagine3D.item" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="F:\Battler3D\src\main\resources\fonts" />
-      <recent name="F:\MCS3D\src\main\resources\shaders" />
-      <recent name="F:\MCS3D\data" />
+      <recent name="F:\Imagine3D\src\main\resources\fonts" />
+      <recent name="F:\Imagine3D\src\main\resources\shaders" />
+      <recent name="F:\Imagine3D\data" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="F:\MCS3D\src\main\resources" />
-      <recent name="F:\MCS3D\data\textures\gui" />
+      <recent name="F:\Imagine3D\src\main\resources" />
+      <recent name="F:\Imagine3D\data\textures\gui" />
     </key>
     <key name="MoveMembersDialog.RECENTS_KEY">
-      <recent name="io.yedox.battler3d.gui.GUI" />
-      <recent name="io.yedox.battler3d.Main" />
+      <recent name="io.yedox.imagine3D.gui.GUI" />
+      <recent name="io.yedox.imagine3D.Main" />
     </key>
   </component>
   <component name="RunManager" selected="Processing.Run Sketch">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="io.yedox.imagine3d.Main" />
-      <module name="Battler3D" />
+      <module name="Imagine3D" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="io.yedox.imagine3d.*" />
@@ -103,7 +103,7 @@
       </method>
     </configuration>
     <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="Battler3D" />
+      <module name="Imagine3D" />
       <option name="filePath" value="" />
       <option name="vmParameters" value="" />
       <option name="alternativeJrePath" />
@@ -137,17 +137,17 @@
       </method>
     </configuration>
     <configuration name="Run Sketch" type="org.idea.processing.configuration.type" factoryName="Processing" activateToolWindowBeforeRun="false">
-      <module name="Battler3D" />
+      <module name="Imagine3D" />
       <ProcessingRunSettings>
         <option name="display" value="1" />
         <option name="fullscreen" value="false" />
         <option name="hideStopButton" value="false" />
         <option name="jvmArguments" value="" />
         <option name="location" value="Center" />
-        <option name="module" value="Battler3D" />
+        <option name="module" value="Imagine3D" />
         <option name="sketchArguments" value="" />
         <option name="sketchClass" value="io.yedox.imagine3d.Main" />
-        <option name="sketchOutputPath" value="F:\Battler3D\build" />
+        <option name="sketchOutputPath" value="F:\Imagine3D\build" />
         <option name="stopButtonColor" />
         <option name="windowBackgroundColor" />
       </ProcessingRunSettings>
