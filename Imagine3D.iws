@@ -9,7 +9,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9d27fe89-6abc-4378-8290-090649aabaa8" name="Default Changelist" comment="" />
+    <list default="true" id="9d27fe89-6abc-4378-8290-090649aabaa8" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/Imagine3D.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/Imagine3D.ipr" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Imagine3D.iws" beforeDir="false" afterPath="$PROJECT_DIR$/Imagine3D.iws" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/config/version_info.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config/version_info.json" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -27,6 +31,9 @@
         <option value="Class" />
       </list>
     </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitSEFilterConfiguration">
     <file-type-list>
@@ -139,7 +146,7 @@
     <configuration name="Run Sketch" type="org.idea.processing.configuration.type" factoryName="Processing" activateToolWindowBeforeRun="false">
       <module name="Imagine3D" />
       <ProcessingRunSettings>
-        <option name="display" value="1" />
+        <option name="display" value="0" />
         <option name="fullscreen" value="false" />
         <option name="hideStopButton" value="false" />
         <option name="jvmArguments" value="" />
@@ -175,6 +182,17 @@
       <updated>1610886757158</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
