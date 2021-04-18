@@ -31,3 +31,4 @@ lib/*
 bin/*
 out/*
 launcher/*
+/.metadata/
