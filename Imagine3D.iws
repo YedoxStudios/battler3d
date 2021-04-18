@@ -10,6 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9d27fe89-6abc-4378-8290-090649aabaa8" name="Default Changelist" comment="">
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/.classpath" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.project" beforeDir="false" />
@@ -17,6 +18,10 @@
       <change beforePath="$PROJECT_DIR$/Imagine3D.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Imagine3D.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Imagine3D.iws" beforeDir="false" afterPath="$PROJECT_DIR$/Imagine3D.iws" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Imagine3D.userlibraries" beforeDir="false" />
+=======
+      <change afterPath="$PROJECT_DIR$/src/main/resources/textures/gui/button_pressed.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/textures/gui/button_press.png" beforeDir="false" />
+>>>>>>> parent of 4856938 (Updated license headers)
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,8 +66,13 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="create.test.in.the.same.root" value="true" />
+<<<<<<< HEAD
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
+=======
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/textures/gui" />
+    <property name="project.structure.last.edited" value="Libraries" />
+>>>>>>> parent of 4856938 (Updated license headers)
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
@@ -74,7 +84,6 @@
       <recent name="io.yedox.imagine3D.item" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="F:\Imagine3D\src\main\resources\textures\gui" />
       <recent name="F:\Imagine3D\src\main\resources\fonts" />
       <recent name="F:\Imagine3D\src\main\resources\shaders" />
       <recent name="F:\Imagine3D\data" />
@@ -199,7 +208,6 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
