@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<<<<<<< HEAD
 <module classpath="eclipse" classpath-dir="$MODULE_DIR$" type="org.idea.processing.module" version="4" />
-=======
 <module type="org.idea.processing.module" version="4">
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
@@ -15,4 +13,3 @@
     <orderEntry type="library" name="processing-core" level="project" />
   </component>
 </module>
->>>>>>> parent of 4856938 (Updated license headers)
