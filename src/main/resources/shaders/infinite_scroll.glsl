@@ -7,7 +7,7 @@ uniform float time;
 uniform vec2 resolution;
 uniform sampler2D tileImage;
 
-#define TILES_COUNT_X 1.0
+#define TILES_COUNT_X 6.0
 #define PROCESSING_TEXTURE_SHADER
 
 void main() {
