@@ -7,12 +7,12 @@ uniform float time;
 uniform vec2 resolution;
 uniform sampler2D tileImage;
 
-#define TILES_COUNT_X 4.0
+#define TILES_COUNT_X 1.0
 #define PROCESSING_TEXTURE_SHADER
 
 void main() {
-  vec2 pos = gl_FragCoord.xy - vec2(4.0 * time);
-  vec2 p = (resolution - TILES_COUNT_X * pos) / resolution.x;
-  vec3 col = texture2D (tileImage, p).xyz;
-  gl_FragColor = vec4 (col, 1.0);
+    vec2 pos = gl_FragCoord.xy - vec2(4.0 * time);
+    vec2 p = (resolution - TILES_COUNT_X * pos) / resolution.x;
+    vec3 col = texture2D (tileImage, p).xyz;
+    gl_FragColor = vec4 (col, 1.0);
 }

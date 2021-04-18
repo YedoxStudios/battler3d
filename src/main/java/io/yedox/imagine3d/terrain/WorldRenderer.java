@@ -29,14 +29,14 @@ import io.yedox.imagine3d.util.Logger;
 import processing.core.PApplet;
 import processing.core.PVector;
 
-public class TerrainManager extends Thread {
+public class WorldRenderer extends Thread {
     public PVector progress;
     private boolean terrainGenerated = false;
     public final int blocksize;
     public final Block[][] blocks;
     private PApplet pApplet;
 
-    public TerrainManager(int blockSize, int yOffset, PApplet applet) {
+    public WorldRenderer(int blockSize, int yOffset, PApplet applet) {
         blocks = new Block[blockSize][blockSize];
         this.blocksize = blockSize;
         this.pApplet = applet;
@@ -44,7 +44,7 @@ public class TerrainManager extends Thread {
     }
 
     public void generateTerrain(PApplet applet) {
-        float counter = 10;
+//        float counter = 10;
 //        for (int i = 0; i < blocksize; i++) {
 //            for (int j = 0; j < blocksize; j++) {
 //                float x = i * 5;
@@ -58,7 +58,7 @@ public class TerrainManager extends Thread {
         for (int i = 0; i < blocksize; i++) {
             for (int j = 0; j < blocksize; j++) {
                 blocks[i][j] = new PlatformBlock(applet, i * 5, 0, j * 5, 5, 5, 5);
-                Logger.logDebug("Generating terrain: " + i + "x" + j + " (" + i + "%)");
+                Logger.logDebug("Generating terrain: " + i + "x" + j + " [" + i + "%]");
                 progress.x = i;
             }
         }

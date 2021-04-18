@@ -34,12 +34,12 @@ public class Block implements IBlock {
     /**
      * The ID of the current block
      */
-    public static final int BLOCKID = 0;
+    public static int BLOCK_ID = 0;
 
     /*
      * Block type
      */
-    public static BlockType BLOCK_TYPE;
+    public static Material MATERIAL;
 
     /**
      * Contains an instance of the main applet
@@ -76,11 +76,12 @@ public class Block implements IBlock {
      * @param applet The main applet
      */
     public Block(PApplet applet, float x, float y, float z, float w, float h, float d) {
-        this.BLOCK_TYPE = BlockType.PLATFORM;
         this.position = new PVector(x, y, z);
         this.dimensions = new PVector(w, h, d);
         this.applet = applet;
         this.blockTexture = applet.loadImage("textures/blocks/platform.png");
+
+        MATERIAL = Material.AIR;
     }
 
 
@@ -89,8 +90,8 @@ public class Block implements IBlock {
      *
      * @return BlockType
      */
-    public static BlockType getBlockType() {
-        return BLOCK_TYPE;
+    public static Material getMATERIAL() {
+        return MATERIAL;
     }
 
     /**
@@ -99,12 +100,11 @@ public class Block implements IBlock {
      * @return int
      */
     public int getBlockid() {
-        return BLOCKID;
+        return BLOCK_ID;
     }
 
     public void update() {
-        if (!destroyed) {
-            if (BLOCK_TYPE != BlockType.WATER) {
+            if (MATERIAL != Material.WATER || MATERIAL != Material.AIR) {
                 float playerLeft = GUI.player.position.x - GUI.player.dimensions.x / 2;
                 float playerRight = GUI.player.position.x + GUI.player.dimensions.x / 2;
                 float playerTop = GUI.player.position.y - GUI.player.dimensions.y / 2;
@@ -156,21 +156,20 @@ public class Block implements IBlock {
                     }
                 }
             }
-        }
     }
 
     public void draw() {
-        if (!destroyed) {
+        if (MATERIAL != Material.AIR || MATERIAL != Material.WATER) {
             applet.pushMatrix();
             applet.noStroke();
             applet.translate(position.x, position.y, position.z);
             applet.scale(2.5f);
-            cubeVertex(blockTexture);
+            drawCubeVert(blockTexture);
             applet.popMatrix();
         }
     }
 
-    private void cubeVertex(PImage texture) {
+    private void drawCubeVert(PImage texture) {
         applet.beginShape(PConstants.QUADS);
         applet.texture(texture);
 
