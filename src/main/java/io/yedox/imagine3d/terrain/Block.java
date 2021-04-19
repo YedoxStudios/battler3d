@@ -1,3 +1,27 @@
+/**
+ * MIT License
+ *
+ * Copyright (c) 2021 Yedox Studios
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 package io.yedox.imagine3d.terrain;
 
 import io.yedox.imagine3d.gui.GUI;
@@ -10,12 +34,12 @@ public class Block implements IBlock {
     /**
      * The ID of the current block
      */
-    public static int BLOCK_ID = 0;
+    public static final int BLOCKID = 0;
 
     /*
      * Block type
      */
-    public static Material MATERIAL;
+    public static BlockType BLOCK_TYPE;
 
     /**
      * Contains an instance of the main applet
@@ -52,12 +76,11 @@ public class Block implements IBlock {
      * @param applet The main applet
      */
     public Block(PApplet applet, float x, float y, float z, float w, float h, float d) {
+        this.BLOCK_TYPE = BlockType.PLATFORM;
         this.position = new PVector(x, y, z);
         this.dimensions = new PVector(w, h, d);
         this.applet = applet;
         this.blockTexture = applet.loadImage("textures/blocks/platform.png");
-
-        MATERIAL = Material.AIR;
     }
 
 
@@ -66,8 +89,8 @@ public class Block implements IBlock {
      *
      * @return BlockType
      */
-    public static Material getMATERIAL() {
-        return MATERIAL;
+    public static BlockType getBlockType() {
+        return BLOCK_TYPE;
     }
 
     /**
@@ -76,11 +99,12 @@ public class Block implements IBlock {
      * @return int
      */
     public int getBlockid() {
-        return BLOCK_ID;
+        return BLOCKID;
     }
 
     public void update() {
-            if (MATERIAL != Material.WATER || MATERIAL != Material.AIR) {
+        if (!destroyed) {
+            if (BLOCK_TYPE != BlockType.WATER) {
                 float playerLeft = GUI.player.position.x - GUI.player.dimensions.x / 2;
                 float playerRight = GUI.player.position.x + GUI.player.dimensions.x / 2;
                 float playerTop = GUI.player.position.y - GUI.player.dimensions.y / 2;
@@ -132,20 +156,21 @@ public class Block implements IBlock {
                     }
                 }
             }
+        }
     }
 
     public void draw() {
-        if (MATERIAL != Material.AIR || MATERIAL != Material.WATER) {
+        if (!destroyed) {
             applet.pushMatrix();
             applet.noStroke();
             applet.translate(position.x, position.y, position.z);
             applet.scale(2.5f);
-            drawCubeVert(blockTexture);
+            cubeVertex(blockTexture);
             applet.popMatrix();
         }
     }
 
-    private void drawCubeVert(PImage texture) {
+    private void cubeVertex(PImage texture) {
         applet.beginShape(PConstants.QUADS);
         applet.texture(texture);
 

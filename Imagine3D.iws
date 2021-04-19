@@ -10,16 +10,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9d27fe89-6abc-4378-8290-090649aabaa8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/textures/gui/button_pressed.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.classpath" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.project" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Imagine3D.eml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Imagine3D.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Imagine3D.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Imagine3D.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/Imagine3D.ipr" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Imagine3D.iws" beforeDir="false" afterPath="$PROJECT_DIR$/Imagine3D.iws" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Imagine3D.userlibraries" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/textures/gui/button_press.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/websocket/WebSocketClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/websocket/WebSocketClient.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,26 +53,24 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="JavaMethodFindUsagesOptions.isSearchForTextOccurrences" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="create.test.in.the.same.root" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Modules" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/textures/gui" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
+    <property name="settings.editor.selected.configurable" value="project.propCompiler" />
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="io.yedox.imagine3D.item" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\Imagine3D\src\main\resources\textures\gui" />
       <recent name="F:\Imagine3D\src\main\resources\fonts" />
       <recent name="F:\Imagine3D\src\main\resources\shaders" />
       <recent name="F:\Imagine3D\data" />
@@ -204,6 +196,16 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.NullPointerException" package="java.lang" />
+          <option name="timeStamp" value="5" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

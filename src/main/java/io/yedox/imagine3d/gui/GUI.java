@@ -8,7 +8,7 @@ import io.yedox.imagine3d.entity.Player;
 import io.yedox.imagine3d.entity.entity_events.PlayerRespawnEvent;
 import io.yedox.imagine3d.modapi.ModLoader;
 import io.yedox.imagine3d.scripting.ScriptParser;
-import io.yedox.imagine3d.terrain.WorldRenderer;
+import io.yedox.imagine3d.terrain.TerrainManager;
 import io.yedox.imagine3d.util.Logger;
 import io.yedox.imagine3d.util.ParticleSystem;
 import io.yedox.imagine3d.util.Utils;
@@ -19,6 +19,7 @@ import processing.core.PImage;
 import processing.core.PVector;
 import processing.opengl.PShader;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 public class GUI {
@@ -32,7 +33,7 @@ public class GUI {
     public static PImage[] hudImages = new PImage[10];
 
     public static Player player;
-    public static WorldRenderer terrainManager;
+    public static TerrainManager terrainManager;
     public static ParticleSystem particleSystem;
     public static Main main;
     public static WebSocketClient client;
@@ -70,7 +71,7 @@ public class GUI {
         client = new WebSocketClient(applet);
 
         // Init terrain manager
-        terrainManager = new WorldRenderer(30, 0, applet);
+        terrainManager = new TerrainManager(30, 0, applet);
 
         // Init GraphicsRenderer
         graphicsRenderer = new GraphicsRenderer(applet);
@@ -243,8 +244,6 @@ public class GUI {
             @Override
             public void onDraw(PApplet sourceApplet) {
                 super.onDraw(sourceApplet);
-                this.x = (int) (applet.width / 2 - applet.textWidth(Resources.getResourceValue(String.class, "texts.label.game_over")) / 2);
-                Logger.logDebug("x " + this.x + " y " + this.y);
                 if (applet.keyPressed && applet.key == PConstants.CODED && applet.keyCode == PConstants.ALT) {
                     this.x = (int) (applet.mouseX - applet.textWidth(Resources.getResourceValue(String.class, "texts.label.game_over")) / 2);
                     this.y = applet.mouseY;
@@ -437,7 +436,7 @@ public class GUI {
 
             chatBox.render();
 
-            applet.textSize(FontSize.SMALL);
+            applet.textSize(FontSize.HUD_NORMAL);
 
             // I'm a bit lazy to add these in guiLabels list :P
 
