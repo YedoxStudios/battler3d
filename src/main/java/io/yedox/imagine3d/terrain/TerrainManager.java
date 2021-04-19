@@ -24,7 +24,10 @@
 
 package io.yedox.imagine3d.terrain;
 
+import io.yedox.imagine3d.gui.GUI;
 import io.yedox.imagine3d.terrain.blocks.PlatformBlock;
+import io.yedox.imagine3d.terrain.blocks.WaterBlock;
+import io.yedox.imagine3d.util.BlockUtils;
 import io.yedox.imagine3d.util.Logger;
 import processing.core.PApplet;
 import processing.core.PVector;
@@ -58,7 +61,7 @@ public class TerrainManager extends Thread {
 
         for (int i = 0; i < blockSize; i++) {
             for (int j = 0; j < blockSize; j++) {
-                blocks[i][j] = new PlatformBlock(applet, i * 5, 0, j * 5, 5, 5, 5);
+                blocks[i][j] = new WaterBlock(applet, i * 5, 0, j * 5);
                 Logger.logDebug("Generating terrain: " + i + "x" + j + " (" + i + "%)");
                 generationProgress.x = i;
             }
@@ -79,7 +82,7 @@ public class TerrainManager extends Thread {
     }
 
     /**
-     * Returns terrainGenerated valur
+     * Returns terrainGenerated value
      */
     public boolean isTerrainGenerated() {
         return terrainGenerated;

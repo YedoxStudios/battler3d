@@ -74,61 +74,63 @@ public class Camera {
 
                 int var1 = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().width;
                 int var2 = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().height;
-                if (this.mouse.x < window.getX() + a && this.mouse.x - this.prevMouse.x < 0) {
-                    this.robot.mouseMove(window.getX() + applet.width - a, this.mouse.y);
-                    this.mouse.x = window.getX() + applet.width - a;
-                    this.prevMouse.x = window.getX() + applet.width - a;
-                }
 
-                if (this.mouse.x > window.getX() + applet.width - a && this.mouse.x - this.prevMouse.x > 0) {
-                    this.robot.mouseMove(window.getX() + a, this.mouse.y);
-                    this.mouse.x = window.getX() + a;
-                    this.prevMouse.x = window.getX() + a;
-                }
+                if(applet.focused) {
+                    if (this.mouse.x < window.getX() + a && this.mouse.x - this.prevMouse.x < 0) {
+                        this.robot.mouseMove(window.getX() + applet.width - a, this.mouse.y);
+                        this.mouse.x = window.getX() + applet.width - a;
+                        this.prevMouse.x = window.getX() + applet.width - a;
+                    }
 
-                if (this.mouse.y < window.getY() + a && this.mouse.y - this.prevMouse.y < 0) {
-                    this.robot.mouseMove(this.mouse.x, window.getY() + applet.height - a);
-                    this.mouse.y = window.getY() + applet.height - a;
-                    this.prevMouse.y = window.getY() + applet.height - a;
-                }
+                    if (this.mouse.x > window.getX() + applet.width - a && this.mouse.x - this.prevMouse.x > 0) {
+                        this.robot.mouseMove(window.getX() + a, this.mouse.y);
+                        this.mouse.x = window.getX() + a;
+                        this.prevMouse.x = window.getX() + a;
+                    }
 
-                if (this.mouse.y > window.getY() + applet.height - a && this.mouse.y - this.prevMouse.y > 0) {
-                    this.robot.mouseMove(this.mouse.x, window.getY() + a);
-                    this.mouse.y = window.getY() + a;
-                    this.prevMouse.y = window.getY() + a;
-                }
+                    if (this.mouse.y < window.getY() + a && this.mouse.y - this.prevMouse.y < 0) {
+                        this.robot.mouseMove(this.mouse.x, window.getY() + applet.height - a);
+                        this.mouse.y = window.getY() + applet.height - a;
+                        this.prevMouse.y = window.getY() + applet.height - a;
+                    }
+
+                    if (this.mouse.y > window.getY() + applet.height - a && this.mouse.y - this.prevMouse.y > 0) {
+                        this.robot.mouseMove(this.mouse.x, window.getY() + a);
+                        this.mouse.y = window.getY() + a;
+                        this.prevMouse.y = window.getY() + a;
+                    }
 
 
-                this.pan += PApplet.map((float) (this.mouse.x - this.prevMouse.x), 0.0F, (float) this.applet.width, 0.0F, 6.2831855F) * this.sensitivity;
-                this.tilt += PApplet.map((float) (this.mouse.y - this.prevMouse.y), 0.0F, (float) this.applet.height, 0.0F, 3.1415927F) * this.sensitivity;
-                this.tilt = this.clamp(this.tilt, -1.5629815F, 1.5629815F);
-                if (this.tilt == 1.5707964F) {
-                    this.tilt += 0.001F;
-                }
+                    this.pan += PApplet.map((float) (this.mouse.x - this.prevMouse.x), 0.0F, (float) this.applet.width, 0.0F, 6.2831855F) * this.sensitivity;
+                    this.tilt += PApplet.map((float) (this.mouse.y - this.prevMouse.y), 0.0F, (float) this.applet.height, 0.0F, 3.1415927F) * this.sensitivity;
+                    this.tilt = this.clamp(this.tilt, -1.5629815F, 1.5629815F);
+                    if (this.tilt == 1.5707964F) {
+                        this.tilt += 0.001F;
+                    }
 
-                this.forward = new PVector(PApplet.cos(this.pan), PApplet.tan(this.tilt), PApplet.sin(this.pan));
-                this.forward.normalize();
+                    this.forward = new PVector(PApplet.cos(this.pan), PApplet.tan(this.tilt), PApplet.sin(this.pan));
+                    this.forward.normalize();
 
-                this.forwardMovement = forward.copy();
-                this.forwardMovement.y = 0.0f;
+                    this.forwardMovement = forward.copy();
+                    this.forwardMovement.y = 0.0f;
 
-                this.right = new PVector(PApplet.cos(this.pan - 1.5707964F), 0.0F, PApplet.sin(this.pan - 1.5707964F));
-                this.prevMouse = new Point(this.mouse.x, this.mouse.y);
-                if (this.keys.containsKey('a') && this.keys.get('a')) {
-                    this.velocity.add(PVector.mult(this.right, this.speed));
-                }
+                    this.right = new PVector(PApplet.cos(this.pan - 1.5707964F), 0.0F, PApplet.sin(this.pan - 1.5707964F));
+                    this.prevMouse = new Point(this.mouse.x, this.mouse.y);
+                    if (this.keys.containsKey('a') && this.keys.get('a')) {
+                        this.velocity.add(PVector.mult(this.right, this.speed));
+                    }
 
-                if (this.keys.containsKey('d') && this.keys.get('d')) {
-                    this.velocity.sub(PVector.mult(this.right, this.speed));
-                }
+                    if (this.keys.containsKey('d') && this.keys.get('d')) {
+                        this.velocity.sub(PVector.mult(this.right, this.speed));
+                    }
 
-                if (this.keys.containsKey('w') && this.keys.get('w')) {
-                    this.velocity.add(PVector.mult(this.forwardMovement, this.speed));
-                }
+                    if (this.keys.containsKey('w') && this.keys.get('w')) {
+                        this.velocity.add(PVector.mult(this.forwardMovement, this.speed));
+                    }
 
-                if (this.keys.containsKey('s') && this.keys.get('s')) {
-                    this.velocity.sub(PVector.mult(this.forwardMovement, this.speed));
-                }
+                    if (this.keys.containsKey('s') && this.keys.get('s')) {
+                        this.velocity.sub(PVector.mult(this.forwardMovement, this.speed));
+                    }
 
 //                if (this.keys.containsKey('z') && this.keys.get('z')) {
 //                    this.velocity.add(PVector.mult(this.up, this.speed));
@@ -138,9 +140,10 @@ public class Camera {
 //                    this.velocity.sub(PVector.mult(this.up, this.speed));
 //                }
 
-                this.velocity.mult(this.friction);
-                this.position.add(this.velocity);
-                this.center = PVector.add(this.position, this.forward);
+                    this.velocity.mult(this.friction);
+                    this.position.add(this.velocity);
+                    this.center = PVector.add(this.position, this.forward);
+                }
             }
             this.applet.camera(this.position.x, this.position.y, this.position.z, this.center.x, this.center.y, this.center.z, this.up.x, this.up.y, this.up.z);
         }

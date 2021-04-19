@@ -450,14 +450,14 @@ public class GUI {
             applet.text("FPS: " + ((int) applet.frameRate), 10, 40);
 
             applet.fill(0);
-            applet.text("Location: X: " + player.position.x + " Y: " + player.position.y + " Z: " + player.position.z, 11, 61);
+            applet.text("Location: X: " + (int) player.position.x + " Y: " + (int) player.position.y + " Z: " + (int) player.position.z, 11, 61);
             applet.fill(255);
-            applet.text("Location: X: " + player.position.x + " Y: " + player.position.y + " Z: " + player.position.z, 10, 60);
+            applet.text("Location: X: " + (int) player.position.x + " Y: " + (int) player.position.y + " Z: " + (int) player.position.z, 10, 60);
 
             applet.fill(0);
-            applet.text("Rotation: X: " + player.center.x + " Y: " + player.center.y + " Z: " + player.center.z, 11, 81);
+            applet.text("Rotation: X: " + (int) player.tilt + " Y: " + (int) player.pan + " Z: " + 0, 11, 81);
             applet.fill(255);
-            applet.text("Rotation: X: " + player.center.x + " Y: " + player.center.y + " Z: " + player.center.z, 10, 80);
+            applet.text("Rotation: X: " + (int) player.tilt + " Y: " + (int) player.pan + " Z: " + 0, 10, 80);
 
 
             applet.fill(0);
@@ -528,7 +528,7 @@ public class GUI {
     }
 
     public static class FontSize {
-        public static final int HUD_NORMAL = 10;
+        public static final int HUD_NORMAL = 12;
         public static final int NORMAL = 18;
         public static final int SMALL = 13;
         public static final int MEDIUM = 25;

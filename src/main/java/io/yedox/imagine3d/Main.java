@@ -29,6 +29,7 @@ import io.yedox.imagine3d.core.Resources;
 import io.yedox.imagine3d.core.SoundRegistry;
 import io.yedox.imagine3d.gui.GUI;
 import io.yedox.imagine3d.modapi.ModLoader;
+import io.yedox.imagine3d.terrain.TerrainManager;
 import io.yedox.imagine3d.util.Logger;
 import io.yedox.imagine3d.util.Utils;
 import processing.core.PApplet;
@@ -123,7 +124,7 @@ public class Main extends PApplet {
             //     musicPlayed = !musicPlayed;
             // }
 
-            if (Game.getCurrentScreen() == Game.Screen.MAIN_GAME_SCREEN && !GUI.getPlayer().isDead() && !GUI.chatBox.visible) {
+            if (Game.getCurrentScreen() == Game.Screen.MAIN_GAME_SCREEN && !GUI.getPlayer().isDead() && !GUI.chatBox.visible && GUI.terrainManager.isTerrainGenerated()) {
                 // Hide cursor
                 getSurface().hideCursor();
             } else {
