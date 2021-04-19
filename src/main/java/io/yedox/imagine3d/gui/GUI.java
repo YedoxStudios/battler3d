@@ -19,7 +19,6 @@ import processing.core.PImage;
 import processing.core.PVector;
 import processing.opengl.PShader;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 public class GUI {
@@ -515,8 +514,8 @@ public class GUI {
             GUI.getGraphicsRenderer().drawShadowedText(Resources.getResourceValue(String.class, "texts.label.loading_screen_heading"), (applet.width >> 1), (applet.height >> 1), FontSize.MEDIUM, true);
 
             applet.fill(10, 200, 10);
-            applet.rect((applet.width >> 1) - 145, (applet.height >> 1) + 20, terrainManager.progress.x * 10, 5);
-            applet.rect((applet.width >> 1) - 145, (applet.height >> 1) + 20, terrainManager.progress.x * 10, 5);
+            applet.rect((applet.width >> 1) - 145, (applet.height >> 1) + 20, terrainManager.generationProgress.x * 10, 5);
+            applet.rect((applet.width >> 1) - 145, (applet.height >> 1) + 20, terrainManager.generationProgress.x * 10, 5);
         }
     }
 

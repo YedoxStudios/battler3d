@@ -1,18 +1,18 @@
 /**
  * MIT License
- *
+ * <p>
  * Copyright (c) 2021 Yedox Studios
- *
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- *
+ * <p>
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- *
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -30,17 +30,18 @@ import processing.core.PApplet;
 import processing.core.PVector;
 
 public class TerrainManager extends Thread {
-    public PVector progress;
-    private boolean terrainGenerated = false;
-    public final int blocksize;
+    public final int blockSize;
     public final Block[][] blocks;
-    private PApplet pApplet;
+    private final PApplet pApplet;
+    public PVector generationProgress;
+    private boolean terrainGenerated;
 
     public TerrainManager(int blockSize, int yOffset, PApplet applet) {
         blocks = new Block[blockSize][blockSize];
-        this.blocksize = blockSize;
+        this.blockSize = blockSize;
         this.pApplet = applet;
-        this.progress = new PVector();
+        this.generationProgress = new PVector();
+        this.terrainGenerated = false;
     }
 
     public void generateTerrain(PApplet applet) {
@@ -55,29 +56,39 @@ public class TerrainManager extends Thread {
 //            }
 //        }
 
-        for (int i = 0; i < blocksize; i++) {
-            for (int j = 0; j < blocksize; j++) {
+        for (int i = 0; i < blockSize; i++) {
+            for (int j = 0; j < blockSize; j++) {
                 blocks[i][j] = new PlatformBlock(applet, i * 5, 0, j * 5, 5, 5, 5);
                 Logger.logDebug("Generating terrain: " + i + "x" + j + " (" + i + "%)");
-                progress.x = i;
+                generationProgress.x = i;
             }
         }
         setTerrainGenerated(true);
     }
 
+    /**
+     * Renders all the blocks
+     */
     public void renderTerrain() {
-        for (int i = 0; i < blocksize; i++) {
-            for (int j = 0; j < blocksize; j++) {
+        for (int i = 0; i < blockSize; i++) {
+            for (int j = 0; j < blockSize; j++) {
                 blocks[i][j].draw();
                 blocks[i][j].update();
             }
         }
     }
 
+    /**
+     * Returns terrainGenerated valur
+     */
     public boolean isTerrainGenerated() {
         return terrainGenerated;
     }
 
+    /**
+     * Sets the terrainGenerated value to the
+     * specified boolean
+     */
     public void setTerrainGenerated(boolean terrainGenerated) {
         this.terrainGenerated = terrainGenerated;
     }
