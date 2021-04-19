@@ -1,18 +1,18 @@
 /**
  * MIT License
- *
+ * <p>
  * Copyright (c) 2021 Yedox Studios
- *
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- *
+ * <p>
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- *
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -34,12 +34,12 @@ public class Block implements IBlock {
     /**
      * The ID of the current block
      */
-    public static final int BLOCKID = 0;
+    public static int BLOCKID;
 
     /*
      * Block type
      */
-    public static BlockType BLOCK_TYPE;
+    public static Material MATERIAL;
 
     /**
      * Contains an instance of the main applet
@@ -76,11 +76,13 @@ public class Block implements IBlock {
      * @param applet The main applet
      */
     public Block(PApplet applet, float x, float y, float z, float w, float h, float d) {
-        this.BLOCK_TYPE = BlockType.PLATFORM;
         this.position = new PVector(x, y, z);
         this.dimensions = new PVector(w, h, d);
         this.applet = applet;
         this.blockTexture = applet.loadImage("textures/blocks/platform.png");
+
+        MATERIAL = Material.AIR;
+        BLOCKID = 0;
     }
 
 
@@ -89,8 +91,8 @@ public class Block implements IBlock {
      *
      * @return BlockType
      */
-    public static BlockType getBlockType() {
-        return BLOCK_TYPE;
+    public static Material getMaterial() {
+        return MATERIAL;
     }
 
     /**
@@ -103,55 +105,53 @@ public class Block implements IBlock {
     }
 
     public void update() {
-        if (!destroyed) {
-            if (BLOCK_TYPE != BlockType.WATER) {
-                float playerLeft = GUI.player.position.x - GUI.player.dimensions.x / 2;
-                float playerRight = GUI.player.position.x + GUI.player.dimensions.x / 2;
-                float playerTop = GUI.player.position.y - GUI.player.dimensions.y / 2;
-                float playerBottom = GUI.player.position.y + GUI.player.dimensions.y / 2;
-                float playerFront = GUI.player.position.z - GUI.player.dimensions.z / 2;
-                float playerBack = GUI.player.position.z + GUI.player.dimensions.z / 2;
+        if (MATERIAL != Material.WATER || MATERIAL != Material.AIR) {
+            float playerLeft = GUI.player.position.x - GUI.player.dimensions.x / 2;
+            float playerRight = GUI.player.position.x + GUI.player.dimensions.x / 2;
+            float playerTop = GUI.player.position.y - GUI.player.dimensions.y / 2;
+            float playerBottom = GUI.player.position.y + GUI.player.dimensions.y / 2;
+            float playerFront = GUI.player.position.z - GUI.player.dimensions.z / 2;
+            float playerBack = GUI.player.position.z + GUI.player.dimensions.z / 2;
 
-                float boxLeft = position.x - dimensions.x / 2;
-                float boxRight = position.x + dimensions.x / 2;
-                float boxTop = position.y - dimensions.y / 2;
-                float boxBottom = position.y + dimensions.y / 2;
-                float boxFront = position.z - dimensions.z / 2;
-                float boxBack = position.z + dimensions.z / 2;
+            float boxLeft = position.x - dimensions.x / 2;
+            float boxRight = position.x + dimensions.x / 2;
+            float boxTop = position.y - dimensions.y / 2;
+            float boxBottom = position.y + dimensions.y / 2;
+            float boxFront = position.z - dimensions.z / 2;
+            float boxBack = position.z + dimensions.z / 2;
 
-                float boxLeftOverlap = playerRight - boxLeft;
-                float boxRightOverlap = boxRight - playerLeft;
-                float boxTopOverlap = playerBottom - boxTop;
-                float boxBottomOverlap = boxBottom - playerTop;
-                float boxFrontOverlap = playerBack - boxFront;
-                float boxBackOverlap = boxBack - playerFront;
+            float boxLeftOverlap = playerRight - boxLeft;
+            float boxRightOverlap = boxRight - playerLeft;
+            float boxTopOverlap = playerBottom - boxTop;
+            float boxBottomOverlap = boxBottom - playerTop;
+            float boxFrontOverlap = playerBack - boxFront;
+            float boxBackOverlap = boxBack - playerFront;
 
-                if (!destroyed && !GUI.player.flyMode) {
-                    if (((playerLeft > boxLeft && playerLeft < boxRight || (playerRight > boxLeft && playerRight < boxRight)) && ((playerTop > boxTop && playerTop < boxBottom) || (playerBottom > boxTop && playerBottom < boxBottom)) && ((playerFront > boxFront && playerFront < boxBack) || (playerBack > boxFront && playerBack < boxBack)))) {
-                        float xOverlap = PApplet.max(PApplet.min(boxLeftOverlap, boxRightOverlap), 0);
-                        float yOverlap = PApplet.max(PApplet.min(boxTopOverlap, boxBottomOverlap), 0);
-                        float zOverlap = PApplet.max(PApplet.min(boxFrontOverlap, boxBackOverlap), 0);
+            if (!destroyed && !GUI.player.flyMode) {
+                if (((playerLeft > boxLeft && playerLeft < boxRight || (playerRight > boxLeft && playerRight < boxRight)) && ((playerTop > boxTop && playerTop < boxBottom) || (playerBottom > boxTop && playerBottom < boxBottom)) && ((playerFront > boxFront && playerFront < boxBack) || (playerBack > boxFront && playerBack < boxBack)))) {
+                    float xOverlap = PApplet.max(PApplet.min(boxLeftOverlap, boxRightOverlap), 0);
+                    float yOverlap = PApplet.max(PApplet.min(boxTopOverlap, boxBottomOverlap), 0);
+                    float zOverlap = PApplet.max(PApplet.min(boxFrontOverlap, boxBackOverlap), 0);
 
-                        if (xOverlap < yOverlap && xOverlap < zOverlap) {
-                            if (boxLeftOverlap < boxRightOverlap) {
-                                GUI.player.position.x = boxLeft - GUI.player.dimensions.x / 2;
-                            } else {
-                                GUI.player.position.x = boxRight + GUI.player.dimensions.x / 2;
-                            }
-                        } else if (yOverlap < xOverlap && yOverlap < zOverlap) {
-                            if (boxTopOverlap < boxBottomOverlap) {
-                                GUI.player.position.y = boxTop - GUI.player.dimensions.y / 2;
-                                GUI.player.velocity.y = 0;
-                                GUI.player.grounded = true;
-                            } else {
-                                GUI.player.position.y = boxBottom + 1;
-                            }
-                        } else if (zOverlap < xOverlap && zOverlap < yOverlap) {
-                            if (boxFrontOverlap < boxBackOverlap) {
-                                GUI.player.position.z = boxFront - GUI.player.dimensions.x / 2;
-                            } else {
-                                GUI.player.position.z = boxBack + GUI.player.dimensions.x / 2;
-                            }
+                    if (xOverlap < yOverlap && xOverlap < zOverlap) {
+                        if (boxLeftOverlap < boxRightOverlap) {
+                            GUI.player.position.x = boxLeft - GUI.player.dimensions.x / 2;
+                        } else {
+                            GUI.player.position.x = boxRight + GUI.player.dimensions.x / 2;
+                        }
+                    } else if (yOverlap < xOverlap && yOverlap < zOverlap) {
+                        if (boxTopOverlap < boxBottomOverlap) {
+                            GUI.player.position.y = boxTop - GUI.player.dimensions.y / 2;
+                            GUI.player.velocity.y = 0;
+                            GUI.player.grounded = true;
+                        } else {
+                            GUI.player.position.y = boxBottom + 1;
+                        }
+                    } else if (zOverlap < xOverlap && zOverlap < yOverlap) {
+                        if (boxFrontOverlap < boxBackOverlap) {
+                            GUI.player.position.z = boxFront - GUI.player.dimensions.x / 2;
+                        } else {
+                            GUI.player.position.z = boxBack + GUI.player.dimensions.x / 2;
                         }
                     }
                 }
@@ -160,7 +160,7 @@ public class Block implements IBlock {
     }
 
     public void draw() {
-        if (!destroyed) {
+        if (MATERIAL != Material.AIR) {
             applet.pushMatrix();
             applet.noStroke();
             applet.translate(position.x, position.y, position.z);
@@ -215,7 +215,6 @@ public class Block implements IBlock {
 
     @Deprecated
     public void destroy() {
-        this.destroyed = true;
         this.onBlockDestroy();
     }
 
