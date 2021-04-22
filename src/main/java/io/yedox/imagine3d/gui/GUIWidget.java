@@ -4,6 +4,7 @@ import processing.core.PApplet;
 
 public class GUIWidget implements IWidget {
     public boolean hudWidget;
+    public int widgetId;
 
     @Override
     public void render() {
