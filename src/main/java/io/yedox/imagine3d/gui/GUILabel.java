@@ -22,10 +22,11 @@ public class GUILabel extends GUIWidget {
     public int cG = 0;
     public int cB = 0;
 
-
     public String text;
-    public int fontSize;
     public Game.Screen screen = Game.Screen.MAIN_GAME_SCREEN;
+
+    public int fontSize;
+    public int widgetId;
 
     public GUILabel(PApplet applet, String text, int px, int py, boolean shadow) {
         this.fontSize = FontSize.NORMAL;

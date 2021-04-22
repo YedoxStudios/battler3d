@@ -89,6 +89,7 @@ public class GUI {
                 client.sendMessage("{\"messageSend\": true, \"username\": \"" + GUI.player.username + "\", \"message\": \"" + getValue() + "\"}");
             }
         };
+
         chatBox.visible = false;
 
         // Init background images
@@ -244,6 +245,7 @@ public class GUI {
                 super.onInit(sourceApplet);
                 this.deathScreenWidget = true;
                 this.fontSize = FontSize.LARGE;
+                this.widgetId = 1;
             }
 
             @Override
@@ -260,6 +262,7 @@ public class GUI {
                 super.onInit(sourceApplet);
                 this.deathScreenWidget = true;
                 this.fontSize = FontSize.NORMAL;
+                this.widgetId = 2;
             }
 
             @Override
@@ -483,6 +486,12 @@ public class GUI {
             if (player.isDead()) {
                 // Animate death screen
                 deathScreenFadeIn.animate();
+
+                // Set death cause
+                guiLabels.forEach((label) -> {
+                    if(label.widgetId == 2)
+                        label.setText(player.username + " " + player.deathCause + ".");
+                });
 
                 applet.fill(150, 40, 40, deathScreenFadeIn.getValue());
                 applet.rect(0, 0, applet.width, applet.height);
