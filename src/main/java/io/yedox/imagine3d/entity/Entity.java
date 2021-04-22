@@ -10,11 +10,40 @@ public class Entity implements IEntity {
     public PVector size = new PVector();
     public PImage texture;
 
-    public int entitySpeed = 1;
+    public float speed = 1f;
     public EntityData entityData;
 
     public Entity() {
         entityData = new EntityData();
+    }
+
+    public EntityData getEntityData() {
+        return entityData;
+    }
+
+    public Entity setEntityData(EntityData entityData) {
+        this.entityData = entityData;
+        return this;
+    }
+
+    public Entity setSize(PVector size) {
+        this.size = size;
+        return this;
+    }
+
+    public Entity setTexture(PImage texture) {
+        this.texture = texture;
+        return this;
+    }
+
+    public Entity setPosition(PVector position) {
+        this.position = position;
+        return this;
+    }
+
+    public Entity setSpeed(float speed) {
+        this.speed = speed;
+        return this;
     }
 
     @Override

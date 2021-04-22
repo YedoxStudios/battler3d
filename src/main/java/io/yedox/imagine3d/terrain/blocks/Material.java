@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package io.yedox.imagine3d.terrain;
+package io.yedox.imagine3d.terrain.blocks;
 
 public enum Material {
     AIR,

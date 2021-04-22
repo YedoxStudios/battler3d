@@ -312,27 +312,32 @@ public class GUI {
     }
 
     public static void drawOptionsScreen(PApplet applet) {
+        // Enable depth test
         applet.hint(PConstants.DISABLE_DEPTH_TEST);
 
+        // Moving tiles shader
         tileShader.set("time", (float) (applet.millis() / 500.0));
         applet.shader(tileShader);
+
         // Draw background image
         applet.image(backgrounds[0], 0, 0, applet.width, applet.height);
         applet.resetShader();
-
 
         // Draw buttons
         guiButtons.stream().filter(button -> button.screen == Game.Screen.OPTIONS_SCREEN).forEach(button -> button.render(applet));
         // Draw labels
         guiLabels.stream().filter(label -> label.screen == Game.Screen.OPTIONS_SCREEN).forEach(label -> label.render(applet));
 
+        // Disable depth test
         applet.hint(PConstants.ENABLE_DEPTH_TEST);
     }
 
     public static void drawMainMenu(PApplet applet) {
         try {
+            // Moving tiles shader
             tileShader.set("time", (float) (applet.millis() / 500.0));
             applet.shader(tileShader);
+
             // Draw background image
             applet.image(backgrounds[0], 0, 0, applet.width, applet.height);
             applet.resetShader();
@@ -352,9 +357,7 @@ public class GUI {
             // Draw all GUIDialogBoxes
             guiDialogBoxes.forEach(guiDialogBox -> guiDialogBox.render(applet));
 
-        } catch (Exception ignored) {
-
-        }
+        } catch (Exception ignored) {}
     }
 
     public static void clearScreen(PApplet applet) {

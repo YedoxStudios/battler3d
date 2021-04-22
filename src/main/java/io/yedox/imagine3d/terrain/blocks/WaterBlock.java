@@ -24,8 +24,6 @@
 
 package io.yedox.imagine3d.terrain.blocks;
 
-import io.yedox.imagine3d.terrain.Block;
-import io.yedox.imagine3d.terrain.Material;
 import processing.core.PApplet;
 
 public class WaterBlock extends Block {

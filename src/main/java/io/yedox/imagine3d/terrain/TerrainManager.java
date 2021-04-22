@@ -24,6 +24,7 @@
 
 package io.yedox.imagine3d.terrain;
 
+import io.yedox.imagine3d.terrain.blocks.Block;
 import io.yedox.imagine3d.terrain.blocks.PlatformBlock;
 import io.yedox.imagine3d.utils.Logger;
 import processing.core.PApplet;

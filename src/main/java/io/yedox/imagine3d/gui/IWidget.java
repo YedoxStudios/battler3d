@@ -12,15 +12,19 @@ import java.util.EventListener;
 
 
 public interface IWidget extends EventListener {
-    void render();
+    default void onInit(PApplet applet) {}
 
     void onClicked(GUIButton sourceButton, PApplet sourceApplet);
-    void onInit(PApplet applet);
     void onAfterInit(PApplet applet);
     void onDraw(PApplet applet);
     void onKeyPress(PApplet main);
 
-    void render(PApplet applet);
-
+    /**
+     * Called when the user enters a value
+     * into the widget.
+     */
     void onValueEntered(String value);
+
+    void render();
+    void render(PApplet applet);
 }
