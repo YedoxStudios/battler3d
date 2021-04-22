@@ -1,4 +1,4 @@
-package io.yedox.imagine3d.scripting;
+package io.yedox.imagine3d.commands.scripting;
 
 import io.yedox.imagine3d.utils.Logger;
 import processing.core.PApplet;

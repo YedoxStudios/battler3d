@@ -7,7 +7,7 @@ import io.yedox.imagine3d.core.Resources;
 import io.yedox.imagine3d.entity.Player;
 import io.yedox.imagine3d.entity.entity_events.PlayerRespawnEvent;
 import io.yedox.imagine3d.modapi.ModLoader;
-import io.yedox.imagine3d.scripting.ScriptParser;
+import io.yedox.imagine3d.commands.scripting.ScriptParser;
 import io.yedox.imagine3d.terrain.TerrainManager;
 import io.yedox.imagine3d.utils.Logger;
 import io.yedox.imagine3d.utils.ParticleSystem;

@@ -47,10 +47,14 @@ public class Player extends Camera implements IPlayer {
         this.maxHealth = 8;
         this.observerMode = Resources.getConfigValue(Boolean.class, "player.observerMode");
 
+        Logger.logDebug(entityData.toJson());
+    }
+
+    public void initEntityData() {
         entityData.putKey("playerSpeed", speed);
         entityData.putKey("isDead", dead);
-
-        Logger.logDebug(entityData.toJson());
+        entityData.putKey("health", health);
+        entityData.putKey("isGrounded", false);
     }
 
     // Keep this method synchronized
