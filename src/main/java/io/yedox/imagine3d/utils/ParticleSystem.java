@@ -1,4 +1,4 @@
-package io.yedox.imagine3d.util;
+package io.yedox.imagine3d.utils;
 
 // A class to describe a group of Particles
 // An ArrayList is used to manage the list of Particles

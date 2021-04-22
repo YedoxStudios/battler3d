@@ -1,5 +1,6 @@
 package io.yedox.imagine3d.entity;
 
+import io.yedox.imagine3d.core.EntityData;
 import processing.core.PApplet;
 import processing.core.PImage;
 import processing.core.PVector;
@@ -8,7 +9,13 @@ public class Entity implements IEntity {
     public PVector position = new PVector();
     public PVector size = new PVector();
     public PImage texture;
+
     public int entitySpeed = 1;
+    public EntityData entityData;
+
+    public Entity() {
+        entityData = new EntityData();
+    }
 
     @Override
     public void onEntityInit(Entity entity, PApplet applet) {
@@ -28,19 +35,5 @@ public class Entity implements IEntity {
 
     @Override
     public void onKeyPressed(PApplet applet) {
-        switch (applet.key) {
-            case 'w':
-                this.position.y-=entitySpeed;
-                break;
-            case 'a':
-                this.position.x-=entitySpeed;
-                break;
-            case 's':
-                this.position.y+=entitySpeed;
-                break;
-            case 'd':
-                this.position.x+=entitySpeed;
-                break;
-        }
     }
 }

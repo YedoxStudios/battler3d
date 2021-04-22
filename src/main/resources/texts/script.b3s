@@ -1,5 +1,0 @@
-# Battler3D script
-[windowTitle] title: Test_Script_Title
-[print] msg: Hey
-[delay] ms: 1000
-[print] msg: Hey_this_is_a_script

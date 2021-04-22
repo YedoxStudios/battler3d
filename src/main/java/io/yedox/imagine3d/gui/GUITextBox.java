@@ -10,8 +10,10 @@ import static processing.core.PConstants.BACKSPACE;
 public class GUITextBox extends GUIWidget implements IWidget {
     private final PApplet applet;
     private final ArrayList<String> strings = new ArrayList<>();
+
     public PVector position;
     public PVector dimension;
+
     public int padding = 5;
     public boolean visible = true;
     private String value = "";
@@ -53,10 +55,10 @@ public class GUITextBox extends GUIWidget implements IWidget {
             this.applet.rect(position.x, position.y, textareaWidth + 5, textareaHeight + 5);
             this.applet.fill(255);
 
-//            String text = "";
-//            for (int i = offset; i < strings.size(); i++) {
-//                text += this.strings.get(i) + "\n";
-//            }
+            String text = "";
+            for (int i = offset; i < strings.size(); i++) {
+                text += this.strings.get(i) + "\n";
+            }
 
             this.applet.textSize(GUI.FontSize.NORMAL);
             this.applet.fill(100);
@@ -75,7 +77,7 @@ public class GUITextBox extends GUIWidget implements IWidget {
                 }
             } else if (main.key == '\n') {
                this.visible = false;
-               this.onValueEntered();
+               this.onValueEntered(value);
             } else {
                 value += main.key;
             }

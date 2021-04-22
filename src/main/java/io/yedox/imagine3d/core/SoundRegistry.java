@@ -2,7 +2,7 @@ package io.yedox.imagine3d.core;
 
 import ddf.minim.AudioPlayer;
 import ddf.minim.Minim;
-import io.yedox.imagine3d.util.Logger;
+import io.yedox.imagine3d.utils.Logger;
 import processing.core.PApplet;
 
 import java.util.ArrayList;

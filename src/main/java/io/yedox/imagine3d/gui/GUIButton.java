@@ -2,8 +2,8 @@ package io.yedox.imagine3d.gui;
 
 import io.yedox.imagine3d.core.Game;
 import io.yedox.imagine3d.core.SoundRegistry;
-import io.yedox.imagine3d.util.Logger;
-import io.yedox.imagine3d.util.Utils;
+import io.yedox.imagine3d.utils.Logger;
+import io.yedox.imagine3d.utils.Utils;
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -112,4 +112,3 @@ public class GUIButton extends GUIWidget {
         Logger.logDebug("Event: " + this.getClass().getName() + "onButtonClicked()");
     }
 }
-

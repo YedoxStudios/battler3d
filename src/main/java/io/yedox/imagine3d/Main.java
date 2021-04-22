@@ -1,18 +1,18 @@
 /**
  * MIT License
- *
+ * <p>
  * Copyright (c) 2021 Yedox Studios
- *
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- *
+ * <p>
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- *
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -27,11 +27,11 @@ package io.yedox.imagine3d;
 import io.yedox.imagine3d.core.Game;
 import io.yedox.imagine3d.core.Resources;
 import io.yedox.imagine3d.core.SoundRegistry;
+import io.yedox.imagine3d.entity.entity_events.PlayerRespawnEvent;
 import io.yedox.imagine3d.gui.GUI;
 import io.yedox.imagine3d.modapi.ModLoader;
-import io.yedox.imagine3d.terrain.TerrainManager;
-import io.yedox.imagine3d.util.Logger;
-import io.yedox.imagine3d.util.Utils;
+import io.yedox.imagine3d.utils.Logger;
+import io.yedox.imagine3d.utils.Utils;
 import processing.core.PApplet;
 import processing.data.JSONObject;
 import processing.opengl.PGraphicsOpenGL;
@@ -44,7 +44,7 @@ public class Main extends PApplet {
     public static ModLoader modLoader;
     private static String[] cargs;
     public boolean musicPlayed = false;
-    public String titleMessage = "";
+    public static String titleMessage = "";
 
     public static void main(String[] args) {
         cargs = args;
@@ -86,13 +86,6 @@ public class Main extends PApplet {
             // Initialize entities
             Game.initEntities(this);
 
-//            // Initialize modloader
-//            modLoader = new ModLoader(this);
-//            // Load the mods
-//            modLoader.loadMods();
-//            // Initialize the mods
-//            modLoader.initMods();
-
         } catch (Exception exception) {
             // Print the exception
             Utils.printExceptionMessage(exception, this);
@@ -104,25 +97,6 @@ public class Main extends PApplet {
         try {
             // Do not allow player to move if chatbox visible
             GUI.getPlayer().setControllable(!GUI.chatBox.visible);
-
-            // Uncomment this if you want to play music
-            // if (Game.getCurrentScreen() == Game.Screen.MENU_SCREEN) {
-            //     SoundRegistry.playMusic(SoundRegistry.Music.BIT2);
-            //     Game.setSongsPlayed(Game.getSongsPlayed() + 1);
-            // } else if (Game.getCurrentScreen() == Game.Screen.MAIN_GAME_SCREEN) {
-            //     SoundRegistry.stopMusic(SoundRegistry.Music.BIT2);
-
-            //     if (!SoundRegistry.isMusicPlaying(SoundRegistry.Music.BIT1)) {
-            //         SoundRegistry.playMusic(SoundRegistry.Music.BIT3);
-            //     }
-
-            //     if (!SoundRegistry.isMusicPlaying(SoundRegistry.Music.BIT3)) {
-            //         SoundRegistry.playMusic(SoundRegistry.Music.BIT1);
-            //     }
-
-            //     Game.setSongsPlayed(Game.getSongsPlayed() + 1);
-            //     musicPlayed = !musicPlayed;
-            // }
 
             if (Game.getCurrentScreen() == Game.Screen.MAIN_GAME_SCREEN && !GUI.getPlayer().isDead() && !GUI.chatBox.visible && GUI.terrainManager.isTerrainGenerated()) {
                 // Hide cursor
@@ -139,8 +113,6 @@ public class Main extends PApplet {
             // Draw the current screen
             GUI.draw(this);
 
-            if (showTitleMessage)
-                Utils.showTitle(titleMessage, this);
         } catch (Exception exception) {
             // Print the exception and terminate application
             Utils.printExceptionMessage(exception, this);
@@ -154,7 +126,13 @@ public class Main extends PApplet {
             if (GUI.chatBox.visible) {
                 GUI.chatBox.visible = false;
                 GUI.getPlayer().setControllable(true);
+            } else if (GUI.player.isDead()) {
+                // Respawn player if dead
+                GUI.player.onPlayerRespawn(new PlayerRespawnEvent(GUI.player.position, 8));
+                // Reset death screen animation
+                GUI.deathScreenFadeIn.reset();
             } else {
+                //
                 Game.setCurrentScreen(Game.Screen.MENU_SCREEN);
             }
             textSize(GUI.FontSize.NORMAL);

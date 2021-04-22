@@ -1,4 +1,4 @@
-package io.yedox.imagine3d.util;
+package io.yedox.imagine3d.utils;
 
 public class Logger {
     private static String logType = "Debug";
@@ -8,16 +8,29 @@ public class Logger {
         System.out.println("[" + logSource + "/" + logType + "] " + in);
     }
 
-    public static void logMod(Object in) {
+    public static void logModDebug(Object in) {
+        setLogType("DEBUG");
         setLogSource("Mod");
         System.out.println("[" + logSource + "/" + logType + "] " + in);
-        setLogType("Debug");
+        setLogType("DEBUG");
+        setLogSource("Client");
     }
 
-    public static void logError(Object in) {
-        setLogType("Error");
+    public static void logModError(Object in) {
+        setLogType("ERROR");
+        setLogSource("Mod");
         System.err.println("[" + logSource + "/" + logType + "] " + in);
-        setLogType("Debug");
+        setLogType("DEBUG");
+        setLogSource("Client");
+    }
+
+
+    public static void logError(Object in) {
+        setLogSource("Client");
+        setLogType("ERROR");
+        System.err.println("[" + logSource + "/" + logType + "] " + in);
+        setLogType("DEBUG");
+        setLogSource("Client");
     }
 
     public static void setLogType(String logtype) {

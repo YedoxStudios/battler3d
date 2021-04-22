@@ -1,7 +1,9 @@
-package io.yedox.imagine3d.util;
+package io.yedox.imagine3d.utils;
 
 import com.jogamp.newt.opengl.GLWindow;
 import io.yedox.imagine3d.core.Game;
+import io.yedox.imagine3d.entity.Entity;
+import io.yedox.imagine3d.gui.GUI;
 import processing.core.PApplet;
 import processing.core.PVector;
 import processing.event.KeyEvent;
@@ -9,8 +11,8 @@ import processing.event.KeyEvent;
 import java.awt.*;
 import java.util.HashMap;
 
-public class Camera {
-    private final PApplet applet;
+public class Camera extends Entity {
+    protected final PApplet applet;
     private final PVector up;
     private final HashMap<Character, Boolean> keys;
     private float fovy;
@@ -29,6 +31,9 @@ public class Camera {
     private Point mouse;
     private Point prevMouse;
     private PVector forwardMovement;
+    protected int var1;
+    protected int var2;
+    protected GLWindow window;
 
     public Camera(PApplet var1) {
         this.applet = var1;
@@ -55,6 +60,7 @@ public class Camera {
         this.friction = 0.75F;
         this.fovy = 1.0471976F;
         this.keys = new HashMap();
+
         var1.perspective(fovy, (float) var1.width / (float) var1.height, 0.00001F, 10000.0F);
     }
 
@@ -65,17 +71,18 @@ public class Camera {
     public void render() {
         if (Game.getCurrentScreen().equals(Game.Screen.MAIN_GAME_SCREEN)) {
             if (this.controllable) {
-                GLWindow window = (GLWindow) applet.getSurface().getNative();
+                window = (GLWindow) applet.getSurface().getNative();
+
                 int a = 150;
                 this.mouse = MouseInfo.getPointerInfo().getLocation();
                 if (this.prevMouse == null) {
                     this.prevMouse = new Point(this.mouse.x, this.mouse.y);
                 }
 
-                int var1 = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().width;
-                int var2 = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().height;
+                var1 = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().width;
+                var2 = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().height;
 
-                if(applet.focused) {
+                if(applet.focused && !GUI.chatBox.visible) {
                     if (this.mouse.x < window.getX() + a && this.mouse.x - this.prevMouse.x < 0) {
                         this.robot.mouseMove(window.getX() + applet.width - a, this.mouse.y);
                         this.mouse.x = window.getX() + applet.width - a;
@@ -132,13 +139,15 @@ public class Camera {
                         this.velocity.sub(PVector.mult(this.forwardMovement, this.speed));
                     }
 
-//                if (this.keys.containsKey('z') && this.keys.get('z')) {
-//                    this.velocity.add(PVector.mult(this.up, this.speed));
-//                }
-//
-//                if (this.keys.containsKey('x') && this.keys.get('x')) {
-//                    this.velocity.sub(PVector.mult(this.up, this.speed));
-//                }
+                    if(GUI.player.observerMode) {
+                        if (this.keys.containsKey('e') && this.keys.get('e')) {
+                            this.velocity.add(PVector.mult(this.up, this.speed));
+                        }
+
+                        if (this.keys.containsKey('q') && this.keys.get('q')) {
+                            this.velocity.sub(PVector.mult(this.up, this.speed));
+                        }
+                    }
 
                     this.velocity.mult(this.friction);
                     this.position.add(this.velocity);

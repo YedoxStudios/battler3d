@@ -24,11 +24,8 @@
 
 package io.yedox.imagine3d.terrain;
 
-import io.yedox.imagine3d.gui.GUI;
 import io.yedox.imagine3d.terrain.blocks.PlatformBlock;
-import io.yedox.imagine3d.terrain.blocks.WaterBlock;
-import io.yedox.imagine3d.util.BlockUtils;
-import io.yedox.imagine3d.util.Logger;
+import io.yedox.imagine3d.utils.Logger;
 import processing.core.PApplet;
 import processing.core.PVector;
 
@@ -48,20 +45,10 @@ public class TerrainManager extends Thread {
     }
 
     public void generateTerrain(PApplet applet) {
-        float counter = 10;
-//        for (int i = 0; i < blocksize; i++) {
-//            for (int j = 0; j < blocksize; j++) {
-//                float x = i * 5;
-//                float y = 0;
-//                float z = j * 5;
-//                blocks[i][j] = new DirtBlock(applet, x, y, z, 5, 5, 5);
-//                blocks[i][j].position.y = applet.random(0, 15);
-//            }
-//        }
-
         for (int i = 0; i < blockSize; i++) {
             for (int j = 0; j < blockSize; j++) {
-                blocks[i][j] = new WaterBlock(applet, i * 5, 0, j * 5);
+                blocks[i][j] = new PlatformBlock(applet, i * 5, 0, j * 5);
+                blocks[i][j].position.y += applet.random(0, 2);
                 Logger.logDebug("Generating terrain: " + i + "x" + j + " (" + i + "%)");
                 generationProgress.x = i;
             }

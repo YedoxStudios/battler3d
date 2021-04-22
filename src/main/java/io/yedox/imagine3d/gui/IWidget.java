@@ -22,5 +22,5 @@ public interface IWidget extends EventListener {
 
     void render(PApplet applet);
 
-    void onValueEntered();
+    void onValueEntered(String value);
 }

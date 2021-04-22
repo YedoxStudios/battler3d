@@ -1,6 +1,6 @@
 package io.yedox.imagine3d.scripting;
 
-import io.yedox.imagine3d.util.Logger;
+import io.yedox.imagine3d.utils.Logger;
 import processing.core.PApplet;
 
 public class ScriptParser {
@@ -23,6 +23,7 @@ public class ScriptParser {
         this._script = applet.loadStrings(fn);
     }
 
+    // A very bad script parser
     public void parse(PApplet pApplet) throws InterruptedException {
         for (int i = 0, scriptLength = _script.length; i < scriptLength; i++) {
             String[] sp = _script[i].split(" ");

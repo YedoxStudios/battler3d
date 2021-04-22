@@ -6,7 +6,7 @@
  * LICENSE: MIT License (See LICENSE file)
  */
 
-package io.yedox.imagine3d.util;
+package io.yedox.imagine3d.utils;
 
 import io.yedox.imagine3d.Main;
 import io.yedox.imagine3d.core.Game;
@@ -57,12 +57,13 @@ public class Utils {
     }
     
     public static void showTitle(String text, PApplet applet) {
-        applet.pushMatrix();
-        applet.textSize(GUI.FontSize.LARGE);
+        applet.push();
+        applet.textSize(GUI.FontSize.LARGE * 2);
         applet.fill(10, 200, 10, alpha);
-        applet.text(text, applet.textWidth(text) / 2 + (applet.width >> 1), (applet.height >> 1) - 5);
+        applet.text(text, applet.width / 2 - applet.textWidth(text) / 2, (applet.height / 2) - 10);
         applet.textSize(GUI.FontSize.NORMAL);
-        if(alpha <= 255 && Main.showTitleMessage) {
+
+        if(alpha < 255 && Main.showTitleMessage) {
             alpha++;
         }
 
@@ -70,7 +71,8 @@ public class Utils {
             alpha = 0;
             Main.showTitleMessage = false;
         }
-        applet.popMatrix();
+
+        applet.pop();
     }
 
     public static String buildAppletTitle() {

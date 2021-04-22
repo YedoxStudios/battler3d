@@ -9,9 +9,11 @@ import io.yedox.imagine3d.entity.entity_events.PlayerRespawnEvent;
 import io.yedox.imagine3d.modapi.ModLoader;
 import io.yedox.imagine3d.scripting.ScriptParser;
 import io.yedox.imagine3d.terrain.TerrainManager;
-import io.yedox.imagine3d.util.Logger;
-import io.yedox.imagine3d.util.ParticleSystem;
-import io.yedox.imagine3d.util.Utils;
+import io.yedox.imagine3d.utils.Logger;
+import io.yedox.imagine3d.utils.ParticleSystem;
+import io.yedox.imagine3d.utils.Utils;
+import io.yedox.imagine3d.utils.animations.AnimationType;
+import io.yedox.imagine3d.utils.animations.LinearAnimation;
 import io.yedox.imagine3d.websocket.WebSocketClient;
 import processing.core.PApplet;
 import processing.core.PConstants;
@@ -37,9 +39,12 @@ public class GUI {
     public static Main main;
     public static WebSocketClient client;
 
+    public static LinearAnimation deathScreenFadeIn;
+
     private static GraphicsRenderer graphicsRenderer;
     private static PShader tileShader;
     private static ScriptParser scriptParser;
+
 
     public static void init(PApplet applet) {
         Logger.logDebug("Initializing gui...");
@@ -63,6 +68,7 @@ public class GUI {
 
         // Init logo
         logo = applet.loadImage("textures/gui/logo.png");
+
         // Init player and camera
         player = new Player(applet);
 
@@ -70,7 +76,7 @@ public class GUI {
         client = new WebSocketClient(applet);
 
         // Init terrain manager
-        terrainManager = new TerrainManager(30, 0, applet);
+        terrainManager = new TerrainManager(40, 0, applet);
 
         // Init GraphicsRenderer
         graphicsRenderer = new GraphicsRenderer(applet);
@@ -78,8 +84,8 @@ public class GUI {
         // Init chatbox
         chatBox = new GUITextBox(applet, 10, applet.height - 50, applet.width - 30, 30) {
             @Override
-            public void onValueEntered() {
-                super.onValueEntered();
+            public void onValueEntered(String value) {
+                super.onValueEntered(value);
                 client.sendMessage("{\"messageSend\": true, \"username\": \"" + GUI.player.username + "\", \"message\": \"" + getValue() + "\"}");
             }
         };
@@ -103,19 +109,25 @@ public class GUI {
         // Set font to F77 Minecraft
         applet.textFont(applet.createFont("fonts/Font.ttf", FontSize.NORMAL));
 
+        // Initialize widgets
+        initWidgets(applet);
 
-        scriptParser = new ScriptParser("texts/script.b3s", applet);
+        scriptParser = new ScriptParser("texts/script.isc", applet);
 
+        // NOTE: Script parser should be in another thread
+        // because it uses the [delay] function
         Thread scriptThread = new Thread(() -> {
             try {
                 scriptParser.parse(applet);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        });
+        }, "ScriptParserThread");
 
-        // Initialize widgets
-        initWidgets(applet);
+        scriptThread.start();
+
+        // Init animations
+        deathScreenFadeIn = new LinearAnimation(0, 90, 5, false, AnimationType.INCREMENT);
     }
 
     private static void initWidgets(PApplet applet) {
@@ -139,17 +151,20 @@ public class GUI {
             public synchronized void onClicked(GUIButton sourceButton, PApplet sourceApplet) {
                 super.onClicked(sourceButton, sourceApplet);
                 this.visible = false;
+
                 // Generate terrain if not generated
                 if (!GUI.terrainManager.isTerrainGenerated()) {
                     GUI.terrainManager.start();
                 }
+
                 GUI.guiButtons.get(1).visible = false;
                 GUI.guiButtons.get(2).visible = false;
+
                 Game.setCurrentScreen(Game.Screen.MAIN_GAME_SCREEN);
             }
         });
 
-        // Exit button
+        // Settings button
         GUI.guiButtons.add(new GUIButton(applet) {
             @Override
             public void onInit(PApplet sourceApplet) {
@@ -217,37 +232,24 @@ public class GUI {
             @Override
             public void onClicked(GUIButton sourceButton, PApplet sourceApplet) {
                 super.onClicked(sourceButton, sourceApplet);
-                GUI.player.onPlayerRespawn(new PlayerRespawnEvent(player.position, player.dimensions, player.health));
+                deathScreenFadeIn.reset();
+                GUI.player.onPlayerRespawn(new PlayerRespawnEvent(player.position, player.health));
             }
         });
 
         // Game over label
         GUI.guiLabels.add(new GUILabel(applet, Resources.getResourceValue(String.class, "texts.label.game_over"), 263, 218, true, 200, 200, 0) {
-            boolean moveMode = false;
-
             @Override
             public void onInit(PApplet sourceApplet) {
                 super.onInit(sourceApplet);
-//                this.x = sourceApplet.width / 2 - ((int) sourceApplet.textWidth(this.getText())) / 2;
                 this.deathScreenWidget = true;
                 this.fontSize = FontSize.LARGE;
             }
 
             @Override
-            public void onAfterInit(PApplet applet) {
-                super.onAfterInit(applet);
-                this.x = 302;
-                this.y = 212;
-            }
-
-            @Override
             public void onDraw(PApplet sourceApplet) {
                 super.onDraw(sourceApplet);
-                if (applet.keyPressed && applet.key == PConstants.CODED && applet.keyCode == PConstants.ALT) {
-                    this.x = (int) (applet.mouseX - applet.textWidth(Resources.getResourceValue(String.class, "texts.label.game_over")) / 2);
-                    this.y = applet.mouseY;
-                    Logger.logDebug("x " + this.x + " y " + this.y);
-                }
+                this.x = (int) (applet.width / 2 - applet.textWidth(Resources.getResourceValue(String.class, "texts.label.game_over")) / 2);
             }
         });
 
@@ -257,14 +259,15 @@ public class GUI {
             public void onInit(PApplet sourceApplet) {
                 super.onInit(sourceApplet);
                 this.deathScreenWidget = true;
-                this.fontSize = FontSize.SMALL;
+                this.fontSize = FontSize.NORMAL;
             }
 
             @Override
             public void onDraw(PApplet sourceApplet) {
-                super.onDraw(sourceApplet);
-                this.x = sourceApplet.width / 2 - ((int) sourceApplet.textWidth(this.getText())) / 2;
                 this.setText(player.username + " " + player.deathCause + ".");
+                this.x = sourceApplet.width / 2 - ((int) sourceApplet.textWidth(this.getText())) / 2;
+
+                super.onDraw(sourceApplet);
             }
         });
 
@@ -308,9 +311,12 @@ public class GUI {
     public static void drawOptionsScreen(PApplet applet) {
         applet.hint(PConstants.DISABLE_DEPTH_TEST);
 
-        applet.textureMode(PConstants.REPEAT);
+        tileShader.set("time", (float) (applet.millis() / 500.0));
+        applet.shader(tileShader);
+        // Draw background image
         applet.image(backgrounds[0], 0, 0, applet.width, applet.height);
-        applet.textureMode(PConstants.NORMAL);
+        applet.resetShader();
+
 
         // Draw buttons
         guiButtons.stream().filter(button -> button.screen == Game.Screen.OPTIONS_SCREEN).forEach(button -> button.render(applet));
@@ -329,7 +335,7 @@ public class GUI {
             applet.resetShader();
 
             // Draw logo
-            applet.image(logo, (applet.width >> 1) - (logo.pixelWidth >> 1), 50);
+            applet.image(logo, (applet.width / 2) - (logo.pixelWidth / 2), 20);
 
             // Draw buttons
             guiButtons.stream().filter(button -> !button.hudWidget && !button.deathScreenWidget).forEach(button -> button.render(applet));
@@ -337,8 +343,10 @@ public class GUI {
             // Draw labels
             guiLabels.stream().filter(label -> !label.hudWidget && !label.deathScreenWidget).forEach(label -> label.render(applet));
 
+            // Invoke mod method
             ModLoader.invokeModMethod("mainMenuDraw");
 
+            // Draw all GUIDialogBoxes
             guiDialogBoxes.forEach(guiDialogBox -> guiDialogBox.render(applet));
 
         } catch (Exception ignored) {
@@ -352,43 +360,51 @@ public class GUI {
     }
 
     public static void onMousePressed(PApplet applet, int button) {
-        for (GUIButton guiButton : guiButtons) {
-            guiButton.onMousePressed(applet);
+        if(applet.focused) {
+            for (GUIButton guiButton : guiButtons) {
+                guiButton.onMousePressed(applet);
+            }
+            player.onMousePress(applet, button);
         }
-        player.onMousePress(applet, button);
     }
 
     public static void onMouseReleased(PApplet applet) {
-        for (GUIButton guiButton : guiButtons) {
-            guiButton.onMouseReleased(applet);
+        if(applet.focused) {
+            for (GUIButton guiButton : guiButtons) {
+                guiButton.onMouseReleased(applet);
+            }
         }
     }
 
     public static void onKeyPressed(PApplet applet) {
-        for (int i = 0; i < Game.entityList.size(); i++) {
-            Game.entityList.get(i).onKeyPressed(applet);
-        }
-        if ((applet.key == 't') && !chatBox.visible) {
-            // Show chatbox
-            chatBox.visible = true;
-            // Reset value
-            chatBox.setValue("");
-        }
+        if(applet.focused) {
+            for (int i = 0; i < Game.entityList.size(); i++) {
+                Game.entityList.get(i).onKeyPressed(applet);
+            }
+            if ((applet.key == 't') && !chatBox.visible) {
+                // Show chatbox
+                chatBox.visible = true;
+                // Reset value
+                chatBox.setValue("");
+            }
 
-        chatBox.onKeyPress(applet);
+            chatBox.onKeyPress(applet);
+        }
     }
 
     public static void onKeyReleased(PApplet applet) {
-        player.onKeyPress(applet);
-        if (applet.key == 'r') {
-            for (GUIButton button : guiButtons) {
-                button.reloadResources(applet);
-            }
-            scriptParser.reload(applet);
-            try {
-                scriptParser.parse(applet);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        if(applet.focused) {
+            player.onKeyPress(applet);
+            if (applet.key == 'r') {
+                for (GUIButton button : guiButtons) {
+                    button.reloadResources(applet);
+                }
+                scriptParser.reload(applet);
+                try {
+                    scriptParser.parse(applet);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -402,7 +418,6 @@ public class GUI {
             applet.perspective(applet.PI / 3.0f, (float) applet.width / applet.height, 1, 1000000);
 
             applet.lights();
-            applet.spotLight(2, -10, 2, 2, -10, 2, 1, 1, 1, 1, 1);
 
             player.update(applet);
             player.render();
@@ -425,7 +440,7 @@ public class GUI {
             }
 
             // Draw crosshair
-            applet.image(hudImages[2], (applet.width >> 1) - (hudImages[1].pixelWidth >> 1), (applet.height >> 1) - (hudImages[1].pixelHeight >> 1));
+            applet.image(hudImages[2], (applet.width / 2) - (hudImages[1].pixelWidth / 2), (applet.height / 2) - (hudImages[1].pixelHeight / 2));
 
             // Draw HUD labels
             for (GUILabel label : guiLabels) {
@@ -466,28 +481,33 @@ public class GUI {
             applet.text("Memory usage: " + Utils.bytesToMegabytes(Runtime.getRuntime().freeMemory()) + "/" + Utils.bytesToMegabytes(Runtime.getRuntime().totalMemory()) + " MB", 10, 100);
 
             if (player.isDead()) {
-                applet.fill(40, 90);
+                // Animate death screen
+                deathScreenFadeIn.animate();
+
+                applet.fill(150, 40, 40, deathScreenFadeIn.getValue());
                 applet.rect(0, 0, applet.width, applet.height);
                 applet.fill(255);
 
                 applet.textSize(FontSize.NORMAL);
 
-                // Draw the widgets
-                for (GUIButton button : guiButtons) {
-                    if (button.deathScreenWidget) {
-                        button.visible = true;
-                        button.render(applet);
+                if (deathScreenFadeIn.getValue() >= 90) {
+                    // Draw the widgets
+                    for (GUIButton button : guiButtons) {
+                        if (button.deathScreenWidget) {
+                            button.visible = true;
+                            button.render(applet);
+                        }
                     }
-                }
 
-                for (GUILabel label : guiLabels) {
-                    if (label.deathScreenWidget) {
-                        label.visible = true;
-                        label.render(applet);
+                    for (GUILabel label : guiLabels) {
+                        if (label.deathScreenWidget) {
+                            label.visible = true;
+                            label.render(applet);
+                        }
                     }
                 }
             } else {
-                // Draw the widgets
+                // Hide the widgets
                 for (GUIButton button : guiButtons) {
                     if (button.deathScreenWidget)
                         button.visible = false;
@@ -497,6 +517,9 @@ public class GUI {
                         label.visible = false;
                 }
             }
+
+            if (Main.showTitleMessage)
+                Utils.showTitle(Main.titleMessage, applet);
 
             applet.hint(PConstants.ENABLE_DEPTH_TEST);
 
@@ -511,11 +534,11 @@ public class GUI {
 
             applet.noStroke();
 
-            GUI.getGraphicsRenderer().drawShadowedText(Resources.getResourceValue(String.class, "texts.label.loading_screen_heading"), (applet.width >> 1), (applet.height >> 1), FontSize.MEDIUM, true);
+            GUI.getGraphicsRenderer().drawShadowedText(Resources.getResourceValue(String.class, "texts.label.loading_screen_heading"), (applet.width / 2), (applet.height / 2), FontSize.MEDIUM, true);
 
             applet.fill(10, 200, 10);
-            applet.rect((applet.width >> 1) - 145, (applet.height >> 1) + 20, terrainManager.generationProgress.x * 10, 5);
-            applet.rect((applet.width >> 1) - 145, (applet.height >> 1) + 20, terrainManager.generationProgress.x * 10, 5);
+            applet.rect((applet.width / 2) - (terrainManager.blockSize * 10 / 2), (applet.height / 2) + 20, terrainManager.generationProgress.x * 10, 5);
+            applet.rect((applet.width / 2) - (terrainManager.blockSize * 10 / 2), (applet.height / 2) + 20, terrainManager.generationProgress.x * 10, 5);
         }
     }
 
@@ -528,10 +551,10 @@ public class GUI {
     }
 
     public static class FontSize {
-        public static final int HUD_NORMAL = 12;
-        public static final int NORMAL = 18;
-        public static final int SMALL = 13;
-        public static final int MEDIUM = 25;
-        public static final int LARGE = 45;
+        public static final int HUD_NORMAL = 10;
+        public static final int NORMAL = 16;
+        public static final int SMALL = 12;
+        public static final int MEDIUM = 24;
+        public static final int LARGE = 46;
     }
 }

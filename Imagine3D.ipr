@@ -57,6 +57,11 @@
   <component name="InspectionProjectProfileManager">
     <profile version="1.0">
       <option name="myName" value="Project Default" />
+      <inspection_tool class="ConstantConditions" enabled="true" level="WARNING" enabled_by_default="true">
+        <option name="SUGGEST_NULLABLE_ANNOTATIONS" value="false" />
+        <option name="DONT_REPORT_TRUE_ASSERT_STATEMENTS" value="false" />
+        <option name="REPORT_CONSTANT_REFERENCE_VALUES" value="false" />
+      </inspection_tool>
       <inspection_tool class="JavaDoc" enabled="true" level="WARNING" enabled_by_default="true">
         <option name="TOP_LEVEL_CLASS_OPTIONS">
           <value>
@@ -446,6 +451,8 @@
         <root url="jar://$PROJECT_DIR$/lib/webSockets/websocket-server-9.3.6.v20151106.jar!/" />
         <root url="jar://$PROJECT_DIR$/lib/webSockets/websocket-servlet-9.3.6.v20151106.jar!/" />
         <root url="jar://$PROJECT_DIR$/lib/webSockets/webSockets.jar!/" />
+        <root url="file://$PROJECT_DIR$/lib/brigadier-1.0.17" />
+        <root url="file://$PROJECT_DIR$/lib/gson-2.8.6" />
       </CLASSES>
       <JAVADOC />
       <SOURCES>
@@ -456,6 +463,8 @@
       <jarDirectory url="file://$USER_HOME$/Documents/Processing/libraries/minim/library" recursive="false" />
       <jarDirectory url="file://$USER_HOME$/Documents/Processing/libraries/sound/library" recursive="false" />
       <jarDirectory url="file://$PROJECT_DIR$/lib" recursive="false" />
+      <jarDirectory url="file://$PROJECT_DIR$/lib/brigadier-1.0.17" recursive="false" />
+      <jarDirectory url="file://$PROJECT_DIR$/lib/gson-2.8.6" recursive="false" />
       <jarDirectory url="file://$USER_HOME$/Documents/Processing/libraries/minim/library" recursive="false" type="SOURCES" />
       <jarDirectory url="file://$PROJECT_DIR$/lib" recursive="false" type="SOURCES" />
     </library>

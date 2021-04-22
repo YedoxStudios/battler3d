@@ -14,9 +14,9 @@ public class GraphicsRenderer {
         pApplet.pushMatrix();
         pApplet.textSize(GUI.FontSize.MEDIUM);
         pApplet.fill(100);
-        pApplet.text(text, x - (centerVert ? (((int) pApplet.textWidth(text)) >> 1) : 0), y);
+        pApplet.text(text, x - (centerVert ? (((int) pApplet.textWidth(text)) / 2) : 0), y);
         pApplet.fill(255);
-        pApplet.text(text, x - (centerVert ? (((int) pApplet.textWidth(text)) >> 1) : 0) - 3, y - 3);
+        pApplet.text(text, x - (centerVert ? (((int) pApplet.textWidth(text)) / 2) : 0) - 3, y - 3);
         pApplet.popMatrix();
     }
 }

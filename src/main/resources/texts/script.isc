@@ -1,0 +1,5 @@
+# Example battler3D script
+[windowTitle] title: Imagine3D
+[print] msg: This_is_from_a_sample_script
+[delay] ms: 1000
+[print] msg: Another_message

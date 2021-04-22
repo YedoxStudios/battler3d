@@ -1,4 +1,4 @@
-package io.yedox.imagine3d.util;
+package io.yedox.imagine3d.utils;
 
 public class Ticker {
     private int ticks;

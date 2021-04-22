@@ -37,6 +37,6 @@ public class GUIWidget implements IWidget {
     }
 
     @Override
-    public void onValueEntered() {
+    public void onValueEntered(String value) {
     }
 }

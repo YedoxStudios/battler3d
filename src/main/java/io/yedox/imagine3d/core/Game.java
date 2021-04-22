@@ -1,7 +1,7 @@
 package io.yedox.imagine3d.core;
 
 import io.yedox.imagine3d.entity.Entity;
-import io.yedox.imagine3d.util.Logger;
+import io.yedox.imagine3d.utils.Logger;
 import processing.core.PApplet;
 import processing.core.PImage;
 import processing.data.JSONObject;

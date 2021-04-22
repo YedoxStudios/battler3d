@@ -1,6 +1,6 @@
 package io.yedox.imagine3d.modapi;
 
-import io.yedox.imagine3d.util.Logger;
+import io.yedox.imagine3d.utils.Logger;
 import processing.core.PApplet;
 
 import java.io.File;

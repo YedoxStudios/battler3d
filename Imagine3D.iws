@@ -10,14 +10,39 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9d27fe89-6abc-4378-8290-090649aabaa8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/util/BlockUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/core/EntityData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/utils/animations/AnimationType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/utils/animations/LinearAnimation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Imagine3D.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/Imagine3D.ipr" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Imagine3D.iws" beforeDir="false" afterPath="$PROJECT_DIR$/Imagine3D.iws" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/core/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/core/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/core/GraphicsRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/core/GraphicsRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/core/SoundRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/core/SoundRegistry.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/entity/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/entity/Entity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/entity/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/entity/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/entity/entity_events/PlayerRespawnEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/entity/entity_events/PlayerRespawnEvent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/gui/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/gui/GUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/gui/GUIButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/gui/GUIButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/gui/GUILabel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/gui/GUILabel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/gui/GUITextBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/gui/GUITextBox.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/gui/GUIWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/gui/GUIWidget.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/gui/IWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/gui/IWidget.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/modapi/ModLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/modapi/ModLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/scripting/ScriptParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/scripting/ScriptParser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/terrain/TerrainManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/terrain/TerrainManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/util/AABB.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/util/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/util/Camera.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/textures/blocks/water.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/textures/blocks/water.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/terrain/blocks/PlatformBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/terrain/blocks/PlatformBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/util/BlockUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/utils/BlockUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/util/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/utils/Camera.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/util/Logger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/utils/Logger.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/util/Particle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/utils/Particle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/util/ParticleSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/utils/ParticleSystem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/util/Ticker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/utils/Ticker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/util/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/utils/Utils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/config/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config/config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/shaders/infinite_scroll.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/shaders/infinite_scroll.glsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/texts/script.b3s" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/texts/script.isc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/textures/gui/logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/textures/gui/logo.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,9 +55,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Enum" />
-        <option value="Interface" />
         <option value="AnnotationType" />
+        <option value="Interface" />
+        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>
@@ -61,8 +86,8 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="create.test.in.the.same.root" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/textures/gui" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/gson-2.8.6" />
+    <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
