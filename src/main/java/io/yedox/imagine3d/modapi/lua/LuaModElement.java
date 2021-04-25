@@ -1,5 +1,6 @@
 package io.yedox.imagine3d.modapi.lua;
 
+import io.yedox.imagine3d.utils.ANSIConstants;
 import io.yedox.imagine3d.utils.Logger;
 import org.luaj.vm2.Globals;
 import org.luaj.vm2.LuaValue;
@@ -11,28 +12,31 @@ public class LuaModElement {
     private LuaValue chunk;
     private String[] strings;
     private String luaScript;
+    private String luaFile;
 
     public LuaModElement(String file, PApplet applet) {
         try {
-            globals = JsePlatform.standardGlobals();
+            this.luaFile = file;
+            this.globals = JsePlatform.standardGlobals();
             StringBuffer sb = new StringBuffer();
-            strings = applet.loadStrings(file);
+            this.strings = applet.loadStrings(file);
             for(int i = 0; i < strings.length; i++) {
                 sb.append(strings[i]).append("\n");
             }
-            luaScript = sb.toString();
-            chunk = globals.load(luaScript);
+            this.luaScript = sb.toString();
+            this.chunk = this.globals.load(this.luaScript);
         } catch (NullPointerException nullPointerException) {
-            Logger.logError("Could not load file: '" + file + "'");
+            Logger.logError("Could not load file: '" + this.luaFile + "'");
         }
     }
 
     public void execute() {
         try {
-            chunk.call();
+            this.chunk.call();
         } catch (Exception exception) {
             Logger.logError("Lua compile error: '" + exception.getMessage() + "'");
         }
-        Logger.logDebug("Script: " + luaScript);
+
+//        Logger.logDebug("Running script... ['file': '" + this.luaFile + "', 'contents': '\n" + ANSIConstants.ANSI_YELLOW + this.luaScript + "']");
     }
 }
