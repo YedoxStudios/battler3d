@@ -32,10 +32,10 @@ public class Player extends Camera implements IPlayer {
     public Player(PApplet applet) {
         super(applet);
 
-        this.speed = 0.23f;
+        this.speed = 0.13f;
         this.dimensions = new PVector(2, 20, 2);
         this.velocity = new PVector(0, 0, 0);
-        this.gravity = new PVector(0, 0.09f, 0);
+        this.gravity = new PVector(0, 0.05f, 0);
         this.grounded = false;
         this.dead = false;
         this.flyMode = false;
@@ -54,7 +54,7 @@ public class Player extends Camera implements IPlayer {
         entityData.putKey("playerSpeed", speed);
         entityData.putKey("isDead", dead);
         entityData.putKey("health", health);
-        entityData.putKey("isGrounded", false);
+        entityData.putKey("isGrounded", grounded);
     }
 
     // Keep this method synchronized

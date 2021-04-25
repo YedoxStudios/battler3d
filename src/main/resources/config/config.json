@@ -2,5 +2,7 @@
   "multiplayer.enabled": false,
   "multiplayer.server.ip": "ws://localhost:8025/play",
 
-  "player.observerMode": false
+  "player.observerMode": false,
+  "player.cameraFov": 3.0,
+  "world.lightsEnabled": true
 }

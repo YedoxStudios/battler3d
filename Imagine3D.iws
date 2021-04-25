@@ -10,7 +10,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9d27fe89-6abc-4378-8290-090649aabaa8" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/modapi/lua/LuaModElement.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/utils/animations/EasingAnimation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/scripts/lua/test.lua" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/shaders/toonshader/frag.glsl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/shaders/toonshader/vert.glsl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/textures/gui/skybox.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/textures/gui/skybox_bottom.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/textures/gui/skybox_top.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Imagine3D.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/Imagine3D.ipr" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Imagine3D.iws" beforeDir="false" afterPath="$PROJECT_DIR$/Imagine3D.iws" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/commands/CommandParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/commands/CommandParser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/entity/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/entity/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/gui/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/gui/GUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/terrain/TerrainManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/terrain/TerrainManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/utils/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/utils/Camera.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/utils/Logger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/utils/Logger.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/config/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config/config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/texts/script.isc" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/scripts/i3script/script.isc" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,7 +72,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="create.test.in.the.same.root" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/gson-2.8.6" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/luaj-3.0.1/luaj-sources-3.0.1.jar" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -73,6 +91,8 @@
       <recent name="F:\Imagine3D\data" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\Imagine3D\src\main\resources\scripts\i3script" />
+      <recent name="F:\Imagine3D\src\main\resources\shaders\toonshader" />
       <recent name="F:\Imagine3D\src\main\resources" />
       <recent name="F:\Imagine3D\data\textures\gui" />
     </key>

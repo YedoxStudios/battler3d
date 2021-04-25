@@ -49,7 +49,7 @@ public class TerrainManager extends Thread {
         for (int i = 0; i < blockSize; i++) {
             for (int j = 0; j < blockSize; j++) {
                 blocks[i][j] = new PlatformBlock(applet, i * 5, 0, j * 5);
-                blocks[i][j].position.y += applet.random(0, 2);
+                blocks[i][j].position.y += applet.random(0, 0.4f);
                 Logger.logDebug("Generating terrain: " + i + "x" + j + " (" + i + "%)");
                 generationProgress.x = i;
             }

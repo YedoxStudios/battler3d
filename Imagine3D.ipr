@@ -453,11 +453,14 @@
         <root url="jar://$PROJECT_DIR$/lib/webSockets/webSockets.jar!/" />
         <root url="file://$PROJECT_DIR$/lib/brigadier-1.0.17" />
         <root url="file://$PROJECT_DIR$/lib/gson-2.8.6" />
+        <root url="jar://$PROJECT_DIR$/lib/luaj-3.0.1/luaj-jme-3.0.1.jar!/" />
+        <root url="jar://$PROJECT_DIR$/lib/luaj-3.0.1/luaj-jse-3.0.1.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES>
         <root url="file://$PROJECT_DIR$/lib" />
         <root url="file://$USER_HOME$/Documents/Processing/libraries/minim/library" />
+        <root url="jar://$PROJECT_DIR$/lib/luaj-3.0.1/luaj-sources-3.0.1.jar!/" />
       </SOURCES>
       <jarDirectory url="file://C:/Program Files/PDE/processing-3.5.4/core/library" recursive="true" />
       <jarDirectory url="file://$USER_HOME$/Documents/Processing/libraries/minim/library" recursive="false" />

@@ -5,6 +5,8 @@ import io.yedox.imagine3d.core.Game;
 import io.yedox.imagine3d.entity.Entity;
 import io.yedox.imagine3d.gui.GUI;
 import processing.core.PApplet;
+import processing.core.PConstants;
+import processing.core.PImage;
 import processing.core.PVector;
 import processing.event.KeyEvent;
 
@@ -15,7 +17,7 @@ public class Camera extends Entity {
     protected final PApplet applet;
     private final PVector up;
     private final HashMap<Character, Boolean> keys;
-    private float fovy;
+    public float fovy;
     private boolean controllable;
     public float speed;
     public float sensitivity;
@@ -34,6 +36,10 @@ public class Camera extends Entity {
     protected int var1;
     protected int var2;
     protected GLWindow window;
+
+    protected PImage skyBoxTexture;
+    protected PImage skyBoxTopTexture;
+    protected PImage skyBoxBottomTexture;
 
     public Camera(PApplet var1) {
         this.applet = var1;
@@ -61,11 +67,87 @@ public class Camera extends Entity {
         this.fovy = 1.0471976F;
         this.keys = new HashMap();
 
+        this.skyBoxTexture = applet.loadImage("textures/gui/skybox.png");
+        this.skyBoxTopTexture = applet.loadImage("textures/gui/skybox_top.png");
+        this.skyBoxBottomTexture = applet.loadImage("textures/gui/skybox_bottom.png");
+
         var1.perspective(fovy, (float) var1.width / (float) var1.height, 0.00001F, 10000.0F);
     }
 
     public void resetFov() {
         fovy = 1.0471976F;
+    }
+
+    public void renderSkybox() {
+        applet.push();
+
+        if(GUI.lightsEnabled) applet.noLights();
+
+        applet.translate(position.x, position.y, position.z);
+        applet.scale(100000);
+        drawSkyboxCube();
+        applet.scale(1);
+        applet.fill(255);
+
+        if(GUI.lightsEnabled) applet.lights();
+
+        applet.pop();
+    }
+
+    private void drawSkyboxCube() {
+        applet.beginShape(PConstants.QUADS);
+
+        // Use image coords for mapping
+        applet.textureMode(applet.IMAGE);
+
+        applet.texture(skyBoxTexture);
+
+        // +Z "front" face
+        applet.vertex(-1, -1, 1, 0, 0);
+        applet.vertex(1, -1, 1, 128, 0);
+        applet.vertex(1, 1, 1, 128, 128);
+        applet.vertex(-1, 1, 1, 0, 128);
+
+        // -Z "back" face
+        applet.vertex(1, -1, -1, 0, 0);
+        applet.vertex(-1, -1, -1, 128, 0);
+        applet.vertex(-1, 1, -1, 128, 128);
+        applet.vertex(1, 1, -1, 0, 128);
+
+        applet.texture(skyBoxBottomTexture);
+
+        // +Y "bottom" face
+        applet.vertex(-1, 1, 1, -42, -42);
+        applet.vertex(1, 1, 1, 0, -42);
+        applet.vertex(1, 1, -1, 0, 0);
+        applet.vertex(-1, 1, -1, -42, 0);
+
+        applet.texture(skyBoxTopTexture);
+
+        // -Y "top" face
+        applet.vertex(-1, -1, -1, 0, 0);
+        applet.vertex(1, -1, -1, 1, 0);
+        applet.vertex(1, -1, 1, 1, 1);
+        applet.vertex(-1, -1, 1, 0, 1);
+
+        applet.texture(skyBoxTexture);
+
+        // +X "right" face
+        applet.vertex(1, -1, 1, 0, 0);
+        applet.vertex(1, -1, -1, 128, 0);
+        applet.vertex(1, 1, -1, 128, 128);
+        applet.vertex(1, 1, 1, 0, 128);
+
+        // -X "left" face
+        applet.vertex(-1, -1, -1, 0, 0);
+        applet.vertex(-1, -1, 1, 128, 0);
+        applet.vertex(-1, 1, 1, 128, 128);
+        applet.vertex(-1, 1, -1, 0, 128);
+
+        // Reset textureMode
+        applet.textureMode(applet.NORMAL);
+
+        applet.endShape();
     }
 
     public void render() {

@@ -1,7 +1,7 @@
 package io.yedox.imagine3d.utils;
 
 public class Logger {
-    private static String logType = "Debug";
+    private static String logType = "DEBUG";
     private static String logSource = "Client";
 
     public static void logDebug(Object in) {

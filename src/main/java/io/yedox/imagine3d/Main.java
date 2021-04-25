@@ -95,24 +95,26 @@ public class Main extends PApplet {
     public synchronized void draw() {
         // We add a try-catch block so that any exception will be caught
         try {
-            // Do not allow player to move if chatbox visible
-            GUI.getPlayer().setControllable(!GUI.chatBox.visible);
+            // Draw only when window is focused
+            if(focused) {
+                // Do not allow player to move if chatbox visible
+                GUI.getPlayer().setControllable(!GUI.chatBox.visible);
 
-            if (Game.getCurrentScreen() == Game.Screen.MAIN_GAME_SCREEN && !GUI.getPlayer().isDead() && !GUI.chatBox.visible && GUI.terrainManager.isTerrainGenerated()) {
-                // Hide cursor
-                getSurface().hideCursor();
-            } else {
-                // Show cursor
-                getSurface().showCursor();
+                if (Game.getCurrentScreen() == Game.Screen.MAIN_GAME_SCREEN && !GUI.getPlayer().isDead() && !GUI.chatBox.visible && GUI.terrainManager.isTerrainGenerated()) {
+                    // Hide cursor
+                    getSurface().hideCursor();
+                } else {
+                    // Show cursor
+                    getSurface().showCursor();
+                }
+
+
+                if (GUI.terrainManager.isTerrainGenerated())
+                    // Clear the screen with white
+                    GUI.clearScreen(this);
+                // Draw the current screen
+                GUI.draw(this);
             }
-
-
-            if (GUI.terrainManager.isTerrainGenerated())
-                // Clear the screen with white
-                GUI.clearScreen(this);
-            // Draw the current screen
-            GUI.draw(this);
-
         } catch (Exception exception) {
             // Print the exception and terminate application
             Utils.printExceptionMessage(exception, this);
