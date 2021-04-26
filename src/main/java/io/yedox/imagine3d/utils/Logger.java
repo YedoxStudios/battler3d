@@ -43,9 +43,25 @@ public class Logger {
     public static void logLuaDebug(Object in) {
         setLogSource("LuaEngine");
         setLogType("DEBUG");
-        System.err.println("[" + logSource + "/" + logType + "] " + in);
+        System.out.println("[" + logSource + "/" + logType + "] " + in);
         setLogSource("Client");
     }
+
+    public static void logLuaScriptError(Object in) {
+        setLogSource("LuaEngine:Script");
+        setLogType("ERROR");
+        System.err.println("[" + logSource + "/" + logType + "] " + in);
+        setLogType("DEBUG");
+        setLogSource("Client");
+    }
+
+    public static void logLuaScriptDebug(Object in) {
+        setLogSource("LuaEngine:Script");
+        setLogType("DEBUG");
+        System.out.println("[" + logSource + "/" + logType + "] " + in);
+        setLogSource("Client");
+    }
+
 
     public static void setLogType(String logtype) {
         logType = logtype;

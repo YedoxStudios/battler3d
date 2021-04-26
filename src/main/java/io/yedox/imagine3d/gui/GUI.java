@@ -85,7 +85,7 @@ public class GUI {
         // Init GraphicsRenderer
         graphicsRenderer = new GraphicsRenderer(applet);
 
-        luaModElement = new LuaModElement("scripts/lua/test.lua", applet);
+        luaModElement = new LuaModElement("scripts/i3lua/test.lua", applet);
 
         // Init chatbox
         chatBox = new GUITextBox(applet, 10, applet.height - 50, applet.width - 30, 30) {

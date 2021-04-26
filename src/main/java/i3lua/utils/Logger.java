@@ -19,14 +19,14 @@ public class Logger extends TwoArgFunction {
 
     static class logDebug extends OneArgFunction {
         public LuaValue call(LuaValue x) {
-            io.yedox.imagine3d.utils.Logger.logLuaDebug(x.checkstring());
+            io.yedox.imagine3d.utils.Logger.logLuaScriptDebug(x.checkstring());
             return LuaValue.valueOf(true);
         }
     }
 
     static class logError extends OneArgFunction {
         public LuaValue call(LuaValue x) {
-            io.yedox.imagine3d.utils.Logger.logLuaError(x.checkstring());
+            io.yedox.imagine3d.utils.Logger.logLuaScriptError(x.checkstring());
             return LuaValue.valueOf(true);
         }
     }
