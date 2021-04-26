@@ -29,7 +29,7 @@ import io.yedox.imagine3d.core.Resources;
 import io.yedox.imagine3d.core.SoundRegistry;
 import io.yedox.imagine3d.entity.entity_events.PlayerRespawnEvent;
 import io.yedox.imagine3d.gui.GUI;
-import io.yedox.imagine3d.modapi.ModLoader;
+import io.yedox.imagine3d.mod_api.ModLoader;
 import io.yedox.imagine3d.utils.Logger;
 import io.yedox.imagine3d.utils.Utils;
 import processing.core.PApplet;

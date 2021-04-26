@@ -17,12 +17,18 @@ import processing.core.PVector;
 public class Utils {
     public static final long MEGABYTE = 1024L * 1024L;
     public static final long GIGABYTE = 1024L * 1024L * 1024L;
-    private static final int DISTANCE_EPSILON = 1;
-    private static final int ANGLE_EPSILON = 1;
-
     private static int alpha = 0;
+
     public static int bytesToMegabytes(long bytes) {
         return (int) (bytes / MEGABYTE);
+    }
+
+    public static String arrayToStandardString(String[] arr) {
+        StringBuilder sb = new StringBuilder();
+        for (String s : arr) {
+            sb.append(s).append("\n");
+        }
+        return sb.toString();
     }
 
     public static boolean overRect(int x, int y, int width, int height, PApplet applet) {
@@ -79,25 +85,26 @@ public class Utils {
         return Game.releaseName + " " + Game.releaseVersion + (Game.isBeta() ? "-beta" : "");
     }
 
-    public static PVector getRotationFacing(PVector from, PVector to) {
-        PVector distance = new PVector(from.x, from.y, from.z).sub(to.x, to.y, to.z);
-
-
-        //Don't actually need to call normalize for directionA - just doing it to indicate
-        //that this vector must be normalized.
-        final PVector directionA = new PVector(0, 1, 0).normalize();
-        final PVector directionB = distance.copy().normalize();
-
-        float rotationAngle = (float)Math.acos(directionA.dot(directionB));
-
-        if (Math.abs(rotationAngle) < ANGLE_EPSILON)
-        {
-            //exit - don't do any rotation
-            //angle is too small for rotation to be numerically stable
-            return null;
-        }
-
-        //rotate object about rotationAxis by rotationAngle
-        return directionA.copy().cross(directionB).normalize();
-    }
+    // -- UNUSED METHOD --
+    // public static PVector getRotationFacing(PVector from, PVector to) {
+    //     PVector distance = new PVector(from.x, from.y, from.z).sub(to.x, to.y, to.z);
+    //
+    //
+    //     //Don't actually need to call normalize for directionA - just doing it to indicate
+    //     //that this vector must be normalized.
+    //     final PVector directionA = new PVector(0, 1, 0).normalize();
+    //     final PVector directionB = distance.copy().normalize();
+    //
+    //     float rotationAngle = (float)Math.acos(directionA.dot(directionB));
+    //
+    //     if (Math.abs(rotationAngle) < ANGLE_EPSILON)
+    //     {
+    //         //exit - don't do any rotation
+    //         //angle is too small for rotation to be numerically stable
+    //         return null;
+    //     }
+    //
+    //     //rotate object about rotationAxis by rotationAngle
+    //     return directionA.copy().cross(directionB).normalize();
+    // }
 }

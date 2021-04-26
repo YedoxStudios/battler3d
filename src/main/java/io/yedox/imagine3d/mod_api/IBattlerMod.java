@@ -1,4 +1,4 @@
-package io.yedox.imagine3d.modapi;
+package io.yedox.imagine3d.mod_api;
 
 import io.yedox.imagine3d.entity.entity_events.PlayerRespawnEvent;
 import processing.core.PApplet;

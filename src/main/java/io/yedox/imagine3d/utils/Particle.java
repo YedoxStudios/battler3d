@@ -42,18 +42,7 @@ public class Particle {
 
     // Method to display
     public void display() {
-        PVector rotation = Utils.getRotationFacing(this.position, GUI.getPlayer().position);
-
         applet.pushMatrix();
-
-        if (rotation != null) {
-            applet.rotateX((-rotation.x));
-        }
-
-        if (rotation != null) {
-            applet.rotateY(rotation.y);
-        }
-
         applet.image(texture, position.x - 1, position.y, dimension.x, dimension.y);
         applet.popMatrix();
     }

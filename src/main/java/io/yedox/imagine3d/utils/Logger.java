@@ -12,7 +12,6 @@ public class Logger {
         setLogType("DEBUG");
         setLogSource("Mod");
         System.out.println("[" + logSource + "/" + logType + "] " + in);
-        setLogType("DEBUG");
         setLogSource("Client");
     }
 
@@ -30,6 +29,21 @@ public class Logger {
         setLogType("ERROR");
         System.err.println("[" + logSource + "/" + logType + "] " + in);
         setLogType("DEBUG");
+        setLogSource("Client");
+    }
+
+    public static void logLuaError(Object in) {
+        setLogSource("LuaEngine");
+        setLogType("ERROR");
+        System.err.println("[" + logSource + "/" + logType + "] " + in);
+        setLogType("DEBUG");
+        setLogSource("Client");
+    }
+
+    public static void logLuaDebug(Object in) {
+        setLogSource("LuaEngine");
+        setLogType("DEBUG");
+        System.err.println("[" + logSource + "/" + logType + "] " + in);
         setLogSource("Client");
     }
 

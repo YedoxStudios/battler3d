@@ -1,4 +1,4 @@
-package io.yedox.imagine3d.modapi;
+package io.yedox.imagine3d.mod_api;
 
 import io.yedox.imagine3d.utils.Logger;
 import processing.core.PApplet;

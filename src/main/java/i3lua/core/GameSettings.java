@@ -1,4 +1,4 @@
-package io.yedox.imagine3d.modapi.lua.core;
+package i3lua.core;
 
 import io.yedox.imagine3d.gui.GUI;
 import org.luaj.vm2.LuaValue;

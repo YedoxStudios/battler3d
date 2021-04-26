@@ -1,4 +1,4 @@
-package io.yedox.imagine3d.modapi;
+package io.yedox.imagine3d.mod_api;
 
 public class InvalidClientInfoException extends Exception {
     public InvalidClientInfoException() {
