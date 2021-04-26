@@ -83,6 +83,7 @@ public class Camera extends Entity {
 
         if(GUI.lightsEnabled) applet.noLights();
 
+        applet.rotateY(-pan);
         applet.translate(position.x, position.y, position.z);
         applet.scale(100000);
         drawSkyboxCube();

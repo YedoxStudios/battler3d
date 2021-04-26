@@ -79,7 +79,7 @@ public class GUITextBox extends GUIWidget implements IWidget {
             } else if (main.key == '\n') {
                 this.visible = false;
                 this.onValueEntered(value);
-            } else if (main.key == SHIFT) {
+            } else if (main.key == SHIFT || main.key ==  '\uFFFF') {
                 // Do nothing
             } else {
                 value += main.key;

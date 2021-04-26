@@ -1,6 +1,7 @@
 package io.yedox.imagine3d.gui;
 
 import io.yedox.imagine3d.Main;
+import io.yedox.imagine3d.commands.CommandParser;
 import io.yedox.imagine3d.core.Game;
 import io.yedox.imagine3d.core.GraphicsRenderer;
 import io.yedox.imagine3d.core.Resources;
@@ -87,19 +88,11 @@ public class GUI {
         graphicsRenderer = new GraphicsRenderer(applet);
 
         // Init chatbox
-        chatBox = new GUITextBox(applet, 10, applet.height - 50, applet.width - 30, 20) {
+        chatBox = new GUITextBox(applet, 10, applet.height - 42, applet.width - 30, 21) {
             @Override
             public void onValueEntered(String value) {
                 super.onValueEntered(value);
-                try {
-                    if(value.startsWith("/execlua")) {
-                        String[] split = value.split(" ");
-                            luaModElement = new LuaModElement(split[1], applet);
-                            luaModElement.execute();
-                    }
-                } catch (Exception exception) {
-                    Logger.logLuaError("Error: " + exception.getMessage());
-                }
+                CommandParser.parse(value, applet);
                 client.sendMessage("{\"messageSend\": true, \"username\": \"" + GUI.player.username + "\", \"message\": \"" + getValue() + "\"}");
             }
         };

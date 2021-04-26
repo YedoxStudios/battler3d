@@ -109,6 +109,6 @@ public class GUIButton extends GUIWidget {
 
     @Override
     public void onClicked(GUIButton sourceButton, PApplet sourceApplet) {
-        Logger.logDebug("Event: " + this.getClass().getName() + "onButtonClicked()");
+        Logger.logDebug("Event: " + this.getClass().getSimpleName() + "onButtonClicked()");
     }
 }
