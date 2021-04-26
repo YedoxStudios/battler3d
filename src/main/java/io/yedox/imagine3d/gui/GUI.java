@@ -16,6 +16,7 @@ import io.yedox.imagine3d.utils.Utils;
 import io.yedox.imagine3d.utils.animations.AnimationType;
 import io.yedox.imagine3d.utils.animations.LinearAnimation;
 import io.yedox.imagine3d.websocket.WebSocketClient;
+import org.eclipse.jetty.util.log.Log;
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PImage;
@@ -85,14 +86,20 @@ public class GUI {
         // Init GraphicsRenderer
         graphicsRenderer = new GraphicsRenderer(applet);
 
-        luaModElement = new LuaModElement("scripts/i3lua/test.lua", applet);
-
         // Init chatbox
-        chatBox = new GUITextBox(applet, 10, applet.height - 50, applet.width - 30, 30) {
+        chatBox = new GUITextBox(applet, 10, applet.height - 50, applet.width - 30, 20) {
             @Override
             public void onValueEntered(String value) {
                 super.onValueEntered(value);
-                if(value.equals("/execlua")) luaModElement.execute();
+                try {
+                    if(value.startsWith("/execlua")) {
+                        String[] split = value.split(" ");
+                            luaModElement = new LuaModElement(split[1], applet);
+                            luaModElement.execute();
+                    }
+                } catch (Exception exception) {
+                    Logger.logLuaError("Error: " + exception.getMessage());
+                }
                 client.sendMessage("{\"messageSend\": true, \"username\": \"" + GUI.player.username + "\", \"message\": \"" + getValue() + "\"}");
             }
         };

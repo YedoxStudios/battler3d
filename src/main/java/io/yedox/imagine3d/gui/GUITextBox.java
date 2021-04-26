@@ -6,6 +6,7 @@ import processing.core.PVector;
 import java.util.ArrayList;
 
 import static processing.core.PConstants.BACKSPACE;
+import static processing.core.PConstants.SHIFT;
 
 public class GUITextBox extends GUIWidget implements IWidget {
     private final PApplet applet;
@@ -76,8 +77,10 @@ public class GUITextBox extends GUIWidget implements IWidget {
                     value = value.substring(0, value.length() - 1);
                 }
             } else if (main.key == '\n') {
-               this.visible = false;
-               this.onValueEntered(value);
+                this.visible = false;
+                this.onValueEntered(value);
+            } else if (main.key == SHIFT) {
+                // Do nothing
             } else {
                 value += main.key;
             }

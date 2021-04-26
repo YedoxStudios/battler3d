@@ -75,7 +75,7 @@ public class Player extends Camera implements IPlayer {
                 velocity.add(gravity);
                 position.add(velocity);
 
-                if (grounded && applet.keyPressed && applet.key == ' ') {
+                if (grounded && applet.keyPressed && applet.key == ' ' && !GUI.chatBox.visible) {
                     grounded = false;
                     velocity.y = -1.9f;
                     position.y -= 1.0;
