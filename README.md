@@ -4,7 +4,7 @@ Imagine3D is a 3D sandbox game that is heavily inspired from [Minetest](https://
 
 # Features
 - Voxel-based world
-- Minecraft-styled entities
+- Minecraft-based pixelart game design
 - Support for modules that are written in Java or Lua
 - Provides a modding SDK that allows you to write modules very easily
 - Multiplayer support
