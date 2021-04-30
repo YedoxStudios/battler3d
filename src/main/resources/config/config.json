@@ -1,8 +1,10 @@
 {
+  "game.developerDebugMode": true,
   "multiplayer.enabled": false,
   "multiplayer.server.ip": "ws://localhost:8025/play",
 
   "player.observerMode": false,
   "player.cameraFov": 3.0,
+  "player.isHoldingTorch": true,
   "world.lightsEnabled": true
 }

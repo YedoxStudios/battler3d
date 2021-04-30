@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
-      <artifact name="Imagine3D.jar" />
+      <artifact name="Imagine3D" />
     </artifacts-to-build>
   </component>
   <component name="AutoImportSettings">
@@ -10,12 +10,36 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9d27fe89-6abc-4378-8290-090649aabaa8" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/commands/Command.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/commands/CommandBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/commands/CommandResult.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/commands/MissingArgumentException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/gui/TextBoxInputListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/textures/gui/logo_yedox.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Imagine3D.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/Imagine3D.ipr" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Imagine3D.iws" beforeDir="false" afterPath="$PROJECT_DIR$/Imagine3D.iws" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/commands/CommandParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/commands/CommandParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/commands/CommandParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/commands/CommandManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/core/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/core/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/entity/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/entity/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/gui/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/gui/GUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/gui/GUIButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/gui/GUIButton.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/gui/GUITextBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/gui/GUITextBox.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/gui/GUIWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/gui/GUIWidget.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/gui/IWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/gui/IWidget.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/terrain/TerrainManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/terrain/TerrainManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/terrain/blocks/Block.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/terrain/blocks/Block.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/utils/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/utils/Camera.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/utils/Logger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/utils/Logger.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/utils/animations/LinearAnimation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/utils/animations/LinearAnimation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/config/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config/config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/config/resources.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config/resources.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/config/version_info.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config/version_info.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/scripts/i3lua/change_username.lua" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/scripts/i3lua/change_username.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/shaders/toonshader/frag.glsl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/shaders/toonshader/vert.glsl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/textures/blocks/platform.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/textures/blocks/platform.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/textures/gui/skybox_bottom.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/textures/gui/skybox_top.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,9 +53,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="AnnotationType" />
-        <option value="Interface" />
         <option value="Enum" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -60,7 +84,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="create.test.in.the.same.root" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/luaj-3.0.1/luaj-sources-3.0.1.jar" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
@@ -188,6 +212,9 @@
       <updated>1610886757158</updated>
     </task>
     <servers />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.lua" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">

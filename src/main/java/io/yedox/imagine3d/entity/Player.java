@@ -1,11 +1,13 @@
 package io.yedox.imagine3d.entity;
 
+import io.yedox.imagine3d.core.Game;
 import io.yedox.imagine3d.core.Resources;
 import io.yedox.imagine3d.entity.entity_events.PlayerRespawnEvent;
 import io.yedox.imagine3d.gui.GUI;
 import io.yedox.imagine3d.utils.Camera;
 import io.yedox.imagine3d.utils.Logger;
 import processing.core.PApplet;
+import processing.core.PConstants;
 import processing.core.PVector;
 
 import java.util.Random;
@@ -47,7 +49,9 @@ public class Player extends Camera implements IPlayer {
         this.maxHealth = 8;
         this.observerMode = Resources.getConfigValue(Boolean.class, "player.observerMode");
 
-        Logger.logDebug(entityData.toJson());
+        this.initEntityData();
+
+        if(Game.developerDebugModeEnabled) Logger.logDebug("PlayerEntity's JSONData: \n" + entityData.toJson());
     }
 
     public void initEntityData() {
@@ -143,7 +147,7 @@ public class Player extends Camera implements IPlayer {
 
     @Override
     public void onKeyPress(PApplet applet) {
-        if (applet.key == 'g') {
+        if (applet.key == 'g' && !GUI.chatBox.visible) {
             hurt(2, "died");
         }
     }

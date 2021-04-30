@@ -127,7 +127,7 @@ public class Block implements IBlock {
             float boxFrontOverlap = playerBack - boxFront;
             float boxBackOverlap = boxBack - playerFront;
 
-            if (!destroyed && !GUI.player.flyMode) {
+            if (!destroyed && !GUI.player.observerMode) {
                 if (((playerLeft > boxLeft && playerLeft < boxRight || (playerRight > boxLeft && playerRight < boxRight)) && ((playerTop > boxTop && playerTop < boxBottom) || (playerBottom > boxTop && playerBottom < boxBottom)) && ((playerFront > boxFront && playerFront < boxBack) || (playerBack > boxFront && playerBack < boxBack)))) {
                     float xOverlap = PApplet.max(PApplet.min(boxLeftOverlap, boxRightOverlap), 0);
                     float yOverlap = PApplet.max(PApplet.min(boxTopOverlap, boxBottomOverlap), 0);

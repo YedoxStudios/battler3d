@@ -1,14 +1,14 @@
 package io.yedox.imagine3d.utils.animations;
 
 public class LinearAnimation {
-    private final int end;
+    private final float end;
     private final AnimationType animationType;
     public boolean resetIfAnimationEnds;
-    private int start;
-    private int oldStart;
-    private int increment;
+    private float start;
+    private float oldStart;
+    private float increment;
 
-    public LinearAnimation(int start, int end, int increment, boolean resetIfAnimationEnds, AnimationType animationType) {
+    public LinearAnimation(float start, float end, float increment, boolean resetIfAnimationEnds, AnimationType animationType) {
         this.start = start;
         this.oldStart = start;
         this.end = end;
@@ -17,15 +17,15 @@ public class LinearAnimation {
         this.resetIfAnimationEnds = resetIfAnimationEnds;
     }
 
-    public int getEnd() {
+    public float getEnd() {
         return this.end;
     }
 
-    public int getStart() {
+    public float getStart() {
         return this.start;
     }
 
-    public int getIncrement() {
+    public float getIncrement() {
         return this.increment;
     }
 
@@ -33,7 +33,7 @@ public class LinearAnimation {
         this.increment = increment;
     }
 
-    public int getValue() {
+    public float getValue() {
         return this.start;
     }
 
@@ -52,7 +52,7 @@ public class LinearAnimation {
                     this.start += this.increment;
                 break;
             case DECREMENT:
-                if (this.start < this.end)
+                if (this.end < this.start)
                     this.start -= this.increment;
                 break;
             case DIVIDE:

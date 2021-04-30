@@ -8,6 +8,10 @@ public class Logger {
         System.out.println("[" + logSource + "/" + logType + "] " + in);
     }
 
+    public static void logDebug(Object in, String color) {
+        System.out.println(color + "[" + logSource + "/" + logType + "] " + in + ANSIConstants.ANSI_RESET);
+    }
+
     public static void logModDebug(Object in) {
         setLogType("DEBUG");
         setLogSource("Mod");

@@ -18,7 +18,6 @@ public class Camera extends Entity {
     private final PVector up;
     private final HashMap<Character, Boolean> keys;
     public float fovy;
-    private boolean controllable;
     public float speed;
     public float sensitivity;
     public PVector position;
@@ -28,18 +27,18 @@ public class Camera extends Entity {
     public float friction;
     public Robot robot;
     public PVector center;
+    protected int var1;
+    protected int var2;
+    protected GLWindow window;
+    protected PImage skyBoxTexture;
+    protected PImage skyBoxTopTexture;
+    protected PImage skyBoxBottomTexture;
+    private boolean controllable;
     private PVector right;
     private PVector forward;
     private Point mouse;
     private Point prevMouse;
     private PVector forwardMovement;
-    protected int var1;
-    protected int var2;
-    protected GLWindow window;
-
-    protected PImage skyBoxTexture;
-    protected PImage skyBoxTopTexture;
-    protected PImage skyBoxBottomTexture;
 
     public Camera(PApplet var1) {
         this.applet = var1;
@@ -78,10 +77,14 @@ public class Camera extends Entity {
         fovy = 1.0471976F;
     }
 
+    public void resetSensitivity() {
+        sensitivity = 0.5F;
+    }
+
     public void renderSkybox() {
         applet.push();
 
-        if(GUI.lightsEnabled) applet.noLights();
+        if (GUI.lightsEnabled) applet.noLights();
 
         applet.rotateY(-pan);
         applet.translate(position.x, position.y, position.z);
@@ -90,7 +93,7 @@ public class Camera extends Entity {
         applet.scale(1);
         applet.fill(255);
 
-        if(GUI.lightsEnabled) applet.lights();
+        if (GUI.lightsEnabled) applet.lights();
 
         applet.pop();
     }
@@ -165,7 +168,7 @@ public class Camera extends Entity {
                 var1 = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().width;
                 var2 = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().height;
 
-                if(applet.focused && !GUI.chatBox.visible) {
+                if (applet.focused && !GUI.chatBox.visible) {
                     if (this.mouse.x < window.getX() + a && this.mouse.x - this.prevMouse.x < 0) {
                         this.robot.mouseMove(window.getX() + applet.width - a, this.mouse.y);
                         this.mouse.x = window.getX() + applet.width - a;
@@ -222,7 +225,7 @@ public class Camera extends Entity {
                         this.velocity.sub(PVector.mult(this.forwardMovement, this.speed));
                     }
 
-                    if(GUI.player.observerMode) {
+                    if (GUI.player.observerMode) {
                         if (this.keys.containsKey('e') && this.keys.get('e')) {
                             this.velocity.add(PVector.mult(this.up, this.speed));
                         }

@@ -19,12 +19,6 @@ public interface IWidget extends EventListener {
     void onDraw(PApplet applet);
     void onKeyPress(PApplet main);
 
-    /**
-     * Called when the user enters a value
-     * into the widget.
-     */
-    void onValueEntered(String value);
-
     void render();
     void render(PApplet applet);
 }

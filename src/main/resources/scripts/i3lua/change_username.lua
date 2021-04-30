@@ -7,12 +7,11 @@
 require 'i3lua.core.GameSettings'
 require 'i3lua.utils.Logger'
 
--- Print 'It worked!' if username was
--- successfully changed, otherwise
--- print 'It didn't work :('
+-- GameSettings.setPlayerUsername() function will return
+-- true if success else false
 
 if GameSettings.setPlayerUsername("LuaDev") then
-    Logger.logDebug("It worked!")
+    Logger.logDebug("Your username has been changed to LuaDev")
 else
-    Logger.logDebug("It didn't work :(")
+    Logger.logDebug("Unable to change the username")
 end 

@@ -7,13 +7,17 @@ import processing.core.PImage;
 import processing.data.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class Game {
-    public static ArrayList<Entity> entityList = new ArrayList<>();
+    public static List<Entity> entityList = new ArrayList<>();
     public static JSONObject versionInfo;
     public static String releaseVersion;
     public static String releaseName;
+    public static HashMap<String, String> gameConfigValues = new HashMap<>();
     public static boolean multiplayerEnabled;
+    public static boolean developerDebugModeEnabled;
     public static Screen currentScreen = Screen.MENU_SCREEN;
     private static int songsPlayed = 0;
     private static int songsTimer = 0;
@@ -68,20 +72,23 @@ public class Game {
         Logger.logDebug("Initializing entity list....");
     }
 
+    public static void initGameConfigValues() {
+        gameConfigValues.put("lightsEnabled", Resources.getConfigValue(Boolean.class, "world.lightsEnabled").toString());
+    }
+
     public static void drawEntities(PApplet applet) {
-        for (int i = 0; i < entityList.size(); i++) {
-            entityList.get(i).draw(entityList.get(i), applet);
-        }
+        entityList.forEach(entity -> entity.draw(entity, applet));
     }
 
     public enum Screen {
         MENU_SCREEN,
         MAIN_GAME_SCREEN,
         ABOUT_SCREEN,
-        OPTIONS_SCREEN
+        OPTIONS_SCREEN,
+        TERRAINGEN_SCREEN
     }
 
-    public class ResourceManager {
+    public static class ResourceManager {
         public PImage getImage(String loc, PApplet src) {
             return src.loadImage(loc);
         }

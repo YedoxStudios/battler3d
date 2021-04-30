@@ -1,15 +1,17 @@
 package io.yedox.imagine3d.gui;
 
+import i3lua.LuaModElement;
 import io.yedox.imagine3d.Main;
-import io.yedox.imagine3d.commands.CommandParser;
+import io.yedox.imagine3d.commands.CommandBuilder;
+import io.yedox.imagine3d.commands.CommandManager;
+import io.yedox.imagine3d.commands.MissingArgumentException;
+import io.yedox.imagine3d.commands.scripting.ScriptParser;
 import io.yedox.imagine3d.core.Game;
 import io.yedox.imagine3d.core.GraphicsRenderer;
 import io.yedox.imagine3d.core.Resources;
 import io.yedox.imagine3d.entity.Player;
 import io.yedox.imagine3d.entity.entity_events.PlayerRespawnEvent;
 import io.yedox.imagine3d.mod_api.ModLoader;
-import io.yedox.imagine3d.commands.scripting.ScriptParser;
-import i3lua.LuaModElement;
 import io.yedox.imagine3d.terrain.TerrainManager;
 import io.yedox.imagine3d.utils.Logger;
 import io.yedox.imagine3d.utils.ParticleSystem;
@@ -17,7 +19,6 @@ import io.yedox.imagine3d.utils.Utils;
 import io.yedox.imagine3d.utils.animations.AnimationType;
 import io.yedox.imagine3d.utils.animations.LinearAnimation;
 import io.yedox.imagine3d.websocket.WebSocketClient;
-import org.eclipse.jetty.util.log.Log;
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PImage;
@@ -25,6 +26,7 @@ import processing.core.PVector;
 import processing.opengl.PShader;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class GUI {
     public static ArrayList<GUIButton> guiButtons;
@@ -43,17 +45,21 @@ public class GUI {
     public static WebSocketClient client;
 
     public static boolean lightsEnabled;
+    public static boolean torchEnabled;
+    public static boolean zoomingOut;
     public static float cameraFov;
+    public static float cameraFovStatic;
     public static LuaModElement luaModElement;
     public static LinearAnimation deathScreenFadeIn;
+    public static LinearAnimation fovZoomIn;
+    public static LinearAnimation fovZoomOut;
 
     private static GraphicsRenderer graphicsRenderer;
     private static PShader tileShader;
-    private static PShader toonShader;
     private static ScriptParser scriptParser;
 
     public static void init(PApplet applet) {
-        Logger.logDebug("Initializing gui...");
+        Logger.logDebug("Initializing GUI...");
 
         // Set framerate to 900
         applet.frameRate(900);
@@ -88,14 +94,13 @@ public class GUI {
         graphicsRenderer = new GraphicsRenderer(applet);
 
         // Init chatbox
-        chatBox = new GUITextBox(applet, 10, applet.height - 42, applet.width - 30, 21) {
-            @Override
-            public void onValueEntered(String value) {
-                super.onValueEntered(value);
-                CommandParser.parse(value, applet);
-                client.sendMessage("{\"messageSend\": true, \"username\": \"" + GUI.player.username + "\", \"message\": \"" + getValue() + "\"}");
-            }
-        };
+        chatBox = new GUITextBox(applet, 10, applet.height - 42, applet.width - 30, 21);
+
+        // Send message to server/parse command
+        chatBox.addInputListener((value, textbox, pApplet) -> {
+                CommandManager.parse(value, pApplet);
+                client.sendMessage("{\"messageSend\": true, \"username\": \"" + GUI.player.username + "\", \"message\": \"" + textbox.getValue() + "\"}");
+        });
 
         chatBox.visible = false;
 
@@ -109,10 +114,6 @@ public class GUI {
 
         // Init particle system
         particleSystem = new ParticleSystem(new PVector(5, -5, 5), applet);
-
-        // Init shaders
-        toonShader = applet.loadShader("shaders/toonshader/frag.glsl", "shaders/toonshader/vert.glsl");
-        toonShader.set("fraction", 1.0f);
 
         tileShader = applet.loadShader("shaders/infinite_scroll.glsl");
         tileShader.set("resolution", (float) applet.width, (float) applet.height);
@@ -141,10 +142,54 @@ public class GUI {
 
         // Setup variables
         lightsEnabled = Resources.getConfigValue(Boolean.class, "world.lightsEnabled");
+        torchEnabled = Resources.getConfigValue(Boolean.class, "player.isHoldingTorch");
         cameraFov = Float.parseFloat(Resources.getConfigValue(Double.class, "player.cameraFov").toString());
+        cameraFovStatic = Float.parseFloat(Resources.getConfigValue(Double.class, "player.cameraFov").toString());
+        zoomingOut = false;
 
         // Init animations
-        deathScreenFadeIn = new LinearAnimation(0, 90, 5, false, AnimationType.INCREMENT);
+        deathScreenFadeIn = new LinearAnimation(0f, 90f, 5, false, AnimationType.INCREMENT);
+        fovZoomIn = new LinearAnimation(cameraFovStatic, cameraFovStatic + 10f, 0.5f, false, AnimationType.INCREMENT);
+        fovZoomOut = new LinearAnimation(cameraFovStatic + 10f, cameraFovStatic, 0.5f, false, AnimationType.DECREMENT);
+    }
+
+    public static void registerCommands() {
+        Logger.logDebug("Registering commands...");
+
+        // Execute lua command
+        CommandManager.addCommand(CommandBuilder.createCommand("execlua").executes((appletCtx, args1) -> {
+            if (CommandManager.checkArg(args1, 0)) {
+                GUI.luaModElement = new LuaModElement(args1[0], appletCtx);
+                GUI.luaModElement.execute();
+            } else {
+                throw new MissingArgumentException(0);
+            }
+        }));
+
+        // Kill player command
+        CommandManager.addCommand(CommandBuilder.createCommand("kill").executes((appletCtx, args) -> {
+            getPlayer().hurt(getPlayer().health, "was killed using commands");
+        }));
+
+        // Game config command
+        CommandManager.addCommand(CommandBuilder.createCommand("gameconfig").executes((appletCtx, args) -> {
+            if (CommandManager.checkArg(args, 0)) {
+                if ("set".equals(args[0])) {
+                    if (CommandManager.checkArg(args, 1)) {
+                        Game.gameConfigValues.forEach((key, value) -> {
+                            if (Objects.equals(key, args[1])) {
+                                if (CommandManager.checkArg(args, 2)) {
+                                    Game.gameConfigValues.put(key, args[2]);
+                                    Logger.logDebug("GameConfig value '" + key + "' is now set to '" + args[2] + "'. Type /gameconfig list to print all GameConfig values.");
+                                }
+                            }
+                        });
+                    }
+                } else if ("list".equals(args[0])) {
+                    Logger.logDebug(Game.gameConfigValues.toString());
+                }
+            }
+        }));
     }
 
     private static void initWidgets(PApplet applet) {
@@ -169,10 +214,15 @@ public class GUI {
                 super.onClicked(sourceButton, sourceApplet);
                 this.visible = false;
 
+                // Set game screen to TERRAINGEN_SCREEN
+                Game.setCurrentScreen(Game.Screen.TERRAINGEN_SCREEN);
+
                 // Generate terrain if not generated
                 if (!GUI.terrainManager.isTerrainGenerated()) {
                     GUI.terrainManager.start();
                 }
+
+                GUI.player = new Player(applet);
 
                 GUI.guiButtons.get(1).visible = false;
                 GUI.guiButtons.get(2).visible = false;
@@ -323,6 +373,9 @@ public class GUI {
             case OPTIONS_SCREEN:
                 drawOptionsScreen(applet);
                 break;
+            case TERRAINGEN_SCREEN:
+                drawTerrainGenScreen(applet);
+                break;
         }
 
     }
@@ -373,7 +426,8 @@ public class GUI {
             // Draw all GUIDialogBoxes
             guiDialogBoxes.forEach(guiDialogBox -> guiDialogBox.render(applet));
 
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+        }
     }
 
     public static void clearScreen(PApplet applet) {
@@ -382,7 +436,7 @@ public class GUI {
     }
 
     public static void onMousePressed(PApplet applet, int button) {
-        if(applet.focused) {
+        if (applet.focused) {
             for (GUIButton guiButton : guiButtons) {
                 guiButton.onMousePressed(applet);
             }
@@ -391,7 +445,7 @@ public class GUI {
     }
 
     public static void onMouseReleased(PApplet applet) {
-        if(applet.focused) {
+        if (applet.focused) {
             for (GUIButton guiButton : guiButtons) {
                 guiButton.onMouseReleased(applet);
             }
@@ -399,7 +453,7 @@ public class GUI {
     }
 
     public static void onKeyPressed(PApplet applet) {
-        if(applet.focused) {
+        if (applet.focused) {
             for (int i = 0; i < Game.entityList.size(); i++) {
                 Game.entityList.get(i).onKeyPressed(applet);
             }
@@ -415,9 +469,9 @@ public class GUI {
     }
 
     public static void onKeyReleased(PApplet applet) {
-        if(applet.focused) {
+        if (applet.focused) {
             player.onKeyPress(applet);
-            if (applet.key == 'r') {
+            if (applet.key == 'r' && !chatBox.visible) {
                 for (GUIButton button : guiButtons) {
                     button.reloadResources(applet);
                 }
@@ -427,27 +481,48 @@ public class GUI {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+            } else if (applet.key == 'l' && !chatBox.visible) {
+                torchEnabled = !torchEnabled;
+            }
+
+            if (applet.key == PConstants.CODED && applet.keyCode == PConstants.SHIFT) {
+                fovZoomIn.reset();
+                zoomingOut = true;
+                player.resetSensitivity();
             }
         }
     }
 
     public static void drawGame(PApplet applet) {
         if (terrainManager.isTerrainGenerated()) {
+            if (applet.keyPressed && applet.key == PConstants.CODED && applet.keyCode == PConstants.SHIFT) {
+                fovZoomIn.animate();
+                GUI.cameraFov = fovZoomIn.getValue();
+                player.sensitivity = 0.1f;
+            }
+
+            if (zoomingOut) {
+                fovZoomOut.animate();
+                GUI.cameraFov = fovZoomOut.getValue();
+                if (GUI.cameraFov <= GUI.cameraFovStatic) {
+                    fovZoomOut.reset();
+                    zoomingOut = false;
+                }
+            }
 
             applet.pushMatrix();
 
             // Prevent culling
             applet.perspective(applet.PI / cameraFov, (float) applet.width / applet.height, 1, 1000000);
 
-//            applet.shader(toonShader);
-
-            if(lightsEnabled) applet.lights();
+            if (lightsEnabled) applet.lights();
 
             player.update(applet);
             player.render();
             player.renderSkybox();
 
-            applet.pointLight(200, 200, 200, applet.width/2, applet.height/2, -200);
+            if (!torchEnabled)
+                applet.pointLight(200, 200, 200, player.position.x, player.position.y, player.position.z);
 
             terrainManager.renderTerrain();
 
@@ -456,7 +531,7 @@ public class GUI {
 
             applet.resetShader();
 
-            if(lightsEnabled) applet.noLights();
+            if (lightsEnabled) applet.noLights();
 
             applet.popMatrix();
 
@@ -521,7 +596,7 @@ public class GUI {
 
                 // Set death cause
                 guiLabels.forEach((label) -> {
-                    if(label.widgetId == 2)
+                    if (label.widgetId == 2)
                         label.setText(player.username + " " + player.deathCause + ".");
                 });
 
@@ -566,22 +641,26 @@ public class GUI {
 
             /* <-- END HUD --> */
         } else {
-            tileShader.set("time", (float) (applet.millis() / 500.0));
-
-            applet.shader(tileShader);
-            // Draw background image
-            applet.image(backgrounds[0], 0, 0, applet.width, applet.height);
-            applet.resetShader();
-
-            applet.noStroke();
-
-            GUI.getGraphicsRenderer().drawShadowedText(Resources.getResourceValue(String.class, "texts.label.loading_screen_heading"), (applet.width / 2), (applet.height / 2), FontSize.MEDIUM, true);
-
-            applet.fill(100);
-            applet.rect((applet.width / 2) - (terrainManager.blockSize * 10 / 2), (applet.height / 2) + 20, terrainManager.blockSize * 10, 5);
-            applet.fill(10, 200, 10);
-            applet.rect((applet.width / 2) - (terrainManager.blockSize * 10 / 2), (applet.height / 2) + 20, terrainManager.generationProgress.x * 10, 5);
+            drawTerrainGenScreen(applet);
         }
+    }
+
+    public static void drawTerrainGenScreen(PApplet applet) {
+        tileShader.set("time", (float) (applet.millis() / 500.0));
+
+        applet.shader(tileShader);
+        // Draw background image
+        applet.image(backgrounds[0], 0, 0, applet.width, applet.height);
+        applet.resetShader();
+
+        applet.noStroke();
+
+        GUI.getGraphicsRenderer().drawShadowedText(Resources.getResourceValue(String.class, "texts.label.loading_screen_heading"), (applet.width / 2), (applet.height / 2), FontSize.MEDIUM, true);
+
+        applet.fill(100);
+        applet.rect((applet.width / 2) - (terrainManager.blockSize * 10 / 2), (applet.height / 2) + 20, terrainManager.blockSize * 10, 5);
+        applet.fill(10, 200, 10);
+        applet.rect((applet.width / 2) - (terrainManager.blockSize * 10 / 2), (applet.height / 2) + 20, terrainManager.generationProgress.x * 10, 5);
     }
 
     public static GraphicsRenderer getGraphicsRenderer() {

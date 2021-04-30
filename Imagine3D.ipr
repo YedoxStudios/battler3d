@@ -1,10 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ArtifactManager">
-    <artifact type="jar" build-on-make="true" name="Imagine3D.jar">
-      <output-path>$PROJECT_DIR$/out/artifacts/output</output-path>
-      <root id="archive" name="Imagine3D.jar.jar">
+    <artifact type="jar" name="Imagine3D">
+      <output-path>$PROJECT_DIR$/bin/out/artifacts/Imagine3D</output-path>
+      <root id="archive" name="Imagine3D.jar">
         <element id="module-output" name="Imagine3D" />
+        <element id="extracted-dir" path="$PROJECT_DIR$/lib/webSockets/javax.servlet-api-3.1.0.jar" path-in-jar="/" />
+        <element id="extracted-dir" path="$PROJECT_DIR$/lib/webSockets/jetty-http-9.3.6.v20151106.jar" path-in-jar="/" />
+        <element id="extracted-dir" path="$PROJECT_DIR$/lib/webSockets/jetty-io-9.3.6.v20151106.jar" path-in-jar="/" />
+        <element id="extracted-dir" path="$PROJECT_DIR$/lib/webSockets/jetty-security-9.3.6.v20151106.jar" path-in-jar="/" />
+        <element id="extracted-dir" path="$PROJECT_DIR$/lib/webSockets/jetty-server-9.3.6.v20151106.jar" path-in-jar="/" />
+        <element id="extracted-dir" path="$PROJECT_DIR$/lib/webSockets/jetty-servlet-9.3.6.v20151106.jar" path-in-jar="/" />
+        <element id="extracted-dir" path="$PROJECT_DIR$/lib/webSockets/jetty-util-9.3.6.v20151106.jar" path-in-jar="/" />
+        <element id="extracted-dir" path="$PROJECT_DIR$/lib/webSockets/slf4j-api-1.7.13.jar" path-in-jar="/" />
+        <element id="extracted-dir" path="$PROJECT_DIR$/lib/webSockets/slf4j-simple-1.7.13.jar" path-in-jar="/" />
+        <element id="extracted-dir" path="$PROJECT_DIR$/lib/webSockets/websocket-api-9.3.6.v20151106.jar" path-in-jar="/" />
+        <element id="extracted-dir" path="$PROJECT_DIR$/lib/webSockets/websocket-client-9.3.6.v20151106.jar" path-in-jar="/" />
+        <element id="extracted-dir" path="$PROJECT_DIR$/lib/webSockets/websocket-common-9.3.6.v20151106.jar" path-in-jar="/" />
+        <element id="extracted-dir" path="$PROJECT_DIR$/lib/webSockets/websocket-server-9.3.6.v20151106.jar" path-in-jar="/" />
+        <element id="extracted-dir" path="$PROJECT_DIR$/lib/webSockets/websocket-servlet-9.3.6.v20151106.jar" path-in-jar="/" />
+        <element id="extracted-dir" path="$PROJECT_DIR$/lib/webSockets/webSockets.jar" path-in-jar="/" />
+        <element id="extracted-dir" path="$PROJECT_DIR$/lib/luaj-3.0.1/luaj-jme-3.0.1.jar" path-in-jar="/" />
+        <element id="extracted-dir" path="$PROJECT_DIR$/lib/luaj-3.0.1/luaj-jse-3.0.1.jar" path-in-jar="/" />
         <element id="extracted-dir" path="C:/Program Files/PDE/processing-3.5.4/core/library/core.jar" path-in-jar="/" />
         <element id="extracted-dir" path="C:/Program Files/PDE/processing-3.5.4/core/library/jogl-all.jar" path-in-jar="/" />
         <element id="extracted-dir" path="C:/Program Files/PDE/processing-3.5.4/core/library/peasycam.jar" path-in-jar="/" />
@@ -24,24 +41,8 @@
         <element id="extracted-dir" path="C:/Program Files/PDE/processing-3.5.4/core/library/gluegen-rt-natives-windows-amd64.jar" path-in-jar="/" />
         <element id="extracted-dir" path="C:/Program Files/PDE/processing-3.5.4/core/library/jogl-all-natives-macosx-universal.jar" path-in-jar="/" />
         <element id="extracted-dir" path="C:/Program Files/PDE/processing-3.5.4/core/library/gluegen-rt-natives-macosx-universal.jar" path-in-jar="/" />
-        <element id="extracted-dir" path="$PROJECT_DIR$/lib/queasycam.jar" path-in-jar="/" />
-        <element id="extracted-dir" path="$PROJECT_DIR$/lib/webSockets.jar" path-in-jar="/" />
-        <element id="extracted-dir" path="$PROJECT_DIR$/lib/slf4j-api-1.7.13.jar" path-in-jar="/" />
-        <element id="extracted-dir" path="$PROJECT_DIR$/lib/slf4j-simple-1.7.13.jar" path-in-jar="/" />
-        <element id="extracted-dir" path="$PROJECT_DIR$/lib/netty-all-4.1.58.Final.jar" path-in-jar="/" />
-        <element id="extracted-dir" path="$PROJECT_DIR$/lib/javax.servlet-api-3.1.0.jar" path-in-jar="/" />
-        <element id="extracted-dir" path="$PROJECT_DIR$/lib/jetty-io-9.3.6.v20151106.jar" path-in-jar="/" />
-        <element id="extracted-dir" path="$PROJECT_DIR$/lib/jetty-http-9.3.6.v20151106.jar" path-in-jar="/" />
-        <element id="extracted-dir" path="$PROJECT_DIR$/lib/jetty-util-9.3.6.v20151106.jar" path-in-jar="/" />
-        <element id="extracted-dir" path="$PROJECT_DIR$/lib/jetty-server-9.3.6.v20151106.jar" path-in-jar="/" />
-        <element id="extracted-dir" path="$PROJECT_DIR$/lib/jetty-servlet-9.3.6.v20151106.jar" path-in-jar="/" />
-        <element id="extracted-dir" path="$PROJECT_DIR$/lib/websocket-api-9.3.6.v20151106.jar" path-in-jar="/" />
-        <element id="extracted-dir" path="$PROJECT_DIR$/lib/jetty-security-9.3.6.v20151106.jar" path-in-jar="/" />
-        <element id="extracted-dir" path="$PROJECT_DIR$/lib/netty-all-4.1.58.Final-sources.jar" path-in-jar="/" />
-        <element id="extracted-dir" path="$PROJECT_DIR$/lib/websocket-client-9.3.6.v20151106.jar" path-in-jar="/" />
-        <element id="extracted-dir" path="$PROJECT_DIR$/lib/websocket-common-9.3.6.v20151106.jar" path-in-jar="/" />
-        <element id="extracted-dir" path="$PROJECT_DIR$/lib/websocket-server-9.3.6.v20151106.jar" path-in-jar="/" />
-        <element id="extracted-dir" path="$PROJECT_DIR$/lib/websocket-servlet-9.3.6.v20151106.jar" path-in-jar="/" />
+        <element id="extracted-dir" path="$PROJECT_DIR$/lib/testmod.jar" path-in-jar="/" />
+        <element id="extracted-dir" path="$PROJECT_DIR$/lib/luaj-3.0.1.zip" path-in-jar="/" />
         <element id="extracted-dir" path="$USER_HOME$/Documents/Processing/libraries/sound/library/sound.jar" path-in-jar="/" />
         <element id="extracted-dir" path="$USER_HOME$/Documents/Processing/libraries/sound/library/javamp3-1.0.4.jar" path-in-jar="/" />
         <element id="extracted-dir" path="$USER_HOME$/Documents/Processing/libraries/sound/library/jsyn-20171016.jar" path-in-jar="/" />
@@ -51,6 +52,8 @@
         <element id="extracted-dir" path="$USER_HOME$/Documents/Processing/libraries/minim/library/mp3spi1.9.5.jar" path-in-jar="/" />
         <element id="extracted-dir" path="$USER_HOME$/Documents/Processing/libraries/minim/library/tritonus_aos.jar" path-in-jar="/" />
         <element id="extracted-dir" path="$USER_HOME$/Documents/Processing/libraries/minim/library/tritonus_share.jar" path-in-jar="/" />
+        <element id="extracted-dir" path="$PROJECT_DIR$/lib/brigadier-1.0.17/brigadier-1.0.17.jar" path-in-jar="/" />
+        <element id="extracted-dir" path="$PROJECT_DIR$/lib/gson-2.8.6/gson-2.8.6.jar" path-in-jar="/" />
       </root>
     </artifact>
   </component>
@@ -423,7 +426,7 @@
       <module fileurl="file://$PROJECT_DIR$/Imagine3D.iml" filepath="$PROJECT_DIR$/Imagine3D.iml" />
     </modules>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_13" default="true" project-jdk-name="13" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/bin/out" />
   </component>
   <component name="VcsDirectoryMappings">

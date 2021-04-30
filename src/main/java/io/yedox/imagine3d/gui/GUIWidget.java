@@ -36,8 +36,4 @@ public class GUIWidget implements IWidget {
     public void render(PApplet applet) {
 
     }
-
-    @Override
-    public void onValueEntered(String value) {
-    }
 }

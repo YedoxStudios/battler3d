@@ -30,9 +30,11 @@ import io.yedox.imagine3d.core.SoundRegistry;
 import io.yedox.imagine3d.entity.entity_events.PlayerRespawnEvent;
 import io.yedox.imagine3d.gui.GUI;
 import io.yedox.imagine3d.mod_api.ModLoader;
+import io.yedox.imagine3d.utils.ANSIConstants;
 import io.yedox.imagine3d.utils.Logger;
 import io.yedox.imagine3d.utils.Utils;
 import processing.core.PApplet;
+import processing.core.PImage;
 import processing.data.JSONObject;
 import processing.opengl.PGraphicsOpenGL;
 
@@ -42,9 +44,12 @@ import java.util.Arrays;
 public class Main extends PApplet {
     public static boolean showTitleMessage = false;
     public static ModLoader modLoader;
+    public static String titleMessage = "";
     private static String[] cargs;
     public boolean musicPlayed = false;
-    public static String titleMessage = "";
+    public boolean loadingScreenVisible = false;
+    private PImage loadingScreenImage;
+    private int loadingScreenProgress;
 
     public static void main(String[] args) {
         cargs = args;
@@ -54,14 +59,30 @@ public class Main extends PApplet {
     public void settings() {
         // Set mode to P3D
         size(856, 512, P3D);
-        // Set antialiasing level to 4
-        smooth(4);
+        // Set antialiasing level to 8
+        smooth(8);
     }
 
     public void setup() {
         try {
-            // Set Resourcemanager applet
+            // Set ResourceManager applet
             Resources.setApplet(this);
+            // Set developer mode
+            Game.developerDebugModeEnabled = Resources.getConfigValue(Boolean.class, "game.developerDebugMode");
+            // Do this only if debug mode is disabled
+            if(!Game.developerDebugModeEnabled) {
+                // Check if the application is launched from the launcher executable
+                if (!System.getProperty("executedFromLauncher").equals("true")) {
+                    Logger.logError("Imagine3D should not be launched from the JAR file.");
+                    exit();
+                }
+            } else {
+                Logger.logDebug("NOTE: Developer debug mode is enabled, skipping launcher check...", ANSIConstants.ANSI_YELLOW);
+            }
+
+            // Load splash image
+            loadingScreenImage = loadImage("textures/gui/logo_yedox.png");
+
             // Load version info before anything
             Game.loadResources(this);
             // Log client version
@@ -85,6 +106,10 @@ public class Main extends PApplet {
             SoundRegistry.initSound(this);
             // Initialize entities
             Game.initEntities(this);
+            // Register commands
+            GUI.registerCommands();
+            // Init gameConfig values
+            Game.initGameConfigValues();
 
         } catch (Exception exception) {
             // Print the exception
@@ -95,8 +120,9 @@ public class Main extends PApplet {
     public synchronized void draw() {
         // We add a try-catch block so that any exception will be caught
         try {
+
             // Draw only when window is focused
-            if(focused) {
+            if (focused) {
                 // Do not allow player to move if chatbox visible
                 GUI.getPlayer().setControllable(!GUI.chatBox.visible);
 
@@ -114,6 +140,13 @@ public class Main extends PApplet {
                     GUI.clearScreen(this);
                 // Draw the current screen
                 GUI.draw(this);
+
+                // Loading screen in work
+                if(loadingScreenVisible) {
+                    background(0xa212fc);
+                    image(loadingScreenImage, width / 2 - loadingScreenImage.pixelWidth / 2, height - 170);
+                    rect(width / 2 - 50, height - 50, loadingScreenProgress, 20);
+                }
             }
         } catch (Exception exception) {
             // Print the exception and terminate application
@@ -133,8 +166,10 @@ public class Main extends PApplet {
                 GUI.player.onPlayerRespawn(new PlayerRespawnEvent(GUI.player.position, 8));
                 // Reset death screen animation
                 GUI.deathScreenFadeIn.reset();
+            } else if (Game.currentScreen == Game.Screen.TERRAINGEN_SCREEN) {
+                return;
             } else {
-                //
+                // Set current screen to Menu Screen
                 Game.setCurrentScreen(Game.Screen.MENU_SCREEN);
             }
             textSize(GUI.FontSize.NORMAL);

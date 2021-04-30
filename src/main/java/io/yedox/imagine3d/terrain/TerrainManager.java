@@ -24,6 +24,7 @@
 
 package io.yedox.imagine3d.terrain;
 
+import io.yedox.imagine3d.core.Game;
 import io.yedox.imagine3d.terrain.blocks.Block;
 import io.yedox.imagine3d.terrain.blocks.PlatformBlock;
 import io.yedox.imagine3d.utils.Logger;
@@ -49,12 +50,14 @@ public class TerrainManager extends Thread {
         for (int i = 0; i < blockSize; i++) {
             for (int j = 0; j < blockSize; j++) {
                 blocks[i][j] = new PlatformBlock(applet, i * 5, 0, j * 5);
-                blocks[i][j].position.y += applet.random(0, 0.4f);
+                // Offsets a block by 0.4 px
+                // blocks[i][j].position.y += applet.random(0, 0.4f);
                 Logger.logDebug("Generating terrain: " + i + "x" + j + " (" + i + "%)");
                 generationProgress.x = i;
             }
         }
         setTerrainGenerated(true);
+        Game.setCurrentScreen(Game.Screen.MAIN_GAME_SCREEN);
     }
 
     /**

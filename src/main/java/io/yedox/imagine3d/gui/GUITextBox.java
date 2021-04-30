@@ -8,15 +8,14 @@ import java.util.ArrayList;
 import static processing.core.PConstants.BACKSPACE;
 import static processing.core.PConstants.SHIFT;
 
-public class GUITextBox extends GUIWidget implements IWidget {
+public class GUITextBox extends GUIWidget {
     private final PApplet applet;
     private final ArrayList<String> strings = new ArrayList<>();
-
     public PVector position;
     public PVector dimension;
-
     public int padding = 5;
     public boolean visible = true;
+    private TextBoxInputListener inputListener;
     private String value = "";
 
     public GUITextBox(PApplet pApplet, int posX, int posY, int width, int height) {
@@ -47,23 +46,17 @@ public class GUITextBox extends GUIWidget implements IWidget {
             int textareaWidth = (int) dimension.x;
             calculateTextHeight(applet, value, textareaWidth);
 
-            int lineHeight = 32;
+
             int textareaHeight = (int) dimension.y;
-            int maxLineNum = PApplet.round(textareaHeight / lineHeight);
-            int offset = PApplet.max(0, strings.size() - maxLineNum);
 
             this.applet.fill(255, 40);
             this.applet.rect(position.x, position.y, textareaWidth + 5, textareaHeight + 5);
             this.applet.fill(255);
 
-            String text = "";
-            for (int i = offset; i < strings.size(); i++) {
-                text += this.strings.get(i) + "\n";
-            }
 
             this.applet.textSize(GUI.FontSize.NORMAL);
-            this.applet.fill(100);
-            this.applet.text(value, position.x + padding + 2, position.y + padding + 2, textareaWidth, applet.height);
+            this.applet.fill(50);
+            this.applet.text(value, position.x + padding + 4, position.y + padding + 4, textareaWidth, applet.height);
             this.applet.fill(255);
             this.applet.text(value, position.x + padding, position.y + padding, textareaWidth, applet.height);
         }
@@ -78,13 +71,17 @@ public class GUITextBox extends GUIWidget implements IWidget {
                 }
             } else if (main.key == '\n') {
                 this.visible = false;
-                this.onValueEntered(value);
-            } else if (main.key == SHIFT || main.key ==  '\uFFFF') {
+                this.inputListener.onValueEntered(value, this, applet);
+            } else if (main.key == SHIFT || main.key == '\uFFFF') {
                 // Do nothing
             } else {
                 value += main.key;
             }
         }
+    }
+
+    public void addInputListener(TextBoxInputListener textBoxInputListener) {
+        inputListener = textBoxInputListener;
     }
 
     public String getValue() {
