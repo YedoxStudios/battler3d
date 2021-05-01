@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Main-Class: io.yedox.imagine3d.Main
+Created-By: Yeppii
+Name: Imagine3D

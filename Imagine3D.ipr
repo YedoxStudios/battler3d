@@ -4,6 +4,9 @@
     <artifact type="jar" name="Imagine3D">
       <output-path>$PROJECT_DIR$/bin/out/artifacts/Imagine3D</output-path>
       <root id="archive" name="Imagine3D.jar">
+        <element id="directory" name="META-INF">
+          <element id="file-copy" path="$PROJECT_DIR$/src/manifest/META-INF/MANIFEST.MF" />
+        </element>
         <element id="module-output" name="Imagine3D" />
         <element id="extracted-dir" path="$PROJECT_DIR$/lib/webSockets/javax.servlet-api-3.1.0.jar" path-in-jar="/" />
         <element id="extracted-dir" path="$PROJECT_DIR$/lib/webSockets/jetty-http-9.3.6.v20151106.jar" path-in-jar="/" />
@@ -41,7 +44,6 @@
         <element id="extracted-dir" path="C:/Program Files/PDE/processing-3.5.4/core/library/gluegen-rt-natives-windows-amd64.jar" path-in-jar="/" />
         <element id="extracted-dir" path="C:/Program Files/PDE/processing-3.5.4/core/library/jogl-all-natives-macosx-universal.jar" path-in-jar="/" />
         <element id="extracted-dir" path="C:/Program Files/PDE/processing-3.5.4/core/library/gluegen-rt-natives-macosx-universal.jar" path-in-jar="/" />
-        <element id="extracted-dir" path="$PROJECT_DIR$/lib/testmod.jar" path-in-jar="/" />
         <element id="extracted-dir" path="$PROJECT_DIR$/lib/luaj-3.0.1.zip" path-in-jar="/" />
         <element id="extracted-dir" path="$USER_HOME$/Documents/Processing/libraries/sound/library/sound.jar" path-in-jar="/" />
         <element id="extracted-dir" path="$USER_HOME$/Documents/Processing/libraries/sound/library/javamp3-1.0.4.jar" path-in-jar="/" />
