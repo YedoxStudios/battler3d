@@ -80,7 +80,6 @@ public class Block implements IBlock {
         this.dimensions = new PVector(w, h, d);
         this.applet = applet;
         this.blockTexture = applet.loadImage("textures/blocks/platform.png");
-
         MATERIAL = Material.AIR;
         BLOCKID = 0;
     }

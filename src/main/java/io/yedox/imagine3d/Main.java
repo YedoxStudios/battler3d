@@ -31,29 +31,43 @@ import io.yedox.imagine3d.entity.entity_events.PlayerRespawnEvent;
 import io.yedox.imagine3d.gui.GUI;
 import io.yedox.imagine3d.mod_api.ModLoader;
 import io.yedox.imagine3d.utils.ANSIConstants;
+import io.yedox.imagine3d.utils.AsyncUtils;
 import io.yedox.imagine3d.utils.Logger;
 import io.yedox.imagine3d.utils.Utils;
+import io.yedox.imagine3d.utils.animations.AnimationType;
+import io.yedox.imagine3d.utils.animations.LinearAnimation;
 import processing.core.PApplet;
 import processing.core.PImage;
 import processing.data.JSONObject;
 import processing.opengl.PGraphicsOpenGL;
+import processing.opengl.PJOGL;
 
 import java.util.Arrays;
+import java.util.concurrent.CompletableFuture;
 
 // Main game applet
 public class Main extends PApplet {
     public static boolean showTitleMessage = false;
     public static ModLoader modLoader;
     public static String titleMessage = "";
-    private static String[] cargs;
-    public boolean musicPlayed = false;
-    public boolean loadingScreenVisible = false;
+
+    // This contains the applet's arguments
+    private static String[] appletConsoleArgs;
+
+    // Loading screen image is stored in this variable
     private PImage loadingScreenImage;
-    private int loadingScreenProgress;
+
+    // Some temporary variables
+    private boolean loadingScreenVisible = true;
+
+    // Increase this to increase the time loading screen should stay open
+    private int loadingScreenTimer = 500;
+
+    private LinearAnimation loadingScreenFadeOut;
 
     public static void main(String[] args) {
-        cargs = args;
-        main(Main.class, cargs);
+        appletConsoleArgs = args;
+        main(Main.class, appletConsoleArgs);
     }
 
     public void settings() {
@@ -70,7 +84,7 @@ public class Main extends PApplet {
             // Set developer mode
             Game.developerDebugModeEnabled = Resources.getConfigValue(Boolean.class, "game.developerDebugMode");
             // Do this only if debug mode is disabled
-            if(!Game.developerDebugModeEnabled) {
+            if (!Game.developerDebugModeEnabled) {
                 // Check if the application is launched from the launcher executable
                 if (!System.getProperty("executedFromLauncher").equals("true")) {
                     Logger.logError("Imagine3D should not be launched from the JAR file.");
@@ -88,7 +102,7 @@ public class Main extends PApplet {
             // Log client version
             Logger.logDebug(Utils.buildAppletTitle());
             // Log the command line args
-            Logger.logDebug("Command line arguments: \"" + Arrays.toString(cargs) + "\"");
+            Logger.logDebug("Command line arguments: \"" + Arrays.toString(appletConsoleArgs) + "\"");
             // Set texture sampling to NEAREST_NEIGHBOUR
             ((PGraphicsOpenGL) g).textureSampling(2);
             // Set texture mode to normal
@@ -111,6 +125,9 @@ public class Main extends PApplet {
             // Init gameConfig values
             Game.initGameConfigValues();
 
+            // Init animation
+            loadingScreenFadeOut = new LinearAnimation(255, 0, 2f, false, AnimationType.DECREMENT);
+
         } catch (Exception exception) {
             // Print the exception
             Utils.printExceptionMessage(exception, this);
@@ -120,7 +137,6 @@ public class Main extends PApplet {
     public synchronized void draw() {
         // We add a try-catch block so that any exception will be caught
         try {
-
             // Draw only when window is focused
             if (focused) {
                 // Do not allow player to move if chatbox visible
@@ -134,23 +150,37 @@ public class Main extends PApplet {
                     getSurface().showCursor();
                 }
 
-
                 if (GUI.terrainManager.isTerrainGenerated())
                     // Clear the screen with white
                     GUI.clearScreen(this);
                 // Draw the current screen
                 GUI.draw(this);
 
-                // Loading screen in work
-                if(loadingScreenVisible) {
-                    background(0xa212fc);
-                    image(loadingScreenImage, width / 2 - loadingScreenImage.pixelWidth / 2, height - 170);
-                    rect(width / 2 - 50, height - 50, loadingScreenProgress, 20);
-                }
+                drawSplashScreen();
+
+                // reset tint
+                tint(255, 255);
             }
         } catch (Exception exception) {
             // Print the exception and terminate application
             Utils.printExceptionMessage(exception, this);
+        }
+    }
+
+    public void drawSplashScreen() {
+        if (loadingScreenVisible) {
+            fill(60, 30, 179, loadingScreenFadeOut.getValue());
+            rect(0, 0, width, height);
+            tint(255, loadingScreenFadeOut.getValue());
+            image(loadingScreenImage, width / 2 - loadingScreenImage.pixelWidth / 2, height / 2 - loadingScreenImage.pixelHeight / 2);
+            if (loadingScreenTimer > 0) {
+                loadingScreenTimer--;
+            } else if (loadingScreenFadeOut.getValue() > 0 && loadingScreenTimer <= 0) {
+                loadingScreenFadeOut.animate();
+            }
+            if (loadingScreenTimer <= 0 && loadingScreenFadeOut.getValue() <= 0) {
+                loadingScreenVisible = false;
+            }
         }
     }
 
