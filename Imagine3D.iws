@@ -10,20 +10,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9d27fe89-6abc-4378-8290-090649aabaa8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/world/World.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/world/WorldGeneratorType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/world/WorldManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/world/WorldMeta.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/world/blocks/BlockConverter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/world/blocks/BlockType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/world/blocks/SerializableBlock.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Imagine3D.iws" beforeDir="false" afterPath="$PROJECT_DIR$/Imagine3D.iws" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/commands/CommandManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/commands/CommandManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/gui/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/gui/GUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/terrain/TerrainManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/world/WorldGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/terrain/blocks/Block.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/world/blocks/Block.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/terrain/blocks/IBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/world/blocks/IBlock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/terrain/blocks/Material.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/world/blocks/Material.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/terrain/blocks/PlatformBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/world/blocks/PlatformBlock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/terrain/blocks/WaterBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/world/blocks/WaterBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/World" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/world.sav" beforeDir="false" afterPath="$PROJECT_DIR$/build/world.sav" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/world/World.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/world/World.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/world/WorldGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/world/WorldGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/world/WorldManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/world/WorldManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/world/WorldMeta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/world/WorldMeta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/world/blocks/Block.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/world/blocks/Block.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/world/blocks/PlatformBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/world/blocks/worldblocks/PlatformBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/world/blocks/WaterBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/world/blocks/worldblocks/WaterBlock.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

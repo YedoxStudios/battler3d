@@ -22,8 +22,11 @@
  * SOFTWARE.
  */
 
-package io.yedox.imagine3d.world.blocks;
+package io.yedox.imagine3d.world.blocks.worldblocks;
 
+import io.yedox.imagine3d.world.blocks.Block;
+import io.yedox.imagine3d.world.blocks.BlockType;
+import io.yedox.imagine3d.world.blocks.Material;
 import processing.core.PApplet;
 
 public class WaterBlock extends Block {
@@ -31,7 +34,7 @@ public class WaterBlock extends Block {
         super(applet, x, y, z, 5, 5, 5);
         this.blockTexture = applet.loadImage("textures/blocks/water.png");
 
-        MATERIAL = Material.WATER;
+        BLOCKTYPE = BlockType.WATER;
         BLOCKID = 2;
     }
 }

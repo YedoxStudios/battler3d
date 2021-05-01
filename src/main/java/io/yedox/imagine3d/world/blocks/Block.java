@@ -45,7 +45,7 @@ public class Block implements IBlock, Serializable {
     /*
      * Block type
      */
-    public static Material MATERIAL;
+    public static String BLOCKTYPE;
 
     /**
      * Contains an instance of the main applet
@@ -78,26 +78,47 @@ public class Block implements IBlock, Serializable {
 
     /**
      * Default constructor
-     *
-     * @param applet The main applet
      */
     public Block(PApplet applet, float x, float y, float z, float w, float h, float d) {
         this.position = new PVector(x, y, z);
         this.dimensions = new PVector(w, h, d);
         this.applet = applet;
         this.blockTexture = applet.loadImage("textures/blocks/platform.png");
-        MATERIAL = Material.AIR;
+        BLOCKTYPE = BlockType.PLATFORM;
         BLOCKID = 0;
     }
 
+    /**
+     * Constructor with BlockType
+     */
+    public Block(PApplet applet, float x, float y, float z, float w, float h, float d, String blockType) {
+        this.position = new PVector(x, y, z);
+        this.dimensions = new PVector(w, h, d);
+        this.applet = applet;
+        this.blockTexture = applet.loadImage("textures/blocks/platform.png");
+        BLOCKTYPE = blockType;
+        BLOCKID = 0;
+    }
+
+    /**
+     * Constructor with BlockType and BlockID
+     */
+    public Block(PApplet applet, float x, float y, float z, float w, float h, float d, String blockType, int blockId) {
+        this.position = new PVector(x, y, z);
+        this.dimensions = new PVector(w, h, d);
+        this.applet = applet;
+        this.blockTexture = applet.loadImage("textures/blocks/platform.png");
+        BLOCKTYPE = blockType;
+        BLOCKID = blockId;
+    }
 
     /**
      * Returns the block type
      *
      * @return BlockType
      */
-    public static Material getMaterial() {
-        return MATERIAL;
+    public static String getMaterial() {
+        return BLOCKTYPE;
     }
 
     /**
@@ -110,7 +131,7 @@ public class Block implements IBlock, Serializable {
     }
 
     public void update() {
-        if (MATERIAL != Material.WATER || MATERIAL != Material.AIR) {
+        if (BLOCKTYPE != BlockType.WATER || BLOCKTYPE != BlockType.AIR) {
             float playerLeft = GUI.player.position.x - GUI.player.dimensions.x / 2;
             float playerRight = GUI.player.position.x + GUI.player.dimensions.x / 2;
             float playerTop = GUI.player.position.y - GUI.player.dimensions.y / 2;
@@ -165,7 +186,7 @@ public class Block implements IBlock, Serializable {
     }
 
     public void draw() {
-        if (MATERIAL != Material.AIR) {
+        if (BLOCKTYPE != BlockType.AIR) {
             applet.pushMatrix();
             applet.noStroke();
             applet.translate(position.x, position.y, position.z);

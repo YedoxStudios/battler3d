@@ -1,8 +1,9 @@
 package io.yedox.imagine3d.world;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class WorldMeta {
+public class WorldMeta implements Serializable {
     private String worldName;
     private String savedVersion;
     private WorldGeneratorType worldGeneratorType;

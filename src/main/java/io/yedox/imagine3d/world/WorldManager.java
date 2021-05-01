@@ -5,11 +5,17 @@ import io.yedox.imagine3d.core.Game;
 import io.yedox.imagine3d.utils.Logger;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class WorldManager {
     public static void saveWorldToFile(World worldToSave, String path) {
         try {
-            FileOutputStream fileOut = new FileOutputStream(path + worldToSave.getMetadata().getWorldName().replace(" ", "").toLowerCase() + ".sav");
+            if(!Files.exists(Paths.get(path + worldToSave.getMetadata().getWorldName().replace("[^a-zA-Z0-9]+", "_")))) {
+                new File(path + worldToSave.getMetadata().getWorldName().replace("[^a-zA-Z0-9]+", "_")).mkdir();
+            }
+
+            FileOutputStream fileOut = new FileOutputStream(path + worldToSave.getMetadata().getWorldName().replace("[^a-zA-Z0-9]+", "_") + "/" + worldToSave.getMetadata().getWorldName().replace("[^a-zA-Z0-9]+", "_").toLowerCase() + ".sav");
             ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
 
             objectOut.writeObject(worldToSave);

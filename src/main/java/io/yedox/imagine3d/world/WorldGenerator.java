@@ -27,7 +27,8 @@ package io.yedox.imagine3d.world;
 import io.yedox.imagine3d.core.Game;
 import io.yedox.imagine3d.utils.Logger;
 import io.yedox.imagine3d.world.blocks.Block;
-import io.yedox.imagine3d.world.blocks.PlatformBlock;
+import io.yedox.imagine3d.world.blocks.BlockConverter;
+import io.yedox.imagine3d.world.blocks.worldblocks.PlatformBlock;
 import processing.core.PApplet;
 import processing.core.PVector;
 
@@ -68,9 +69,9 @@ public class WorldGenerator extends Thread {
     /**
      * Loads a world from an object
      */
-    public void loadWorld(World world) {
+    public void loadWorld(World world, PApplet applet) {
         this.world = world;
-        this.blocks = world.blockArray;
+        this.blocks = BlockConverter.convertSerializableArrayToBlockArray(world.blockArray, world.blockSize, pApplet);
         this.blockSize = world.blockSize;
     }
 
