@@ -31,7 +31,6 @@ import io.yedox.imagine3d.entity.entity_events.PlayerRespawnEvent;
 import io.yedox.imagine3d.gui.GUI;
 import io.yedox.imagine3d.mod_api.ModLoader;
 import io.yedox.imagine3d.utils.ANSIConstants;
-import io.yedox.imagine3d.utils.AsyncUtils;
 import io.yedox.imagine3d.utils.Logger;
 import io.yedox.imagine3d.utils.Utils;
 import io.yedox.imagine3d.utils.animations.AnimationType;
@@ -40,10 +39,8 @@ import processing.core.PApplet;
 import processing.core.PImage;
 import processing.data.JSONObject;
 import processing.opengl.PGraphicsOpenGL;
-import processing.opengl.PJOGL;
 
 import java.util.Arrays;
-import java.util.concurrent.CompletableFuture;
 
 // Main game applet
 public class Main extends PApplet {
@@ -155,9 +152,8 @@ public class Main extends PApplet {
                     GUI.clearScreen(this);
                 // Draw the current screen
                 GUI.draw(this);
-
+                // Draw splash screen
                 drawSplashScreen();
-
                 // reset tint
                 tint(255, 255);
             }
