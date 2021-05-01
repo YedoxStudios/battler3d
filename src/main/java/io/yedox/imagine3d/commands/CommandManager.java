@@ -36,6 +36,15 @@ public class CommandManager {
         }
     }
 
+    public static String checkArg(int index, String[] args) {
+        try {
+            if (args[index] != null) return args[index];
+            else return "";
+        } catch (IndexOutOfBoundsException exception) {
+            return "";
+        }
+    }
+
     public static void parse(String command, PApplet applet) {
         try {
             String[] cmdSplit = command.split(" ");

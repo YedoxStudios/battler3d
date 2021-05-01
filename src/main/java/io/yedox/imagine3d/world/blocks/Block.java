@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package io.yedox.imagine3d.terrain.blocks;
+package io.yedox.imagine3d.world.blocks;
 
 import io.yedox.imagine3d.gui.GUI;
 import processing.core.PApplet;
@@ -30,7 +30,13 @@ import processing.core.PConstants;
 import processing.core.PImage;
 import processing.core.PVector;
 
-public class Block implements IBlock {
+import java.io.Serializable;
+
+public class Block implements IBlock, Serializable {
+
+    // For serialization
+    private static final long serialVersionUID = 2L;
+
     /**
      * The ID of the current block
      */

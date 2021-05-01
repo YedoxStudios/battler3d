@@ -22,13 +22,17 @@
  * SOFTWARE.
  */
 
-package io.yedox.imagine3d.terrain.blocks;
+package io.yedox.imagine3d.world.blocks;
 
-public enum Material {
-    AIR,
-    WATER,
-    DIRT,
-    STONE,
-    PLATFORM,
-    PORTAL
+public interface IBlock {
+
+    /**
+     * Called when an entity walks on a block
+     */
+    void onEntityWalksOnBlock();
+
+    /**
+     * Called when the block is destroyed
+     */
+    void onBlockDestroy();
 }

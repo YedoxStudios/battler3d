@@ -12,13 +12,14 @@ import io.yedox.imagine3d.core.Resources;
 import io.yedox.imagine3d.entity.Player;
 import io.yedox.imagine3d.entity.entity_events.PlayerRespawnEvent;
 import io.yedox.imagine3d.mod_api.ModLoader;
-import io.yedox.imagine3d.terrain.TerrainManager;
+import io.yedox.imagine3d.world.WorldGenerator;
 import io.yedox.imagine3d.utils.Logger;
 import io.yedox.imagine3d.utils.ParticleSystem;
 import io.yedox.imagine3d.utils.Utils;
 import io.yedox.imagine3d.utils.animations.AnimationType;
 import io.yedox.imagine3d.utils.animations.LinearAnimation;
 import io.yedox.imagine3d.websocket.WebSocketClient;
+import io.yedox.imagine3d.world.WorldManager;
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PImage;
@@ -39,7 +40,7 @@ public class GUI {
     public static PImage[] hudImages = new PImage[10];
 
     public static Player player;
-    public static TerrainManager terrainManager;
+    public static WorldGenerator terrainManager;
     public static ParticleSystem particleSystem;
     public static Main main;
     public static WebSocketClient client;
@@ -88,7 +89,7 @@ public class GUI {
         client = new WebSocketClient(applet);
 
         // Init terrain manager
-        terrainManager = new TerrainManager(20, 0, applet);
+        terrainManager = new WorldGenerator(20, 0, applet);
 
         // Init GraphicsRenderer
         graphicsRenderer = new GraphicsRenderer(applet);
@@ -188,6 +189,12 @@ public class GUI {
                 } else if ("list".equals(args[0])) {
                     Logger.logDebug(Game.gameConfigValues.toString());
                 }
+            }
+        }));
+
+        CommandManager.addCommand(CommandBuilder.createCommand("world").executes((appletCtx, args) -> {
+            if(CommandManager.checkArg(0, args).equals("save")) {
+                WorldManager.saveWorldToFile(terrainManager.getWorld(), "F:/Imagine3D/build/");
             }
         }));
     }

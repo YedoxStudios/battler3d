@@ -22,23 +22,26 @@
  * SOFTWARE.
  */
 
-package io.yedox.imagine3d.terrain;
+package io.yedox.imagine3d.world;
 
 import io.yedox.imagine3d.core.Game;
-import io.yedox.imagine3d.terrain.blocks.Block;
-import io.yedox.imagine3d.terrain.blocks.PlatformBlock;
 import io.yedox.imagine3d.utils.Logger;
+import io.yedox.imagine3d.world.blocks.Block;
+import io.yedox.imagine3d.world.blocks.PlatformBlock;
 import processing.core.PApplet;
 import processing.core.PVector;
 
-public class TerrainManager extends Thread {
-    public final int blockSize;
-    public final Block[][] blocks;
+import java.time.LocalDateTime;
+
+public class WorldGenerator extends Thread {
     private final PApplet pApplet;
+    public int blockSize;
+    public Block[][] blocks;
     public PVector generationProgress;
+    public World world;
     private boolean terrainGenerated;
 
-    public TerrainManager(int blockSize, int yOffset, PApplet applet) {
+    public WorldGenerator(int blockSize, int yOffset, PApplet applet) {
         blocks = new Block[blockSize][blockSize];
         this.blockSize = blockSize;
         this.pApplet = applet;
@@ -58,6 +61,24 @@ public class TerrainManager extends Thread {
         }
         setTerrainGenerated(true);
         Game.setCurrentScreen(Game.Screen.MAIN_GAME_SCREEN);
+
+        this.world = new World(blocks, blockSize, new WorldMeta("World", Game.releaseVersion, WorldGeneratorType.FLAT, LocalDateTime.now()));
+    }
+
+    /**
+     * Loads a world from an object
+     */
+    public void loadWorld(World world) {
+        this.world = world;
+        this.blocks = world.blockArray;
+        this.blockSize = world.blockSize;
+    }
+
+    /**
+     * Returns the world object
+     */
+    public World getWorld() {
+        return this.world;
     }
 
     /**
