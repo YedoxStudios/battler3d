@@ -22,7 +22,7 @@ public class WorldManager {
             objectOut.close();
             fileOut.close();
 
-            Logger.logDebug("World saved successfully.");
+            Logger.logDebug("World '" + worldToSave.getMetadata().getWorldName() + "' successfully saved.");
         } catch (IOException ex) {
             Logger.logError("Unable to save world: " + ex);
             if (Game.developerDebugModeEnabled) ex.printStackTrace();

@@ -7,7 +7,6 @@ import io.yedox.imagine3d.gui.GUI;
 import io.yedox.imagine3d.utils.Camera;
 import io.yedox.imagine3d.utils.Logger;
 import processing.core.PApplet;
-import processing.core.PConstants;
 import processing.core.PVector;
 
 import java.util.Random;
@@ -37,7 +36,7 @@ public class Player extends Camera implements IPlayer {
         this.speed = 0.13f;
         this.dimensions = new PVector(2, 20, 2);
         this.velocity = new PVector(0, 0, 0);
-        this.gravity = new PVector(0, 0.05f, 0);
+        this.gravity = new PVector(0, 0.04f, 0);
         this.grounded = false;
         this.dead = false;
         this.flyMode = false;
@@ -81,7 +80,7 @@ public class Player extends Camera implements IPlayer {
 
                 if (grounded && applet.keyPressed && applet.key == ' ' && !GUI.chatBox.visible) {
                     grounded = false;
-                    velocity.y = -1.9f;
+                    velocity.y = -1.1f;
                     position.y -= 1.0;
                 }
 
@@ -117,8 +116,8 @@ public class Player extends Camera implements IPlayer {
         Logger.logDebug("Player '" + username + "' respawned.");
 
         position.y = -50;
-        position.x = applet.random(1, GUI.terrainManager.blockSize * 5);
-        position.z = applet.random(1, GUI.terrainManager.blockSize * 5);
+        position.x = applet.random(1, GUI.worldGenerator.blockSize * 5);
+        position.z = applet.random(1, GUI.worldGenerator.blockSize * 5);
         velocity.y = 0;
         health = 8;
 

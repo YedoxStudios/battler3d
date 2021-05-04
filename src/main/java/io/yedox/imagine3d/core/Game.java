@@ -18,6 +18,7 @@ public class Game {
     public static HashMap<String, String> gameConfigValues = new HashMap<>();
     public static boolean multiplayerEnabled;
     public static boolean developerDebugModeEnabled;
+    public static boolean splashScreenEnabled;
     public static Screen currentScreen = Screen.MENU_SCREEN;
     private static int songsPlayed = 0;
     private static int songsTimer = 0;
@@ -85,7 +86,8 @@ public class Game {
         MAIN_GAME_SCREEN,
         ABOUT_SCREEN,
         OPTIONS_SCREEN,
-        TERRAINGEN_SCREEN
+        TERRAINGEN_SCREEN,
+        PAUSE_SCREEN
     }
 
     public static class ResourceManager {

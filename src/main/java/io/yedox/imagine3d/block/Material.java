@@ -22,19 +22,13 @@
  * SOFTWARE.
  */
 
-package io.yedox.imagine3d.world.blocks.worldblocks;
+package io.yedox.imagine3d.block;
 
-import io.yedox.imagine3d.world.blocks.Block;
-import io.yedox.imagine3d.world.blocks.BlockType;
-import io.yedox.imagine3d.world.blocks.Material;
-import processing.core.PApplet;
-
-public class WaterBlock extends Block {
-    public WaterBlock(PApplet applet, float x, float y, float z) {
-        super(applet, x, y, z, 5, 5, 5);
-        this.blockTexture = applet.loadImage("textures/blocks/water.png");
-
-        BLOCKTYPE = BlockType.WATER;
-        BLOCKID = 2;
-    }
+public enum Material {
+    AIR,
+    WATER,
+    DIRT,
+    STONE,
+    PLATFORM,
+    PORTAL
 }

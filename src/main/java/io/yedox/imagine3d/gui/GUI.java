@@ -12,6 +12,7 @@ import io.yedox.imagine3d.core.Resources;
 import io.yedox.imagine3d.entity.Player;
 import io.yedox.imagine3d.entity.entity_events.PlayerRespawnEvent;
 import io.yedox.imagine3d.mod_api.ModLoader;
+import io.yedox.imagine3d.world.ThreadedWorldSaver;
 import io.yedox.imagine3d.world.WorldGenerator;
 import io.yedox.imagine3d.utils.Logger;
 import io.yedox.imagine3d.utils.ParticleSystem;
@@ -40,7 +41,7 @@ public class GUI {
     public static PImage[] hudImages = new PImage[10];
 
     public static Player player;
-    public static WorldGenerator terrainManager;
+    public static WorldGenerator worldGenerator;
     public static ParticleSystem particleSystem;
     public static Main main;
     public static WebSocketClient client;
@@ -58,6 +59,7 @@ public class GUI {
     private static GraphicsRenderer graphicsRenderer;
     private static PShader tileShader;
     private static ScriptParser scriptParser;
+    private static ThreadedWorldSaver worldSaver;
 
     public static void init(PApplet applet) {
         Logger.logDebug("Initializing GUI...");
@@ -88,8 +90,11 @@ public class GUI {
         // Initialize websocket client
         client = new WebSocketClient(applet);
 
-        // Init terrain manager
-        terrainManager = new WorldGenerator(20, 0, applet);
+        // Init world generator
+        worldGenerator = new WorldGenerator(20, applet);
+
+        // Init world saver
+        worldSaver = new ThreadedWorldSaver();
 
         // Init GraphicsRenderer
         graphicsRenderer = new GraphicsRenderer(applet);
@@ -126,6 +131,7 @@ public class GUI {
         // Initialize widgets
         initWidgets(applet);
 
+        // Init script parser
         scriptParser = new ScriptParser("scripts/i3script/script.isc", applet);
 
         // NOTE: Script parser should be in another thread
@@ -194,8 +200,26 @@ public class GUI {
 
         CommandManager.addCommand(CommandBuilder.createCommand("world").executes((appletCtx, args) -> {
             if(CommandManager.checkArg(0, args).equals("save")) {
-                WorldManager.saveWorldToFile(terrainManager.getWorld(), "F:/Imagine3D/build/");
+                WorldManager.saveWorldToFile(worldGenerator.getWorld(), "F:/Imagine3D/build/");
+            } else if(CommandManager.checkArg(0, args).equals("load")) {
+                if(CommandManager.checkArg(args, 1)) {
+                    worldGenerator.loadWorld(Objects.requireNonNull(WorldManager.loadWorldFromFile(args[1])), appletCtx);
+                }
             }
+        }));
+
+        CommandManager.addCommand(CommandBuilder.createCommand("offset").executes((appletCtx, args) -> {
+            if(CommandManager.checkArg(args, 0) && CommandManager.checkArg(args, 1))
+                worldGenerator.offsetBlocks(Float.parseFloat(CommandManager.checkArg(0, args)), Float.parseFloat(CommandManager.checkArg(1, args)));
+            else
+                throw new MissingArgumentException(1, "Syntax for command offset: '/offset <min> <max>'");
+        }));
+
+        CommandManager.addCommand(CommandBuilder.createCommand("setblock").executes((appletCtx, args) -> {
+            if(CommandManager.checkArg(args, 0) && CommandManager.checkArg(args, 1) && CommandManager.checkArg(args, 2))
+                worldGenerator.getBlockAt(new PVector(Integer.parseInt(args[0]), Integer.parseInt(args[1]), Integer.parseInt(args[2]))).destroy();
+            else
+                throw new MissingArgumentException(1, "Syntax for command setblock: '/setblock <blockid>>'");
         }));
     }
 
@@ -225,8 +249,9 @@ public class GUI {
                 Game.setCurrentScreen(Game.Screen.TERRAINGEN_SCREEN);
 
                 // Generate terrain if not generated
-                if (!GUI.terrainManager.isTerrainGenerated()) {
-                    GUI.terrainManager.start();
+                if (!GUI.worldGenerator.isTerrainGenerated()) {
+                    GUI.worldGenerator.start();
+                    worldSaver.start();
                 }
 
                 GUI.player = new Player(applet);
@@ -348,21 +373,8 @@ public class GUI {
         });
 
         guiButtons.add(new GUIButton(applet) {
-            @Override
-            public void onAfterInit(PApplet sourceApplet) {
-                super.onAfterInit(sourceApplet);
-                this.x = applet.width / 4 - this.width / 2;
-                this.y = 20;
-                this.label.setText("About Battler3D");
-                this.screen = Game.Screen.OPTIONS_SCREEN;
-            }
 
-            @Override
-            public void onClicked(GUIButton sourceButton, PApplet sourceApplet) {
-                super.onClicked(sourceButton, sourceApplet);
-            }
         });
-
     }
 
     public static void draw(PApplet applet) {
@@ -383,8 +395,18 @@ public class GUI {
             case TERRAINGEN_SCREEN:
                 drawTerrainGenScreen(applet);
                 break;
+            case PAUSE_SCREEN:
+                drawPauseScreen(applet);
+                break;
         }
+    }
 
+    public static void drawPauseScreen(PApplet applet) {
+        guiButtons.forEach(guiButton -> {
+            if(guiButton.screen == Game.Screen.PAUSE_SCREEN) {
+                guiButton.render(applet);
+            }
+        });
     }
 
     public static void drawOptionsScreen(PApplet applet) {
@@ -464,13 +486,12 @@ public class GUI {
             for (int i = 0; i < Game.entityList.size(); i++) {
                 Game.entityList.get(i).onKeyPressed(applet);
             }
-            if ((applet.key == 't') && !chatBox.visible) {
+            if ((applet.key == 't' || applet.key == '/') && !chatBox.visible) {
                 // Show chatbox
                 chatBox.visible = true;
                 // Reset value
                 chatBox.setValue("");
             }
-
             chatBox.onKeyPress(applet);
         }
     }
@@ -492,7 +513,7 @@ public class GUI {
                 torchEnabled = !torchEnabled;
             }
 
-            if (applet.key == PConstants.CODED && applet.keyCode == PConstants.SHIFT) {
+            if (applet.key == PConstants.CODED && applet.keyCode == PConstants.SHIFT && !chatBox.visible) {
                 fovZoomIn.reset();
                 zoomingOut = true;
                 player.resetSensitivity();
@@ -501,8 +522,8 @@ public class GUI {
     }
 
     public static void drawGame(PApplet applet) {
-        if (terrainManager.isTerrainGenerated()) {
-            if (applet.keyPressed && applet.key == PConstants.CODED && applet.keyCode == PConstants.SHIFT) {
+        if (worldGenerator.isTerrainGenerated()) {
+            if (applet.keyPressed && applet.key == PConstants.CODED && applet.keyCode == PConstants.SHIFT && !chatBox.visible) {
                 fovZoomIn.animate();
                 GUI.cameraFov = fovZoomIn.getValue();
                 player.sensitivity = 0.1f;
@@ -529,9 +550,9 @@ public class GUI {
             player.renderSkybox();
 
             if (!torchEnabled)
-                applet.pointLight(200, 200, 200, player.position.x, player.position.y, player.position.z);
+                applet.pointLight(100, 100, 100, player.position.x, player.position.y - 1, player.position.z);
 
-            terrainManager.renderTerrain();
+            worldGenerator.renderTerrain();
 
             // Reset fov
             applet.perspective(applet.PI / 3.0f, (float) applet.width / applet.height, 1, 1000000);
@@ -582,9 +603,9 @@ public class GUI {
             applet.text("FPS: " + ((int) applet.frameRate), 10, 40);
 
             applet.fill(0);
-            applet.text("Location: X: " + (int) player.position.x + " Y: " + (int) player.position.y + " Z: " + (int) player.position.z, 11, 61);
+            applet.text("Location: X: " + (int) player.blockPosition.x + " Y: " + (int) player.blockPosition.y + " Z: " + (int) player.blockPosition.z, 11, 61);
             applet.fill(255);
-            applet.text("Location: X: " + (int) player.position.x + " Y: " + (int) player.position.y + " Z: " + (int) player.position.z, 10, 60);
+            applet.text("Location: X: " + (int) player.blockPosition.x + " Y: " + (int) player.blockPosition.y + " Z: " + (int) player.blockPosition.z, 10, 60);
 
             applet.fill(0);
             applet.text("Rotation: X: " + (int) player.tilt + " Y: " + (int) player.pan + " Z: " + 0, 11, 81);
@@ -665,9 +686,9 @@ public class GUI {
         GUI.getGraphicsRenderer().drawShadowedText(Resources.getResourceValue(String.class, "texts.label.loading_screen_heading"), (applet.width / 2), (applet.height / 2), FontSize.MEDIUM, true);
 
         applet.fill(100);
-        applet.rect((applet.width / 2) - (terrainManager.blockSize * 10 / 2), (applet.height / 2) + 20, terrainManager.blockSize * 10, 5);
+        applet.rect((applet.width / 2) - (worldGenerator.blockSize * 10 / 2), (applet.height / 2) + 20, worldGenerator.blockSize * 10, 5);
         applet.fill(10, 200, 10);
-        applet.rect((applet.width / 2) - (terrainManager.blockSize * 10 / 2), (applet.height / 2) + 20, terrainManager.generationProgress.x * 10, 5);
+        applet.rect((applet.width / 2) - (worldGenerator.blockSize * 10 / 2), (applet.height / 2) + 20, worldGenerator.generationProgress.x * 10, 5);
     }
 
     public static GraphicsRenderer getGraphicsRenderer() {

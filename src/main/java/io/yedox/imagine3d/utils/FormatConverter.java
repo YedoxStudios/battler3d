@@ -1,12 +1,14 @@
-package io.yedox.imagine3d.world.blocks;
+package io.yedox.imagine3d.utils;
 
+import io.yedox.imagine3d.block.Block;
+import io.yedox.imagine3d.block.SerializableBlock;
 import processing.core.PApplet;
 
 /**
- * Allows you to convert serializable blocks
- * to standard blocks
+ * Allows you to convert Objects in a serializable
+ * format to their normal format
  */
-public class BlockConverter {
+public class FormatConverter {
     public static Block convertSerializableToBlock(SerializableBlock block, PApplet applet) {
         return new Block(applet, block.getPosition().x, block.getPosition().y, block.getPosition().z, block.getDimensions().x, block.getDimensions().y, block.getDimensions().z, block.BLOCKTYPE, block.getBlockId());
     }
@@ -27,6 +29,10 @@ public class BlockConverter {
         return tempBlocks;
     }
 
+    /**
+     * Converts Serializable block array to standard
+     * block array
+     */
     public static Block[][] convertSerializableArrayToBlockArray(SerializableBlock[][] blocks, int blockSize, PApplet applet) {
         Block[][] tempBlocks = new Block[blockSize][blockSize];
 

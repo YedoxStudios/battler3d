@@ -22,11 +22,10 @@
  * SOFTWARE.
  */
 
-package io.yedox.imagine3d.world.blocks.worldblocks;
+package io.yedox.imagine3d.block.worldblock;
 
-import io.yedox.imagine3d.world.blocks.Block;
-import io.yedox.imagine3d.world.blocks.BlockType;
-import io.yedox.imagine3d.world.blocks.Material;
+import io.yedox.imagine3d.block.Block;
+import io.yedox.imagine3d.block.BlockType;
 import processing.core.PApplet;
 
 public class PlatformBlock extends Block {

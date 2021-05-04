@@ -1,8 +1,8 @@
 package io.yedox.imagine3d.world;
 
-import io.yedox.imagine3d.world.blocks.Block;
-import io.yedox.imagine3d.world.blocks.BlockConverter;
-import io.yedox.imagine3d.world.blocks.SerializableBlock;
+import io.yedox.imagine3d.block.Block;
+import io.yedox.imagine3d.utils.FormatConverter;
+import io.yedox.imagine3d.block.SerializableBlock;
 
 import java.io.Serializable;
 
@@ -19,7 +19,7 @@ public class World implements Serializable {
     private final WorldMeta metadata;
 
     public World(Block[][] blocks, int blockSize, WorldMeta worldMeta){
-        this.blockArray = BlockConverter.convertBlockArrayToSerializableArray(blocks, blockSize);
+        this.blockArray = FormatConverter.convertBlockArrayToSerializableArray(blocks, blockSize);
         this.blockSize = blockSize;
         this.metadata = worldMeta;
     }

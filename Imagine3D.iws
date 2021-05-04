@@ -10,19 +10,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9d27fe89-6abc-4378-8290-090649aabaa8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/world/blocks/BlockConverter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/world/blocks/BlockType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/world/blocks/SerializableBlock.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/world/ThreadedWorldSaver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Imagine3D.iws" beforeDir="false" afterPath="$PROJECT_DIR$/Imagine3D.iws" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/World" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/world.sav" beforeDir="false" afterPath="$PROJECT_DIR$/build/world.sav" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/World/world.sav" beforeDir="false" afterPath="$PROJECT_DIR$/build/World/world.sav" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/commands/MissingArgumentException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/commands/MissingArgumentException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/core/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/core/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/entity/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/entity/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/gui/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/gui/GUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/utils/BlockUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/utils/BlockUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/utils/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/utils/Camera.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/world/World.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/world/World.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/world/WorldGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/world/WorldGenerator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/world/WorldManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/world/WorldManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/world/WorldMeta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/world/WorldMeta.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/world/blocks/Block.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/world/blocks/Block.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/world/blocks/PlatformBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/world/blocks/worldblocks/PlatformBlock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/world/blocks/WaterBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/world/blocks/worldblocks/WaterBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/world/blocks/Block.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/block/Block.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/world/blocks/BlockConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/utils/FormatConverter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/world/blocks/BlockType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/block/BlockType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/world/blocks/IBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/block/IBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/world/blocks/Material.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/block/Material.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/world/blocks/SerializableBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/block/SerializableBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/world/blocks/worldblocks/PlatformBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/block/worldblock/PlatformBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/world/blocks/worldblocks/WaterBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/block/worldblock/WaterBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/config/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config/config.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,14 +79,15 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="ToolWindowRun.ShowToolbar" value="false" />
     <property name="create.test.in.the.same.root" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/luaj-3.0.1/luaj-sources-3.0.1.jar" />
-    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Mixin-releases-0.8.1/Mixin-releases-0.8.1" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="project.propCompiler" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
@@ -163,7 +174,7 @@
     <configuration name="Run Sketch" type="org.idea.processing.configuration.type" factoryName="Processing" activateToolWindowBeforeRun="false">
       <module name="Imagine3D" />
       <ProcessingRunSettings>
-        <option name="display" value="1" />
+        <option name="display" value="0" />
         <option name="fullscreen" value="false" />
         <option name="hideStopButton" value="false" />
         <option name="jvmArguments" value="" />

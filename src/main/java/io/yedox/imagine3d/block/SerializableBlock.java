@@ -1,4 +1,4 @@
-package io.yedox.imagine3d.world.blocks;
+package io.yedox.imagine3d.block;
 
 import processing.core.PVector;
 

@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package io.yedox.imagine3d.world.blocks;
+package io.yedox.imagine3d.block;
 
 import io.yedox.imagine3d.gui.GUI;
 import processing.core.PApplet;
@@ -50,7 +50,7 @@ public class Block implements IBlock, Serializable {
     /**
      * Contains an instance of the main applet
      */
-    private final PApplet applet;
+    public final PApplet applet;
 
     /**
      * Texture of the block
@@ -110,19 +110,20 @@ public class Block implements IBlock, Serializable {
         this.blockTexture = applet.loadImage("textures/blocks/platform.png");
         BLOCKTYPE = blockType;
         BLOCKID = blockId;
+        getBlockid();
     }
 
     /**
      * Returns the block type
      *
-     * @return BlockType
+     * @return String
      */
     public static String getMaterial() {
         return BLOCKTYPE;
     }
 
     /**
-     * Returns the BLOCKID of the current block
+     * Returns the Block ID of the current block
      *
      * @return int
      */
@@ -130,6 +131,9 @@ public class Block implements IBlock, Serializable {
         return BLOCKID;
     }
 
+    /**
+     * Updates the block
+     */
     public void update() {
         if (BLOCKTYPE != BlockType.WATER || BLOCKTYPE != BlockType.AIR) {
             float playerLeft = GUI.player.position.x - GUI.player.dimensions.x / 2;
@@ -185,17 +189,24 @@ public class Block implements IBlock, Serializable {
         }
     }
 
-    public void draw() {
+    /**
+     * Renders the block into the specified applet
+     */
+    public void render() {
         if (BLOCKTYPE != BlockType.AIR) {
             applet.pushMatrix();
             applet.noStroke();
             applet.translate(position.x, position.y, position.z);
             applet.scale(2.5f);
-            cubeVertex(blockTexture);
+            this.cubeVertex(blockTexture);
             applet.popMatrix();
         }
     }
 
+    /**
+     * Private function to draw
+     * box shape
+     */
     private void cubeVertex(PImage texture) {
         applet.beginShape(PConstants.QUADS);
         applet.texture(texture);
@@ -239,8 +250,8 @@ public class Block implements IBlock, Serializable {
         applet.endShape();
     }
 
-    @Deprecated
     public void destroy() {
+        this.BLOCKTYPE = BlockType.AIR;
         this.onBlockDestroy();
     }
 

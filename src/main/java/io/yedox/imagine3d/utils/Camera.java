@@ -20,13 +20,14 @@ public class Camera extends Entity {
     public float fovy;
     public float speed;
     public float sensitivity;
-    public PVector position;
     public float pan;
     public float tilt;
-    public PVector velocity;
     public float friction;
-    public Robot robot;
+    public PVector blockPosition;
+    public PVector position;
+    public PVector velocity;
     public PVector center;
+    public Robot robot;
     protected int var1;
     protected int var2;
     protected GLWindow window;
@@ -226,11 +227,11 @@ public class Camera extends Entity {
                     }
 
                     if (GUI.player.observerMode) {
-                        if (this.keys.containsKey('e') && this.keys.get('e')) {
+                        if (this.keys.containsKey('q') && this.keys.get('q')) {
                             this.velocity.add(PVector.mult(this.up, this.speed));
                         }
 
-                        if (this.keys.containsKey('q') && this.keys.get('q')) {
+                        if (this.keys.containsKey('e') && this.keys.get('e')) {
                             this.velocity.sub(PVector.mult(this.up, this.speed));
                         }
                     }
@@ -241,6 +242,7 @@ public class Camera extends Entity {
                 }
             }
             this.applet.camera(this.position.x, this.position.y, this.position.z, this.center.x, this.center.y, this.center.z, this.up.x, this.up.y, this.up.z);
+            this.blockPosition = BlockUtils.getBlockCoords(this.position);
         }
     }
 

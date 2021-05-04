@@ -22,17 +22,18 @@
  * SOFTWARE.
  */
 
-package io.yedox.imagine3d.world.blocks;
+package io.yedox.imagine3d.block.worldblock;
 
-public interface IBlock {
+import io.yedox.imagine3d.block.Block;
+import io.yedox.imagine3d.block.BlockType;
+import processing.core.PApplet;
 
-    /**
-     * Called when an entity walks on a block
-     */
-    void onEntityWalksOnBlock();
+public class WaterBlock extends Block {
+    public WaterBlock(PApplet applet, float x, float y, float z) {
+        super(applet, x, y, z, 5, 5, 5);
+        this.blockTexture = applet.loadImage("textures/blocks/water.png");
 
-    /**
-     * Called when the block is destroyed
-     */
-    void onBlockDestroy();
+        BLOCKTYPE = BlockType.WATER;
+        BLOCKID = 2;
+    }
 }

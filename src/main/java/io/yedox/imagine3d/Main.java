@@ -54,9 +54,6 @@ public class Main extends PApplet {
     // Loading screen image is stored in this variable
     private PImage loadingScreenImage;
 
-    // Some temporary variables
-    private boolean loadingScreenVisible = true;
-
     // Increase this to increase the time loading screen should stay open
     private int loadingScreenTimer = 500;
 
@@ -78,17 +75,16 @@ public class Main extends PApplet {
         try {
             // Set ResourceManager applet
             Resources.setApplet(this);
+
             // Set developer mode
             Game.developerDebugModeEnabled = Resources.getConfigValue(Boolean.class, "game.developerDebugMode");
-            // Do this only if debug mode is disabled
-            if (!Game.developerDebugModeEnabled) {
-                // Check if the application is launched from the launcher executable
-                if (!System.getProperty("executedFromLauncher").equals("true")) {
-                    Logger.logError("Imagine3D should not be launched from the JAR file.");
-                    exit();
-                }
-            } else {
-                Logger.logDebug("NOTE: Developer debug mode is enabled, skipping launcher check...", ANSIConstants.ANSI_YELLOW);
+
+            // Set splash screen visible
+            Game.splashScreenEnabled = Resources.getConfigValue(Boolean.class, "game.splashScreenEnabled");
+
+            // Developer mode should only be enabled for debugging purposes
+            if (Game.developerDebugModeEnabled) {
+                Logger.logDebug("NOTE: Developer debug mode is enabled, enable this only if you intend to make a module...", ANSIConstants.ANSI_YELLOW);
             }
 
             // Load splash image
@@ -139,7 +135,7 @@ public class Main extends PApplet {
                 // Do not allow player to move if chatbox visible
                 GUI.getPlayer().setControllable(!GUI.chatBox.visible);
 
-                if (Game.getCurrentScreen() == Game.Screen.MAIN_GAME_SCREEN && !GUI.getPlayer().isDead() && !GUI.chatBox.visible && GUI.terrainManager.isTerrainGenerated()) {
+                if (Game.getCurrentScreen() == Game.Screen.MAIN_GAME_SCREEN && !GUI.getPlayer().isDead() && !GUI.chatBox.visible && GUI.worldGenerator.isTerrainGenerated()) {
                     // Hide cursor
                     getSurface().hideCursor();
                 } else {
@@ -147,7 +143,7 @@ public class Main extends PApplet {
                     getSurface().showCursor();
                 }
 
-                if (GUI.terrainManager.isTerrainGenerated())
+                if (GUI.worldGenerator.isTerrainGenerated())
                     // Clear the screen with white
                     GUI.clearScreen(this);
                 // Draw the current screen
@@ -164,7 +160,7 @@ public class Main extends PApplet {
     }
 
     public void drawSplashScreen() {
-        if (loadingScreenVisible) {
+        if (Game.splashScreenEnabled) {
             fill(60, 30, 179, loadingScreenFadeOut.getValue());
             rect(0, 0, width, height);
             tint(255, loadingScreenFadeOut.getValue());
@@ -175,7 +171,7 @@ public class Main extends PApplet {
                 loadingScreenFadeOut.animate();
             }
             if (loadingScreenTimer <= 0 && loadingScreenFadeOut.getValue() <= 0) {
-                loadingScreenVisible = false;
+                Game.splashScreenEnabled = false;
             }
         }
     }

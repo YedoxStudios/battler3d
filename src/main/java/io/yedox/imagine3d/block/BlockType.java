@@ -1,4 +1,4 @@
-package io.yedox.imagine3d.world.blocks;
+package io.yedox.imagine3d.block;
 
 public class BlockType {
     public static String AIR = "textures:blocks/null";
