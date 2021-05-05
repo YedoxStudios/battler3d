@@ -135,7 +135,7 @@ public class Main extends PApplet {
                 // Do not allow player to move if chatbox visible
                 GUI.getPlayer().setControllable(!GUI.chatBox.visible);
 
-                if (Game.getCurrentScreen() == Game.Screen.MAIN_GAME_SCREEN && !GUI.getPlayer().isDead() && !GUI.chatBox.visible && GUI.worldGenerator.isTerrainGenerated()) {
+                if (Game.getCurrentScreen() == Game.Screen.MAIN_GAME_SCREEN && !GUI.getPlayer().isDead() && !GUI.chatBox.visible && GUI.worldGenerator.isTerrainGenerated() && !GUI.pauseScreen) {
                     // Hide cursor
                     getSurface().hideCursor();
                 } else {
@@ -188,8 +188,12 @@ public class Main extends PApplet {
                 GUI.player.onPlayerRespawn(new PlayerRespawnEvent(GUI.player.position, 8));
                 // Reset death screen animation
                 GUI.deathScreenFadeIn.reset();
-            } else if (Game.currentScreen == Game.Screen.TERRAINGEN_SCREEN) {
+            } else if (Game.getCurrentScreen() == Game.Screen.TERRAINGEN_SCREEN) {
                 return;
+            } else if (Game.getCurrentScreen() == Game.Screen.MAIN_GAME_SCREEN) {
+                GUI.pauseScreen = true;
+            } else if (GUI.pauseScreen) {
+                Game.setCurrentScreen(Game.Screen.MAIN_GAME_SCREEN);
             } else {
                 // Set current screen to Menu Screen
                 Game.setCurrentScreen(Game.Screen.MENU_SCREEN);

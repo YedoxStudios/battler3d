@@ -14,7 +14,7 @@ import java.util.EventListener;
 public interface IWidget extends EventListener {
     default void onInit(PApplet applet) {}
 
-    void onClicked(GUIButton sourceButton, PApplet sourceApplet);
+    void onClick(GUIButton sourceButton, PApplet sourceApplet);
     void onAfterInit(PApplet applet);
     void onDraw(PApplet applet);
     void onKeyPress(PApplet main);

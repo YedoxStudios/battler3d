@@ -41,18 +41,34 @@ public class GUIButton extends GUIWidget {
     public Game.Screen screen = Game.Screen.MENU_SCREEN;
 
     public GUIButton(PApplet applet) {
-        x = applet.width / 2;
-        y = applet.height / 2;
-        textureNormal = applet.loadImage("textures/gui/button.png");
-        texturePressed = applet.loadImage("textures/gui/button_press.png");
-        textureHover = applet.loadImage("textures/gui/button_hover.png");
+        this.x = applet.width / 2;
+        this.y = applet.height / 2;
+        this.textureNormal = applet.loadImage("textures/gui/button.png");
+        this.texturePressed = applet.loadImage("textures/gui/button_press.png");
+        this.textureHover = applet.loadImage("textures/gui/button_hover.png");
         this.onInit(applet);
-        label = new GUILabel(applet, text, this.x, this.y, true, 255, 255, 255);
+        this.label = new GUILabel(applet, text, this.x, this.y, true, 255, 255, 255);
         this.onAfterInit(applet);
         this.label.x = this.x + this.width / 2 - ((int) applet.textWidth(this.label.getText())) / 2;
         this.label.y = this.y + this.height / 2 + 7;
         this.label.fontSize = GUI.FontSize.NORMAL;
     }
+
+    public GUIButton(PApplet applet, String text) {
+        this.x = applet.width / 2;
+        this.y = applet.height / 2;
+        this.textureNormal = applet.loadImage("textures/gui/button.png");
+        this.texturePressed = applet.loadImage("textures/gui/button_press.png");
+        this.textureHover = applet.loadImage("textures/gui/button_hover.png");
+        this.onInit(applet);
+        this.label = new GUILabel(applet, text, this.x, this.y, true, 255, 255, 255);
+        this.onAfterInit(applet);
+        this.label.x = this.x + this.width / 2 - ((int) applet.textWidth(this.label.getText())) / 2;
+        this.label.y = this.y + this.height / 2 + 7;
+        this.label.fontSize = GUI.FontSize.NORMAL;
+        this.label.setText(text);
+    }
+
 
     public void render(PApplet applet) {
 
@@ -93,7 +109,7 @@ public class GUIButton extends GUIWidget {
         if (Utils.overRect(this.x, this.y, this.width, this.height, applet) && visible) {
             // is this line of code should be in the onClicked() function?
             SoundRegistry.playSound(SoundRegistry.Sounds.GUI_CLICK);
-            this.onClicked(this, applet);
+            this.onClick(this, applet);
         }
     }
 
@@ -108,7 +124,7 @@ public class GUIButton extends GUIWidget {
     }
 
     @Override
-    public void onClicked(GUIButton sourceButton, PApplet sourceApplet) {
+    public void onClick(GUIButton sourceButton, PApplet sourceApplet) {
         Logger.logDebug("Event: " + this.getClass().getSimpleName() + "onButtonClicked()");
     }
 }

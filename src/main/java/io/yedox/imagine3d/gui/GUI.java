@@ -12,14 +12,14 @@ import io.yedox.imagine3d.core.Resources;
 import io.yedox.imagine3d.entity.Player;
 import io.yedox.imagine3d.entity.entity_events.PlayerRespawnEvent;
 import io.yedox.imagine3d.mod_api.ModLoader;
-import io.yedox.imagine3d.world.ThreadedWorldSaver;
-import io.yedox.imagine3d.world.WorldGenerator;
 import io.yedox.imagine3d.utils.Logger;
 import io.yedox.imagine3d.utils.ParticleSystem;
 import io.yedox.imagine3d.utils.Utils;
 import io.yedox.imagine3d.utils.animations.AnimationType;
 import io.yedox.imagine3d.utils.animations.LinearAnimation;
 import io.yedox.imagine3d.websocket.WebSocketClient;
+import io.yedox.imagine3d.world.ThreadedWorldSaver;
+import io.yedox.imagine3d.world.WorldGenerator;
 import io.yedox.imagine3d.world.WorldManager;
 import processing.core.PApplet;
 import processing.core.PConstants;
@@ -33,8 +33,8 @@ import java.util.Objects;
 public class GUI {
     public static ArrayList<GUIButton> guiButtons;
     public static ArrayList<GUILabel> guiLabels;
-    public static GUITextBox chatBox;
     public static ArrayList<GUIDialogBox> guiDialogBoxes;
+    public static GUITextBox chatBox;
 
     public static PImage logo;
     public static PImage[] backgrounds = new PImage[10];
@@ -45,13 +45,16 @@ public class GUI {
     public static ParticleSystem particleSystem;
     public static Main main;
     public static WebSocketClient client;
+    public static LuaModElement luaModElement;
 
     public static boolean lightsEnabled;
     public static boolean torchEnabled;
     public static boolean zoomingOut;
+    public static boolean pauseScreen;
+
     public static float cameraFov;
     public static float cameraFovStatic;
-    public static LuaModElement luaModElement;
+
     public static LinearAnimation deathScreenFadeIn;
     public static LinearAnimation fovZoomIn;
     public static LinearAnimation fovZoomOut;
@@ -104,8 +107,8 @@ public class GUI {
 
         // Send message to server/parse command
         chatBox.addInputListener((value, textbox, pApplet) -> {
-                CommandManager.parse(value, pApplet);
-                client.sendMessage("{\"messageSend\": true, \"username\": \"" + GUI.player.username + "\", \"message\": \"" + textbox.getValue() + "\"}");
+            CommandManager.parse(value, pApplet);
+            client.sendMessage("{\"messageSend\": true, \"username\": \"" + GUI.player.username + "\", \"message\": \"" + textbox.getValue() + "\"}");
         });
 
         chatBox.visible = false;
@@ -153,6 +156,7 @@ public class GUI {
         cameraFov = Float.parseFloat(Resources.getConfigValue(Double.class, "player.cameraFov").toString());
         cameraFovStatic = Float.parseFloat(Resources.getConfigValue(Double.class, "player.cameraFov").toString());
         zoomingOut = false;
+        pauseScreen = false;
 
         // Init animations
         deathScreenFadeIn = new LinearAnimation(0f, 90f, 5, false, AnimationType.INCREMENT);
@@ -199,24 +203,24 @@ public class GUI {
         }));
 
         CommandManager.addCommand(CommandBuilder.createCommand("world").executes((appletCtx, args) -> {
-            if(CommandManager.checkArg(0, args).equals("save")) {
+            if (CommandManager.checkArg(0, args).equals("save")) {
                 WorldManager.saveWorldToFile(worldGenerator.getWorld(), "F:/Imagine3D/build/");
-            } else if(CommandManager.checkArg(0, args).equals("load")) {
-                if(CommandManager.checkArg(args, 1)) {
+            } else if (CommandManager.checkArg(0, args).equals("load")) {
+                if (CommandManager.checkArg(args, 1)) {
                     worldGenerator.loadWorld(Objects.requireNonNull(WorldManager.loadWorldFromFile(args[1])), appletCtx);
                 }
             }
         }));
 
         CommandManager.addCommand(CommandBuilder.createCommand("offset").executes((appletCtx, args) -> {
-            if(CommandManager.checkArg(args, 0) && CommandManager.checkArg(args, 1))
+            if (CommandManager.checkArg(args, 0) && CommandManager.checkArg(args, 1))
                 worldGenerator.offsetBlocks(Float.parseFloat(CommandManager.checkArg(0, args)), Float.parseFloat(CommandManager.checkArg(1, args)));
             else
                 throw new MissingArgumentException(1, "Syntax for command offset: '/offset <min> <max>'");
         }));
 
         CommandManager.addCommand(CommandBuilder.createCommand("setblock").executes((appletCtx, args) -> {
-            if(CommandManager.checkArg(args, 0) && CommandManager.checkArg(args, 1) && CommandManager.checkArg(args, 2))
+            if (CommandManager.checkArg(args, 0) && CommandManager.checkArg(args, 1) && CommandManager.checkArg(args, 2))
                 worldGenerator.getBlockAt(new PVector(Integer.parseInt(args[0]), Integer.parseInt(args[1]), Integer.parseInt(args[2]))).destroy();
             else
                 throw new MissingArgumentException(1, "Syntax for command setblock: '/setblock <blockid>>'");
@@ -241,8 +245,8 @@ public class GUI {
             }
 
             @Override
-            public synchronized void onClicked(GUIButton sourceButton, PApplet sourceApplet) {
-                super.onClicked(sourceButton, sourceApplet);
+            public synchronized void onClick(GUIButton sourceButton, PApplet sourceApplet) {
+                super.onClick(sourceButton, sourceApplet);
                 this.visible = false;
 
                 // Set game screen to TERRAINGEN_SCREEN
@@ -280,8 +284,8 @@ public class GUI {
             }
 
             @Override
-            public void onClicked(GUIButton sourceButton, PApplet sourceApplet) {
-                super.onClicked(sourceButton, sourceApplet);
+            public void onClick(GUIButton sourceButton, PApplet sourceApplet) {
+                super.onClick(sourceButton, sourceApplet);
                 Game.setCurrentScreen(Game.Screen.OPTIONS_SCREEN);
             }
         });
@@ -303,8 +307,8 @@ public class GUI {
             }
 
             @Override
-            public void onClicked(GUIButton sourceButton, PApplet sourceApplet) {
-                super.onClicked(sourceButton, sourceApplet);
+            public void onClick(GUIButton sourceButton, PApplet sourceApplet) {
+                super.onClick(sourceButton, sourceApplet);
                 client.sendMessage("{\"disconnecting\": true, \"username\": \"" + player.username + "\"}");
                 sourceApplet.exit();
             }
@@ -329,8 +333,8 @@ public class GUI {
             }
 
             @Override
-            public void onClicked(GUIButton sourceButton, PApplet sourceApplet) {
-                super.onClicked(sourceButton, sourceApplet);
+            public void onClick(GUIButton sourceButton, PApplet sourceApplet) {
+                super.onClick(sourceButton, sourceApplet);
                 deathScreenFadeIn.reset();
                 GUI.player.onPlayerRespawn(new PlayerRespawnEvent(player.position, player.health));
             }
@@ -372,9 +376,31 @@ public class GUI {
             }
         });
 
-        guiButtons.add(new GUIButton(applet) {
+        // Resume button
+        GUI.guiButtons.add(new GUIButton(applet) {
+            @Override
+            public void onInit(PApplet sourceApplet) {
+                super.onInit(sourceApplet);
+                // Setup button properties
+                this.x = sourceApplet.width / 2 - (this.width / 2);
+                this.y = sourceApplet.height / 2 + 60;
+            }
 
+            @Override
+            public void onAfterInit(PApplet applet) {
+                super.onAfterInit(applet);
+
+                this.label.setText(Resources.getResourceValue(String.class, "texts.button.resume"));
+                this.screen = Game.Screen.PAUSE_SCREEN;
+            }
+
+            @Override
+            public void onClick(GUIButton sourceButton, PApplet sourceApplet) {
+                super.onClick(sourceButton, sourceApplet);
+                Game.setCurrentScreen(Game.Screen.MAIN_GAME_SCREEN);
+            }
         });
+
     }
 
     public static void draw(PApplet applet) {
@@ -386,31 +412,20 @@ public class GUI {
             case MENU_SCREEN:
                 drawMainMenu(applet);
                 break;
-            case MAIN_GAME_SCREEN:
-                drawGame(applet);
-                break;
             case OPTIONS_SCREEN:
                 drawOptionsScreen(applet);
                 break;
             case TERRAINGEN_SCREEN:
                 drawTerrainGenScreen(applet);
                 break;
-            case PAUSE_SCREEN:
-                drawPauseScreen(applet);
+            case MAIN_GAME_SCREEN:
+                drawGame(applet);
                 break;
         }
     }
 
-    public static void drawPauseScreen(PApplet applet) {
-        guiButtons.forEach(guiButton -> {
-            if(guiButton.screen == Game.Screen.PAUSE_SCREEN) {
-                guiButton.render(applet);
-            }
-        });
-    }
-
     public static void drawOptionsScreen(PApplet applet) {
-        // Enable depth test
+        // Disable depth test
         applet.hint(PConstants.DISABLE_DEPTH_TEST);
 
         // Moving tiles shader
@@ -426,7 +441,7 @@ public class GUI {
         // Draw labels
         guiLabels.stream().filter(label -> label.screen == Game.Screen.OPTIONS_SCREEN).forEach(label -> label.render(applet));
 
-        // Disable depth test
+        // Enable depth test
         applet.hint(PConstants.ENABLE_DEPTH_TEST);
     }
 
@@ -664,6 +679,13 @@ public class GUI {
 
             if (Main.showTitleMessage)
                 Utils.showTitle(Main.titleMessage, applet);
+
+            if (pauseScreen) {
+                applet.rect(0, 0, applet.width, applet.height);
+
+                // Draw buttons
+                guiButtons.stream().filter(guiButton -> guiButton.screen == Game.Screen.PAUSE_SCREEN).forEach(guiButton -> guiButton.render(applet));
+            }
 
             applet.hint(PConstants.ENABLE_DEPTH_TEST);
 

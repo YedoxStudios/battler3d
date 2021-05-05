@@ -12,7 +12,7 @@ public class GUIWidget implements IWidget {
     }
 
     @Override
-    public void onClicked(GUIButton sourceButton, PApplet sourceApplet) {
+    public void onClick(GUIButton sourceButton, PApplet sourceApplet) {
     }
 
     @Override

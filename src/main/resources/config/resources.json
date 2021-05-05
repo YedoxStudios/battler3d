@@ -3,6 +3,7 @@
   "texts.button.settings": "Options",
   "texts.button.exit": "Exit",
   "texts.button.play_again": "Play Again",
+  "texts.button.resume": "Resume",
 
   "texts.label.game_over": "You Died!",
   "texts.label.chatbox_hint": "Tell something to your friends...",
