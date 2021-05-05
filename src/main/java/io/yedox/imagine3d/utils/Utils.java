@@ -85,26 +85,7 @@ public class Utils {
         return Game.releaseName + " " + Game.releaseVersion + (Game.isBeta() ? "-beta" : "");
     }
 
-    // -- UNUSED METHOD --
-    // public static PVector getRotationFacing(PVector from, PVector to) {
-    //     PVector distance = new PVector(from.x, from.y, from.z).sub(to.x, to.y, to.z);
-    //
-    //
-    //     //Don't actually need to call normalize for directionA - just doing it to indicate
-    //     //that this vector must be normalized.
-    //     final PVector directionA = new PVector(0, 1, 0).normalize();
-    //     final PVector directionB = distance.copy().normalize();
-    //
-    //     float rotationAngle = (float)Math.acos(directionA.dot(directionB));
-    //
-    //     if (Math.abs(rotationAngle) < ANGLE_EPSILON)
-    //     {
-    //         //exit - don't do any rotation
-    //         //angle is too small for rotation to be numerically stable
-    //         return null;
-    //     }
-    //
-    //     //rotate object about rotationAxis by rotationAngle
-    //     return directionA.copy().cross(directionB).normalize();
-    // }
+    public static void centerMouse() {
+        GUI.player.robot.mouseMove(GUI.player.window.getX() + GUI.player.applet.width / 2, GUI.player.window.getY() + GUI.player.applet.height / 2);
+    }
 }

@@ -35,6 +35,7 @@ public class GUIButton extends GUIWidget {
     public boolean visible = true;
     public boolean hudWidget = false;
     public boolean deathScreenWidget = false;
+    public boolean pauseScreenWidget = false;
 
     public GUILabel label;
     public String text = "Button";

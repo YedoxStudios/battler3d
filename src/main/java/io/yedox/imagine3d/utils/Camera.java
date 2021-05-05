@@ -30,7 +30,7 @@ public class Camera extends Entity {
     public Robot robot;
     protected int var1;
     protected int var2;
-    protected GLWindow window;
+    public GLWindow window;
     protected PImage skyBoxTexture;
     protected PImage skyBoxTopTexture;
     protected PImage skyBoxBottomTexture;
@@ -169,7 +169,7 @@ public class Camera extends Entity {
                 var1 = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().width;
                 var2 = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().height;
 
-                if (applet.focused && !GUI.chatBox.visible) {
+                if (applet.focused && !GUI.chatBox.visible && !GUI.pauseScreen) {
                     if (this.mouse.x < window.getX() + a && this.mouse.x - this.prevMouse.x < 0) {
                         this.robot.mouseMove(window.getX() + applet.width - a, this.mouse.y);
                         this.mouse.x = window.getX() + applet.width - a;

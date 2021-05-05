@@ -319,6 +319,7 @@ public class GUI {
             @Override
             public void onInit(PApplet sourceApplet) {
                 super.onInit(sourceApplet);
+
                 // Setup button properties
                 this.x = sourceApplet.width / 2 - (this.width / 2);
                 this.y = sourceApplet.height / 2 + 60;
@@ -328,6 +329,7 @@ public class GUI {
             @Override
             public void onAfterInit(PApplet applet) {
                 super.onAfterInit(applet);
+
                 this.label.setText(Resources.getResourceValue(String.class, "texts.button.play_again"));
                 this.screen = Game.Screen.MAIN_GAME_SCREEN;
             }
@@ -381,9 +383,11 @@ public class GUI {
             @Override
             public void onInit(PApplet sourceApplet) {
                 super.onInit(sourceApplet);
+
                 // Setup button properties
                 this.x = sourceApplet.width / 2 - (this.width / 2);
-                this.y = sourceApplet.height / 2 + 60;
+                this.y = sourceApplet.height / 2 - 30;
+                this.pauseScreenWidget = true;
             }
 
             @Override
@@ -398,9 +402,49 @@ public class GUI {
             public void onClick(GUIButton sourceButton, PApplet sourceApplet) {
                 super.onClick(sourceButton, sourceApplet);
                 Game.setCurrentScreen(Game.Screen.MAIN_GAME_SCREEN);
+                GUI.pauseScreen = false;
             }
         });
 
+        // Exit to menu button
+        GUI.guiButtons.add(new GUIButton(applet) {
+            @Override
+            public void onInit(PApplet sourceApplet) {
+                super.onInit(sourceApplet);
+
+                // Setup button properties
+                this.x = sourceApplet.width / 2 - (this.width / 2);
+                this.y = sourceApplet.height / 2 - (30 - (this.height + 10));
+                this.pauseScreenWidget = true;
+            }
+
+            @Override
+            public void onAfterInit(PApplet applet) {
+                super.onAfterInit(applet);
+
+                this.label.setText(Resources.getResourceValue(String.class, "texts.button.exit_to_menu"));
+                this.screen = Game.Screen.PAUSE_SCREEN;
+            }
+
+            @Override
+            public void onClick(GUIButton sourceButton, PApplet sourceApplet) {
+                super.onClick(sourceButton, sourceApplet);
+                Game.setCurrentScreen(Game.Screen.MENU_SCREEN);
+                GUI.pauseScreen = false;
+            }
+        });
+
+        // Pause Screen label
+        GUI.guiLabels.add(new GUILabel(applet, Resources.getResourceValue(String.class, "texts.label.pause_screen_label"), 0, 120, true, 255, 255, 255) {
+            @Override
+            public void onInit(PApplet sourceApplet) {
+                super.onInit(sourceApplet);
+
+                this.x = sourceApplet.width / 2 - (int) (sourceApplet.textWidth(this.getText()) / 2);
+                this.pauseScreenWidget = true;
+                this.screen =  Game.Screen.PAUSE_SCREEN;
+            }
+        });
     }
 
     public static void draw(PApplet applet) {
@@ -459,10 +503,10 @@ public class GUI {
             applet.image(logo, (applet.width / 2) - (logo.pixelWidth / 2), 20);
 
             // Draw buttons
-            guiButtons.stream().filter(button -> !button.hudWidget && !button.deathScreenWidget).forEach(button -> button.render(applet));
+            guiButtons.stream().filter(button -> !button.hudWidget && !button.deathScreenWidget && !button.pauseScreenWidget).forEach(button -> button.render(applet));
 
             // Draw labels
-            guiLabels.stream().filter(label -> !label.hudWidget && !label.deathScreenWidget).forEach(label -> label.render(applet));
+            guiLabels.stream().filter(label -> !label.hudWidget && !label.deathScreenWidget && !label.pauseScreenWidget).forEach(label -> label.render(applet));
 
             // Invoke mod method
             ModLoader.invokeModMethod("mainMenuDraw");
@@ -638,10 +682,7 @@ public class GUI {
                 deathScreenFadeIn.animate();
 
                 // Set death cause
-                guiLabels.forEach((label) -> {
-                    if (label.widgetId == 2)
-                        label.setText(player.username + " " + player.deathCause + ".");
-                });
+                guiLabels.stream().filter(label -> label.widgetId == 2).forEach(label -> label.setText(player.username + " " + player.deathCause + "."));
 
                 applet.fill(150, 40, 40, deathScreenFadeIn.getValue());
                 applet.rect(0, 0, applet.width, applet.height);
@@ -651,40 +692,45 @@ public class GUI {
 
                 if (deathScreenFadeIn.getValue() >= 90) {
                     // Draw the widgets
-                    for (GUIButton button : guiButtons) {
-                        if (button.deathScreenWidget) {
-                            button.visible = true;
-                            button.render(applet);
-                        }
-                    }
+                    guiButtons.stream().filter(button -> button.deathScreenWidget).forEach(button -> {
+                        button.visible = true;
+                        button.render(applet);
+                    });
 
-                    for (GUILabel label : guiLabels) {
-                        if (label.deathScreenWidget) {
-                            label.visible = true;
-                            label.render(applet);
-                        }
-                    }
+                    guiLabels.stream().filter(label -> label.deathScreenWidget).forEach(label -> {
+                        label.visible = true;
+                        label.render(applet);
+                    });
                 }
             } else {
                 // Hide the widgets
-                for (GUIButton button : guiButtons) {
-                    if (button.deathScreenWidget)
-                        button.visible = false;
-                }
-                for (GUILabel label : guiLabels) {
-                    if (label.deathScreenWidget)
-                        label.visible = false;
-                }
+                guiButtons.stream().filter(button -> button.deathScreenWidget).forEach(button -> button.visible = false);
+                guiLabels.stream().filter(label -> label.deathScreenWidget).forEach(label -> label.visible = false);
             }
 
             if (Main.showTitleMessage)
                 Utils.showTitle(Main.titleMessage, applet);
 
             if (pauseScreen) {
+                applet.fill(50, 50);
                 applet.rect(0, 0, applet.width, applet.height);
+                applet.fill(255);
 
                 // Draw buttons
-                guiButtons.stream().filter(guiButton -> guiButton.screen == Game.Screen.PAUSE_SCREEN).forEach(guiButton -> guiButton.render(applet));
+                guiButtons.stream().filter(guiButton -> guiButton.pauseScreenWidget).forEach(guiButton -> {
+                    guiButton.visible = true;
+                    guiButton.render(applet);
+                });
+
+                // Draw labels
+                guiLabels.stream().filter(guiLabel -> guiLabel.pauseScreenWidget).forEach(label -> {
+                    label.visible = true;
+                    label.render(applet);
+                });
+            } else {
+                // Hide the widgets
+                guiButtons.stream().filter(guiButton -> guiButton.pauseScreenWidget).forEach(guiButton -> guiButton.visible = false);
+                guiLabels.stream().filter(guiLabel -> guiLabel.pauseScreenWidget).forEach(label -> label.visible = false);
             }
 
             applet.hint(PConstants.ENABLE_DEPTH_TEST);

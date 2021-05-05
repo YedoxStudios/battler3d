@@ -4,8 +4,10 @@
   "texts.button.exit": "Exit",
   "texts.button.play_again": "Play Again",
   "texts.button.resume": "Resume",
+  "texts.button.exit_to_menu": "Exit to menu",
 
   "texts.label.game_over": "You Died!",
   "texts.label.chatbox_hint": "Tell something to your friends...",
-  "texts.label.loading_screen_heading": "Building terrain..."
+  "texts.label.loading_screen_heading": "Building terrain...",
+  "texts.label.pause_screen_label": "Game Paused"
 }

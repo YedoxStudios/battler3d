@@ -191,9 +191,11 @@ public class Main extends PApplet {
             } else if (Game.getCurrentScreen() == Game.Screen.TERRAINGEN_SCREEN) {
                 return;
             } else if (Game.getCurrentScreen() == Game.Screen.MAIN_GAME_SCREEN) {
-                GUI.pauseScreen = true;
-            } else if (GUI.pauseScreen) {
-                Game.setCurrentScreen(Game.Screen.MAIN_GAME_SCREEN);
+                // Center the mouse pointer
+                Utils.centerMouse();
+
+                // Toggle pause screen
+                GUI.pauseScreen = !GUI.pauseScreen;
             } else {
                 // Set current screen to Menu Screen
                 Game.setCurrentScreen(Game.Screen.MENU_SCREEN);
