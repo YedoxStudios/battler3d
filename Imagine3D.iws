@@ -10,16 +10,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9d27fe89-6abc-4378-8290-090649aabaa8" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Imagine3D.iws" beforeDir="false" afterPath="$PROJECT_DIR$/Imagine3D.iws" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/World/world.sav" beforeDir="false" afterPath="$PROJECT_DIR$/build/World/world.sav" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/gui/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/gui/GUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/gui/GUIButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/gui/GUIButton.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/gui/GUIWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/gui/GUIWidget.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/utils/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/utils/Camera.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/utils/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/yedox/imagine3d/utils/Utils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/config/resources.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config/resources.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/config/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config/config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/shaders/blur.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/shaders/blur.glsl" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

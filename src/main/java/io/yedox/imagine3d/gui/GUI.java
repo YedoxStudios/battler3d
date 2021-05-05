@@ -51,6 +51,7 @@ public class GUI {
     public static boolean torchEnabled;
     public static boolean zoomingOut;
     public static boolean pauseScreen;
+    public static boolean screenBlurEnabled;
 
     public static float cameraFov;
     public static float cameraFovStatic;
@@ -61,6 +62,7 @@ public class GUI {
 
     private static GraphicsRenderer graphicsRenderer;
     private static PShader tileShader;
+    private static PShader blurShader;
     private static ScriptParser scriptParser;
     private static ThreadedWorldSaver worldSaver;
 
@@ -125,6 +127,7 @@ public class GUI {
         particleSystem = new ParticleSystem(new PVector(5, -5, 5), applet);
 
         tileShader = applet.loadShader("shaders/infinite_scroll.glsl");
+        blurShader = applet.loadShader("shaders/blur.glsl");
         tileShader.set("resolution", (float) applet.width, (float) applet.height);
         tileShader.set("tileImage", backgrounds[0]);
 
@@ -153,6 +156,7 @@ public class GUI {
         // Setup variables
         lightsEnabled = Resources.getConfigValue(Boolean.class, "world.lightsEnabled");
         torchEnabled = Resources.getConfigValue(Boolean.class, "player.isHoldingTorch");
+        screenBlurEnabled = Resources.getConfigValue(Boolean.class, "game.screenBackgroundBlur");
         cameraFov = Float.parseFloat(Resources.getConfigValue(Double.class, "player.cameraFov").toString());
         cameraFovStatic = Float.parseFloat(Resources.getConfigValue(Double.class, "player.cameraFov").toString());
         zoomingOut = false;
@@ -691,6 +695,13 @@ public class GUI {
                 applet.textSize(FontSize.NORMAL);
 
                 if (deathScreenFadeIn.getValue() >= 90) {
+                    if(screenBlurEnabled) {
+                        applet.filter(blurShader);
+                        applet.fill(255, 0);
+                        applet.rect(0, 0, applet.width, applet.height);
+                        applet.resetShader();
+                    }
+
                     // Draw the widgets
                     guiButtons.stream().filter(button -> button.deathScreenWidget).forEach(button -> {
                         button.visible = true;
@@ -712,9 +723,12 @@ public class GUI {
                 Utils.showTitle(Main.titleMessage, applet);
 
             if (pauseScreen) {
-                applet.fill(50, 50);
-                applet.rect(0, 0, applet.width, applet.height);
-                applet.fill(255);
+                if(screenBlurEnabled) {
+                    applet.filter(blurShader);
+                    applet.fill(255, 0);
+                    applet.rect(0, 0, applet.width, applet.height);
+                    applet.resetShader();
+                }
 
                 // Draw buttons
                 guiButtons.stream().filter(guiButton -> guiButton.pauseScreenWidget).forEach(guiButton -> {
