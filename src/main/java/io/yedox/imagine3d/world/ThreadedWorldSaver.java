@@ -1,10 +1,12 @@
 package io.yedox.imagine3d.world;
 
 import io.yedox.imagine3d.gui.GUI;
-import io.yedox.imagine3d.utils.AsyncUtils;
 import io.yedox.imagine3d.utils.Logger;
-import processing.core.PApplet;
 
+/**
+ * Used for saving the world
+ * automatically each minute
+ */
 public class ThreadedWorldSaver {
     private Thread mainSaveThread;
     private boolean threadRunning;
@@ -25,6 +27,9 @@ public class ThreadedWorldSaver {
         });
     }
 
+    /**
+     * Starts the world saver thread
+     */
     public void start() {
         mainSaveThread.start();
         threadRunning = true;
