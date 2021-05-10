@@ -14,16 +14,15 @@ public class WebSocketClient {
                 // Init websocket client
                 client = new WebsocketClient(applet, Resources.getConfigValue(String.class, "multiplayer.server.ip"));
             } catch (Exception ignored) {
-                // Just ignore bruh
+                // Ignore
             }
         }
     }
 
     public void sendMessage(String message) {
-        // DO NOT TRY SEND MESSAGE IF MULTIPLAYER IS DISABLED OR GAME CRASH DONT DO IT
         if (Game.multiplayerEnabled) {
             if (message == null) {
-                throw new NullPointerException("Ayo you're trying to send the server an empty message! Maybe caused by a buggy module?");
+                throw new NullPointerException("Empty message");
             }
             client.sendMessage(message);
         }

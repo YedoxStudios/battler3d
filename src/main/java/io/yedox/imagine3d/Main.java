@@ -39,6 +39,7 @@ import processing.core.PApplet;
 import processing.core.PImage;
 import processing.data.JSONObject;
 import processing.opengl.PGraphicsOpenGL;
+import processing.opengl.PJOGL;
 
 import java.util.Arrays;
 
@@ -69,6 +70,8 @@ public class Main extends PApplet {
         size(856, 512, P3D);
         // Set antialiasing level to 8
         smooth(8);
+        // Set icon
+        PJOGL.setIcon("textures/gui/logo_ico.png");
     }
 
     public void setup() {
@@ -121,6 +124,7 @@ public class Main extends PApplet {
             // Init animation
             loadingScreenFadeOut = new LinearAnimation(255, 0, 2f, false, AnimationType.DECREMENT);
 
+            Logger.logDebug(GUI.player.serializeToJson());
         } catch (Exception exception) {
             // Print the exception
             Utils.printExceptionMessage(exception, this);

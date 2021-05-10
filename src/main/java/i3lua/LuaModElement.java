@@ -1,6 +1,6 @@
 package i3lua;
 
-import i3lua.core.GameSettings;
+import i3lua.core.Game;
 import io.yedox.imagine3d.utils.ANSIConstants;
 import io.yedox.imagine3d.utils.Logger;
 import io.yedox.imagine3d.utils.Utils;
@@ -17,6 +17,8 @@ import processing.core.PApplet;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineFactory;
 import javax.script.ScriptEngineManager;
+import java.io.BufferedReader;
+import java.io.FileReader;
 
 public class LuaModElement {
     private boolean debugEnabled = false;
@@ -43,14 +45,26 @@ public class LuaModElement {
             this.globals.load(new JseBaseLib());
             this.globals.load(new PackageLib());
             this.globals.load(new StringLib());
-            this.globals.load(new GameSettings());
+            this.globals.load(new Game());
             this.globals.load(new i3lua.utils.Logger());
 
             LoadState.install(this.globals);
             LuaC.install(this.globals);
 
-            this.strings = applet.loadStrings(file);
-            this.luaScript = Utils.arrayToStandardString(strings);
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            StringBuilder stringBuilder = new StringBuilder();
+            String line = null;
+            String ls = System.getProperty("line.separator");
+            while ((line = reader.readLine()) != null) {
+                stringBuilder.append(line);
+                stringBuilder.append(ls);
+            }
+
+            // delete the last new line separator
+            stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+            reader.close();
+
+            this.luaScript = stringBuilder.toString();
             this.chunk = this.globals.load(this.luaScript);
         } catch (Exception exception) {
             Logger.logLuaError("Could not load file: '" + this.luaFile + "'. Reason:\n" + exception.getMessage());

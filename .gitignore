@@ -30,3 +30,5 @@ launcher/*
 old/*
 build/*
 *.sav
+*.sav
+build/World/world.sav

@@ -44,7 +44,7 @@ public class GUI {
     public static WorldGenerator worldGenerator;
     public static ParticleSystem particleSystem;
     public static Main main;
-    public static WebSocketClient client;
+    public static WebSocketClient mpClient;
     public static LuaModElement luaModElement;
 
     public static boolean lightsEnabled;
@@ -89,11 +89,11 @@ public class GUI {
         // Init logo
         logo = applet.loadImage("textures/gui/logo.png");
 
+        // Initialize websocket client
+        mpClient = new WebSocketClient(applet);
+
         // Init player and camera
         player = new Player(applet);
-
-        // Initialize websocket client
-        client = new WebSocketClient(applet);
 
         // Init world generator
         worldGenerator = new WorldGenerator(20, applet);
@@ -110,7 +110,7 @@ public class GUI {
         // Send message to server/parse command
         chatBox.addInputListener((value, textbox, pApplet) -> {
             CommandManager.parse(value, pApplet);
-            client.sendMessage("{\"messageSend\": true, \"username\": \"" + GUI.player.username + "\", \"message\": \"" + textbox.getValue() + "\"}");
+            mpClient.sendMessage("{\"messageSend\": true, \"username\": \"" + GUI.player.username + "\", \"message\": \"" + textbox.getValue() + "\"}");
         });
 
         chatBox.visible = false;
@@ -313,7 +313,7 @@ public class GUI {
             @Override
             public void onClick(GUIButton sourceButton, PApplet sourceApplet) {
                 super.onClick(sourceButton, sourceApplet);
-                client.sendMessage("{\"disconnecting\": true, \"username\": \"" + player.username + "\"}");
+                mpClient.sendMessage("{\"disconnecting\": true, \"username\": \"" + player.username + "\"}");
                 sourceApplet.exit();
             }
         });

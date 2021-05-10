@@ -5,7 +5,9 @@ import processing.core.PApplet;
 import processing.core.PImage;
 import processing.core.PVector;
 
-public class Entity implements IEntity {
+import java.io.Serializable;
+
+public class Entity implements IEntity, Serializable {
     public PVector position = new PVector();
     public PVector size = new PVector();
     public PImage texture;

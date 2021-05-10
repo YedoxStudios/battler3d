@@ -3,6 +3,7 @@ package io.yedox.imagine3d.commands;
 import io.yedox.imagine3d.utils.Logger;
 import processing.core.PApplet;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -53,7 +54,11 @@ public class CommandManager {
             commands.forEach(cmd -> {
                 if (cmdSplit[0].equals(cmd.command)) {
                     try {
-                        cmd.commandResult.execute(applet, args);
+                        if(cmd.executeLuaClosureAsResult) {
+                            cmd.luaClosureResult.call();
+                        } else {
+                            cmd.commandResult.execute(applet, args);
+                        }
                     } catch (MissingArgumentException exception) {
                         Logger.logError("Parse error: " + exception.getMessage() + ". Input: '" + command + "'");
                     }

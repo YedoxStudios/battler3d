@@ -1,5 +1,6 @@
 package io.yedox.imagine3d.entity;
 
+import com.google.gson.Gson;
 import io.yedox.imagine3d.core.Game;
 import io.yedox.imagine3d.core.Resources;
 import io.yedox.imagine3d.entity.entity_events.PlayerRespawnEvent;
@@ -29,6 +30,7 @@ public class Player extends Camera implements IPlayer {
 
     private boolean dead;
     private int nextHurtTimer = 0;
+    private SerializablePlayer serializablePlayer;
 
     public Player(PApplet applet) {
         super(applet);
@@ -47,10 +49,16 @@ public class Player extends Camera implements IPlayer {
         this.health = 8;
         this.maxHealth = 8;
         this.observerMode = Resources.getConfigValue(Boolean.class, "player.observerMode");
-
+        this.serializablePlayer = new SerializablePlayer(this.position, this.username);
         this.initEntityData();
 
         if(Game.developerDebugModeEnabled) Logger.logDebug("PlayerEntity's JSONData: \n" + entityData.toJson());
+
+        GUI.mpClient.sendMessage("%METADATA%\n" + serializeToJson());
+    }
+
+    public String serializeToJson() {
+        return new Gson().toJson(serializablePlayer);
     }
 
     public void initEntityData() {
@@ -121,7 +129,7 @@ public class Player extends Camera implements IPlayer {
         velocity.y = 0;
         health = 8;
 
-        GUI.client.sendMessage("{\"respawned\": true, \"username\": \"" + username + "\"}");
+        GUI.mpClient.sendMessage("{\"respawned\": true, \"username\": \"" + username + "\"}");
 
         this.setDead(false);
     }
@@ -135,7 +143,7 @@ public class Player extends Camera implements IPlayer {
     public synchronized void onPlayerDie() {
         this.setControllable(!dead);
 
-        GUI.client.sendMessage("{\"dead\": true,\"username\": \"" + username + "\",\"deathCause\": \"" + deathCause + "\"}");
+        GUI.mpClient.sendMessage("{\"dead\": true,\"username\": \"" + username + "\",\"deathCause\": \"" + deathCause + "\"}");
         Logger.logDebug("Player '" + username + "' died.");
 
         int windowWidth = window.getX() + applet.width / 2;
