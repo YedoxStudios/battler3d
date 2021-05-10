@@ -32,3 +32,4 @@ build/*
 *.sav
 *.sav
 build/World/world.sav
+lib/testmod
