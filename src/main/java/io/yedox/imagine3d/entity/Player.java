@@ -52,12 +52,15 @@ public class Player extends Camera implements IPlayer {
         this.serializablePlayer = new SerializablePlayer(this.position, this.username);
         this.initEntityData();
 
-        if(Game.developerDebugModeEnabled) Logger.logDebug("PlayerEntity's JSONData: \n" + entityData.toJson());
+        if(Game.developerDebugModeEnabled) {
+            Logger.logDebug("PlayerEntity's JSONData: \n" + entityData.toJson());
+        }
 
         GUI.mpClient.sendMessage("%METADATA%\n" + serializeToJson());
     }
 
     public String serializeToJson() {
+        this.serializablePlayer = new SerializablePlayer(position, username);
         return new Gson().toJson(serializablePlayer);
     }
 

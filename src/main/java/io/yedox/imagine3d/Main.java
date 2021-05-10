@@ -123,8 +123,6 @@ public class Main extends PApplet {
 
             // Init animation
             loadingScreenFadeOut = new LinearAnimation(255, 0, 2f, false, AnimationType.DECREMENT);
-
-            Logger.logDebug(GUI.player.serializeToJson());
         } catch (Exception exception) {
             // Print the exception
             Utils.printExceptionMessage(exception, this);
