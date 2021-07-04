@@ -1,6 +1,7 @@
 package io.yedox.imagine3d.gui;
 
-import i3lua.LuaModElement;
+import com.jogamp.opengl.GL;
+import i3lua.LuaScriptingEngine;
 import io.yedox.imagine3d.Main;
 import io.yedox.imagine3d.commands.CommandBuilder;
 import io.yedox.imagine3d.commands.CommandManager;
@@ -25,6 +26,7 @@ import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PImage;
 import processing.core.PVector;
+import processing.opengl.PGL;
 import processing.opengl.PShader;
 
 import java.util.ArrayList;
@@ -45,7 +47,7 @@ public class GUI {
     public static ParticleSystem particleSystem;
     public static Main main;
     public static WebSocketClient mpClient;
-    public static LuaModElement luaModElement;
+    public static LuaScriptingEngine luaModElement;
 
     public static boolean lightsEnabled;
     public static boolean torchEnabled;
@@ -71,9 +73,12 @@ public class GUI {
 
         // Set framerate to 900
         applet.frameRate(900);
-
         // Set texture wrap to REPEAT
         applet.textureWrap(PConstants.REPEAT);
+        // Enable mipmaps
+        applet.hint(PConstants.ENABLE_TEXTURE_MIPMAPS);
+        // Enable stroke perspective
+        applet.hint(PConstants.ENABLE_STROKE_PERSPECTIVE);
 
         // Init GUIButton array
         guiButtons = new ArrayList<>();
@@ -174,7 +179,7 @@ public class GUI {
         // Execute lua command
         CommandManager.addCommand(CommandBuilder.createCommand("execlua").executes((appletCtx, args1) -> {
             if (CommandManager.checkArg(args1, 0)) {
-                GUI.luaModElement = new LuaModElement(args1[0], appletCtx);
+                GUI.luaModElement = new LuaScriptingEngine(args1[0], appletCtx);
                 GUI.luaModElement.execute();
             } else {
                 throw new MissingArgumentException(0);

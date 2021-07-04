@@ -20,7 +20,7 @@ import javax.script.ScriptEngineManager;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
-public class LuaModElement {
+public class LuaScriptingEngine {
     private boolean debugEnabled = false;
 
     private Globals globals;
@@ -33,7 +33,7 @@ public class LuaModElement {
     private ScriptEngineFactory engineFactory;
     private ScriptEngineManager engineManager;
 
-    public LuaModElement(String file, PApplet applet) {
+    public LuaScriptingEngine(String file, PApplet applet) {
         try {
             this.luaFile = file;
 

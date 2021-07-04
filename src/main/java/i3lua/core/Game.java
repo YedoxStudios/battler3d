@@ -16,7 +16,7 @@ public class Game extends TwoArgFunction {
         library.set("add_command", new add_command());
         library.set("toggle_observer_mode", new toggle_observer_mode());
         library.set("set_player_username", new set_player_username());
-        env.set("game", library);
+        env.set("Game", library);
         return library;
     }
 

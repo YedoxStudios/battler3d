@@ -78,7 +78,7 @@ public class WorldGenerator extends Thread {
         this.setTerrainGenerated(true);
         Game.setCurrentScreen(Game.Screen.MAIN_GAME_SCREEN);
 
-        this.world = new World(blocks, blockSize, new WorldMeta("World", Game.releaseVersion, WorldGeneratorType.FLAT, LocalDateTime.now()));
+        this.world = new World(blocks, blockSize, new WorldMeta("World", WorldGeneratorType.FLAT, LocalDateTime.now()));
     }
 
     /**

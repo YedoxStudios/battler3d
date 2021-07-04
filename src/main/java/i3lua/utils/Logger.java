@@ -12,7 +12,7 @@ public class Logger extends TwoArgFunction {
         LuaValue library = tableOf();
         library.set("debugln", new debugln());
         library.set("errorln", new errorln());
-        env.set("logger", library);
+        env.set("Logger", library);
         return library;
     }
 

@@ -16,7 +16,7 @@ public class ThreadedWorldSaver {
         mainSaveThread = new Thread(() -> {
             while (threadRunning) {
                 try {
-                    WorldManager.saveWorldToFile(GUI.worldGenerator.getWorld(), "F:/Imagine3D/build/");
+                    WorldManager.saveWorldToFile(GUI.worldGenerator.getWorld(), "./");
                     Thread.sleep(60000);
                 } catch (InterruptedException e) {
                     Logger.logDebug("Error while saving world: " + e.getMessage());
