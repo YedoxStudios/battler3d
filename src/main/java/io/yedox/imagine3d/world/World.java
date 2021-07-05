@@ -13,12 +13,12 @@ public class World implements Serializable {
     public final int blockSize;
 
     // A two-dimensional array that contains the world voxels
-    public final SerializableBlock[][] blockArray;
+    public final SerializableBlock[][][] blockArray;
 
     // World metadata
     private final WorldMeta metadata;
 
-    public World(Block[][] blocks, int blockSize, WorldMeta worldMeta){
+    public World(Block[][][] blocks, int blockSize, WorldMeta worldMeta){
         this.blockArray = FormatConverter.convertBlockArrayToSerializableArray(blocks, blockSize);
         this.blockSize = blockSize;
         this.metadata = worldMeta;

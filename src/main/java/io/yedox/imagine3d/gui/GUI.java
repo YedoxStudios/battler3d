@@ -101,7 +101,7 @@ public class GUI {
         player = new Player(applet);
 
         // Init world generator
-        worldGenerator = new WorldGenerator(20, applet);
+        worldGenerator = new WorldGenerator(25, 2, applet);
 
         // Init world saver
         worldSaver = new ThreadedWorldSaver();
@@ -213,7 +213,7 @@ public class GUI {
 
         CommandManager.addCommand(CommandBuilder.createCommand("world").executes((appletCtx, args) -> {
             if (CommandManager.checkArg(0, args).equals("save")) {
-                WorldManager.saveWorldToFile(worldGenerator.getWorld(), "F:/Imagine3D/build/");
+                WorldManager.saveWorldToFile(worldGenerator.getWorld(), ".");
             } else if (CommandManager.checkArg(0, args).equals("load")) {
                 if (CommandManager.checkArg(args, 1)) {
                     worldGenerator.loadWorld(Objects.requireNonNull(WorldManager.loadWorldFromFile(args[1])), appletCtx);

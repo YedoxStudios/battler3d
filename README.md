@@ -1,6 +1,6 @@
 
 # Imagine3D
-Imagine3D is a 3D sandbox game that is heavily inspired from [Minetest](https://minetest.net) and [Minecraft](https://minecraft.net).
+Imagine3D is a 3D sandbox game that is heavily inspired from [Minetest](https://www.minetest.net) and [Minecraft](https://minecraft.net).
 Imagine3D is written in Java and uses [Processing 3](https://processing.org/) library for the graphics stuff.
 
 # Features
