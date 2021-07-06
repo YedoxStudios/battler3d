@@ -20,4 +20,5 @@ Imagine3D is written in Java and uses [Processing 3](https://processing.org/) li
 - Double click it to run
 
 If you have problems running Imagine3D, try updating your Java (Imagine3D requires Java 8). If your problem still persists, you can open an issue in the issues tab.
-*Please note that currently Imagine3D only works on Windows. It hasn't been tested on Linux or MacOS*
+
+_**Please note that currently Imagine3D only works on Windows. It hasn't been tested on Linux or MacOS**_
