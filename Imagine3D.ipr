@@ -59,6 +59,7 @@
       </root>
     </artifact>
   </component>
+  <component name="GradleMigrationSettings" migrationVersion="1" />
   <component name="InspectionProjectProfileManager">
     <profile version="1.0">
       <option name="myName" value="Project Default" />
@@ -428,7 +429,7 @@
       <module fileurl="file://$PROJECT_DIR$/Imagine3D.iml" filepath="$PROJECT_DIR$/Imagine3D.iml" />
     </modules>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/bin/out" />
   </component>
   <component name="VcsDirectoryMappings">
