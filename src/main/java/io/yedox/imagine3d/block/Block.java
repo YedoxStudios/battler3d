@@ -66,15 +66,7 @@ public class Block implements IBlock, Serializable {
      * Block size
      */
     public PVector dimensions;
-    /**
-     * Render these sides
-     */
-    public boolean renderLeft    = false;
-    public boolean renderRight   = false;
-    public boolean renderBottom  = false;
-    public boolean renderTop     = false;
-    public boolean renderFront   = false;
-    public boolean renderBack    = false;
+
     /**
      * Is the block destroyed?
      * Deprecated since alpha 1.3.2.
@@ -128,31 +120,6 @@ public class Block implements IBlock, Serializable {
      */
     public static String getMaterial() {
         return BLOCKTYPE;
-    }
-
-    public void setRenderSides(int side, boolean render) {
-        switch (side) {
-            case 0:
-                renderLeft = render;
-                break;
-            case 1:
-                renderRight = render;
-                break;
-            case 2:
-                renderBottom = render;
-                break;
-            case 3:
-                renderTop = render;
-                break;
-            case 4:
-                renderFront = render;
-                break;
-            case 5:
-                renderBack = render;
-                break;
-            default:
-                break;
-        }
     }
 
     /**
@@ -245,52 +212,40 @@ public class Block implements IBlock, Serializable {
         applet.texture(texture);
 
         // +Z "front" face
-        if(renderFront) {
-            applet.vertex(-1, -1, 1, 0, 0);
-            applet.vertex(1, -1, 1, 1, 0);
-            applet.vertex(1, 1, 1, 1, 1);
-            applet.vertex(-1, 1, 1, 0, 1);
-        }
+        applet.vertex(-1, -1, 1, 0, 0);
+        applet.vertex(1, -1, 1, 1, 0);
+        applet.vertex(1, 1, 1, 1, 1);
+        applet.vertex(-1, 1, 1, 0, 1);
 
-        if(renderBack) {
-            // -Z "back" face
-            applet.vertex(1, -1, -1, 0, 0);
-            applet.vertex(-1, -1, -1, 1, 0);
-            applet.vertex(-1, 1, -1, 1, 1);
-            applet.vertex(1, 1, -1, 0, 1);
-        }
+        // -Z "back" face
+        applet.vertex(1, -1, -1, 0, 0);
+        applet.vertex(-1, -1, -1, 1, 0);
+        applet.vertex(-1, 1, -1, 1, 1);
+        applet.vertex(1, 1, -1, 0, 1);
 
-        if(renderBottom) {
-            // +Y "bottom" face
-            applet.vertex(-1, 1, 1, 0, 0);
-            applet.vertex(1, 1, 1, 1, 0);
-            applet.vertex(1, 1, -1, 1, 1);
-            applet.vertex(-1, 1, -1, 0, 1);
-        }
+        // +Y "bottom" face
+        applet.vertex(-1, 1, 1, 0, 0);
+        applet.vertex(1, 1, 1, 1, 0);
+        applet.vertex(1, 1, -1, 1, 1);
+        applet.vertex(-1, 1, -1, 0, 1);
 
-        if(renderTop) {
-            // -Y "top" face
-            applet.vertex(-1, -1, -1, 0, 0);
-            applet.vertex(1, -1, -1, 1, 0);
-            applet.vertex(1, -1, 1, 1, 1);
-            applet.vertex(-1, -1, 1, 0, 1);
-        }
+        // -Y "top" face
+        applet.vertex(-1, -1, -1, 0, 0);
+        applet.vertex(1, -1, -1, 1, 0);
+        applet.vertex(1, -1, 1, 1, 1);
+        applet.vertex(-1, -1, 1, 0, 1);
 
-        if(renderRight) {
-            // +X "right" face
-            applet.vertex(1, -1, 1, 0, 0);
-            applet.vertex(1, -1, -1, 1, 0);
-            applet.vertex(1, 1, -1, 1, 1);
-            applet.vertex(1, 1, 1, 0, 1);
-        }
+        // +X "right" face
+        applet.vertex(1, -1, 1, 0, 0);
+        applet.vertex(1, -1, -1, 1, 0);
+        applet.vertex(1, 1, -1, 1, 1);
+        applet.vertex(1, 1, 1, 0, 1);
 
-        if(renderLeft) {
-            // -X "left" face
-            applet.vertex(-1, -1, -1, 0, 0);
-            applet.vertex(-1, -1, 1, 1, 0);
-            applet.vertex(-1, 1, 1, 1, 1);
-            applet.vertex(-1, 1, -1, 0, 1);
-        }
+        // -X "left" face
+        applet.vertex(-1, -1, -1, 0, 0);
+        applet.vertex(-1, -1, 1, 1, 0);
+        applet.vertex(-1, 1, 1, 1, 1);
+        applet.vertex(-1, 1, -1, 0, 1);
 
         applet.endShape();
     }
@@ -314,9 +269,5 @@ public class Block implements IBlock, Serializable {
     @Override
     public void onBlockDestroy() {
 
-    }
-
-    public String getBlockType() {
-        return BlockType.PLATFORM;
     }
 }
