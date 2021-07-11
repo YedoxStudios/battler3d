@@ -1,8 +1,8 @@
 package io.yedox.imagine3d.gui;
 
-import com.jogamp.opengl.GL;
 import i3lua.LuaScriptingEngine;
 import io.yedox.imagine3d.Main;
+import io.yedox.imagine3d.block.Block;
 import io.yedox.imagine3d.commands.CommandBuilder;
 import io.yedox.imagine3d.commands.CommandManager;
 import io.yedox.imagine3d.commands.MissingArgumentException;
@@ -20,13 +20,13 @@ import io.yedox.imagine3d.utils.animations.AnimationType;
 import io.yedox.imagine3d.utils.animations.LinearAnimation;
 import io.yedox.imagine3d.websocket.WebSocketClient;
 import io.yedox.imagine3d.world.ThreadedWorldSaver;
+import io.yedox.imagine3d.world.WorldBlockLoader;
 import io.yedox.imagine3d.world.WorldGenerator;
 import io.yedox.imagine3d.world.WorldManager;
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PImage;
 import processing.core.PVector;
-import processing.opengl.PGL;
 import processing.opengl.PShader;
 
 import java.util.ArrayList;
@@ -44,6 +44,7 @@ public class GUI {
 
     public static Player player;
     public static WorldGenerator worldGenerator;
+    public static WorldBlockLoader worldBlockLoader;
     public static ParticleSystem particleSystem;
     public static Main main;
     public static WebSocketClient mpClient;
@@ -65,6 +66,7 @@ public class GUI {
     private static GraphicsRenderer graphicsRenderer;
     private static PShader tileShader;
     private static PShader blurShader;
+    private static PShader lightShader;
     private static ScriptParser scriptParser;
     private static ThreadedWorldSaver worldSaver;
 
@@ -103,6 +105,9 @@ public class GUI {
         // Init world generator
         worldGenerator = new WorldGenerator(25, 2, applet);
 
+        // Init world block loader
+        worldBlockLoader = new WorldBlockLoader(applet);
+
         // Init world saver
         worldSaver = new ThreadedWorldSaver();
 
@@ -133,6 +138,7 @@ public class GUI {
 
         tileShader = applet.loadShader("shaders/infinite_scroll.glsl");
         blurShader = applet.loadShader("shaders/blur.glsl");
+        lightShader = applet.loadShader("shaders/lightfrag.glsl", "shaders/lightvert.glsl");
         tileShader.set("resolution", (float) applet.width, (float) applet.height);
         tileShader.set("tileImage", backgrounds[0]);
 
@@ -229,8 +235,12 @@ public class GUI {
         }));
 
         CommandManager.addCommand(CommandBuilder.createCommand("setblock").executes((appletCtx, args) -> {
-            if (CommandManager.checkArg(args, 0) && CommandManager.checkArg(args, 1) && CommandManager.checkArg(args, 2))
-                worldGenerator.getBlockAt(new PVector(Integer.parseInt(args[0]), Integer.parseInt(args[1]), Integer.parseInt(args[2]))).destroy();
+            if (CommandManager.checkArg(args, 0) && CommandManager.checkArg(args, 1) && CommandManager.checkArg(args, 2)) {
+                Block target = worldGenerator.getBlockAt(new PVector(Integer.parseInt(args[0]), Integer.parseInt(args[1]), Integer.parseInt(args[2])));
+                target.destroy();
+
+                Logger.logDebug(target.position);
+            }
             else
                 throw new MissingArgumentException(1, "Syntax for command setblock: '/setblock <blockid>>'");
         }));
@@ -451,7 +461,7 @@ public class GUI {
 
                 this.x = sourceApplet.width / 2 - (int) (sourceApplet.textWidth(this.getText()) / 2);
                 this.pauseScreenWidget = true;
-                this.screen =  Game.Screen.PAUSE_SCREEN;
+                this.screen = Game.Screen.PAUSE_SCREEN;
             }
         });
     }
@@ -613,6 +623,8 @@ public class GUI {
 
             if (lightsEnabled) applet.lights();
 
+//            applet.shader(lightShader);
+
             player.update(applet);
             player.render();
             player.renderSkybox();
@@ -624,6 +636,13 @@ public class GUI {
 
             // Reset fov
             applet.perspective(applet.PI / 3.0f, (float) applet.width / applet.height, 1, 1000000);
+
+            if (applet.mousePressed) {
+                particleSystem.addParticle();
+                particleSystem.setOrigin(player.position);
+            }
+
+            particleSystem.run();
 
             applet.resetShader();
 
@@ -700,7 +719,7 @@ public class GUI {
                 applet.textSize(FontSize.NORMAL);
 
                 if (deathScreenFadeIn.getValue() >= 90) {
-                    if(screenBlurEnabled) {
+                    if (screenBlurEnabled) {
                         applet.filter(blurShader);
                         applet.fill(255, 0);
                         applet.rect(0, 0, applet.width, applet.height);
@@ -728,7 +747,7 @@ public class GUI {
                 Utils.showTitle(Main.titleMessage, applet);
 
             if (pauseScreen) {
-                if(screenBlurEnabled) {
+                if (screenBlurEnabled) {
                     applet.filter(blurShader);
                     applet.fill(255, 0);
                     applet.rect(0, 0, applet.width, applet.height);

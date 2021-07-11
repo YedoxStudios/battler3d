@@ -28,9 +28,9 @@ public class Camera extends Entity {
     public PVector velocity;
     public PVector center;
     public Robot robot;
+    public GLWindow window;
     protected int var1;
     protected int var2;
-    public GLWindow window;
     protected PImage skyBoxTexture;
     protected PImage skyBoxTopTexture;
     protected PImage skyBoxBottomTexture;
@@ -85,7 +85,10 @@ public class Camera extends Entity {
     public void renderSkybox() {
         applet.push();
 
-        if (GUI.lightsEnabled) applet.noLights();
+        if (GUI.lightsEnabled) {
+            applet.noLights();
+            applet.resetShader();
+        }
 
         applet.rotateY(-pan);
         applet.translate(position.x, position.y, position.z);
@@ -94,7 +97,9 @@ public class Camera extends Entity {
         applet.scale(1);
         applet.fill(255);
 
-        if (GUI.lightsEnabled) applet.lights();
+        if (GUI.lightsEnabled) {
+            applet.lights();
+        }
 
         applet.pop();
     }

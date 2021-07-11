@@ -25,6 +25,7 @@
 package io.yedox.imagine3d.block;
 
 import io.yedox.imagine3d.gui.GUI;
+import io.yedox.imagine3d.utils.Particle;
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PImage;
@@ -69,12 +70,12 @@ public class Block implements IBlock, Serializable {
     /**
      * Render these sides
      */
-    public boolean renderLeft    = false;
-    public boolean renderRight   = false;
-    public boolean renderBottom  = false;
-    public boolean renderTop     = false;
-    public boolean renderFront   = false;
-    public boolean renderBack    = false;
+    public boolean renderLeft = false;
+    public boolean renderRight = false;
+    public boolean renderBottom = false;
+    public boolean renderTop = false;
+    public boolean renderFront = false;
+    public boolean renderBack = false;
     /**
      * Is the block destroyed?
      * Deprecated since alpha 1.3.2.
@@ -168,7 +169,7 @@ public class Block implements IBlock, Serializable {
      * Updates the block
      */
     public void update() {
-        if (BLOCKTYPE != BlockType.WATER || BLOCKTYPE != BlockType.AIR) {
+        if (!BLOCKTYPE.equals(BlockType.WATER) || !BLOCKTYPE.equals(BlockType.AIR)) {
             float playerLeft = GUI.player.position.x - GUI.player.dimensions.x / 2;
             float playerRight = GUI.player.position.x + GUI.player.dimensions.x / 2;
             float playerTop = GUI.player.position.y - GUI.player.dimensions.y / 2;
@@ -219,6 +220,61 @@ public class Block implements IBlock, Serializable {
                     }
                 }
             }
+
+            for (int i = 0; i < GUI.particleSystem.particles.size(); i++) {
+                Particle particle = GUI.particleSystem.particles.get(i);
+
+                float playerleft = particle.position.x - particle.dimensions.x / 2;
+                float playerright = particle.position.x + particle.dimensions.x / 2;
+                float playertop = particle.position.y - particle.dimensions.y / 2;
+                float playerbottom = particle.position.y + particle.dimensions.y / 2;
+                float playerfront = particle.position.z - particle.dimensions.z / 2;
+                float playerback = particle.position.z + particle.dimensions.z / 2;
+
+                float boxleft = position.x - dimensions.x / 2;
+                float boxright = position.x + dimensions.x / 2;
+                float boxtop = position.y - dimensions.y / 2;
+                float boxbottom = position.y + dimensions.y / 2;
+                float boxfront = position.z - dimensions.z / 2;
+                float boxback = position.z + dimensions.z / 2;
+
+                float boxleftoverlap = playerright - boxleft;
+                float boxrightoverlap = boxright - playerleft;
+                float boxtopoverlap = playerbottom - boxtop;
+                float boxbottomoverlap = boxbottom - playertop;
+                float boxfrontoverlap = playerback - boxfront;
+                float boxbackoverlap = boxback - playerfront;
+
+                if (!destroyed) {
+                    if (((playerleft > boxleft && playerleft < boxright || (playerright > boxleft && playerright < boxright)) && ((playertop > boxtop && playertop < boxbottom) || (playerbottom > boxtop && playerbottom < boxbottom)) && ((playerfront > boxfront && playerfront < boxback) || (playerback > boxfront && playerback < boxback)))) {
+                        float xOverlap = PApplet.max(PApplet.min(boxleftoverlap, boxrightoverlap), 0);
+                        float yOverlap = PApplet.max(PApplet.min(boxtopoverlap, boxbottomoverlap), 0);
+                        float zOverlap = PApplet.max(PApplet.min(boxfrontoverlap, boxbackoverlap), 0);
+
+                        if (xOverlap < yOverlap && xOverlap < zOverlap) {
+                            if (boxleftoverlap < boxrightoverlap) {
+                                particle.position.x = boxleft;
+                            } else {
+                                particle.position.x = boxright;
+                            }
+                        } else if (yOverlap < xOverlap && yOverlap < zOverlap) {
+                            if (boxtopoverlap < boxbottomoverlap) {
+                                particle.position.y = boxtop;
+                                particle.velocity = new PVector(0,0,0);
+                            } else {
+                                particle.position.y = boxbottom + 1;
+                                particle.velocity = new PVector(0,0,0);
+                            }
+                        } else if (zOverlap < xOverlap && zOverlap < yOverlap) {
+                            if (boxfrontoverlap < boxbackoverlap) {
+                                particle.position.z = boxfront;
+                            } else {
+                                particle.position.z = boxback;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -245,14 +301,14 @@ public class Block implements IBlock, Serializable {
         applet.texture(texture);
 
         // +Z "front" face
-        if(renderFront) {
+        if (renderFront) {
             applet.vertex(-1, -1, 1, 0, 0);
             applet.vertex(1, -1, 1, 1, 0);
             applet.vertex(1, 1, 1, 1, 1);
             applet.vertex(-1, 1, 1, 0, 1);
         }
 
-        if(renderBack) {
+        if (renderBack) {
             // -Z "back" face
             applet.vertex(1, -1, -1, 0, 0);
             applet.vertex(-1, -1, -1, 1, 0);
@@ -260,7 +316,7 @@ public class Block implements IBlock, Serializable {
             applet.vertex(1, 1, -1, 0, 1);
         }
 
-        if(renderBottom) {
+        if (renderBottom) {
             // +Y "bottom" face
             applet.vertex(-1, 1, 1, 0, 0);
             applet.vertex(1, 1, 1, 1, 0);
@@ -268,7 +324,7 @@ public class Block implements IBlock, Serializable {
             applet.vertex(-1, 1, -1, 0, 1);
         }
 
-        if(renderTop) {
+        if (renderTop) {
             // -Y "top" face
             applet.vertex(-1, -1, -1, 0, 0);
             applet.vertex(1, -1, -1, 1, 0);
@@ -276,7 +332,7 @@ public class Block implements IBlock, Serializable {
             applet.vertex(-1, -1, 1, 0, 1);
         }
 
-        if(renderRight) {
+        if (renderRight) {
             // +X "right" face
             applet.vertex(1, -1, 1, 0, 0);
             applet.vertex(1, -1, -1, 1, 0);
@@ -284,7 +340,7 @@ public class Block implements IBlock, Serializable {
             applet.vertex(1, 1, 1, 0, 1);
         }
 
-        if(renderLeft) {
+        if (renderLeft) {
             // -X "left" face
             applet.vertex(-1, -1, -1, 0, 0);
             applet.vertex(-1, -1, 1, 1, 0);
@@ -297,6 +353,7 @@ public class Block implements IBlock, Serializable {
 
     public void destroy() {
         this.BLOCKTYPE = BlockType.AIR;
+        this.destroyed = true;
         this.onBlockDestroy();
     }
 

@@ -91,8 +91,8 @@ public class Player extends Camera implements IPlayer {
 
                 if (grounded && applet.keyPressed && applet.key == ' ' && !GUI.chatBox.visible) {
                     grounded = false;
-                    velocity.y = -1.1f;
-                    position.y -= 1.0;
+                    velocity.y = -1.0f;
+                    position.y -= 0.9;
                 }
 
                 if (position.y >= 300 && !observerMode) {

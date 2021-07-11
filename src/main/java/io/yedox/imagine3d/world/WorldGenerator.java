@@ -28,6 +28,8 @@ import io.yedox.imagine3d.block.Block;
 import io.yedox.imagine3d.block.BlockType;
 import io.yedox.imagine3d.block.worldblock.PlatformBlock;
 import io.yedox.imagine3d.core.Game;
+import io.yedox.imagine3d.gui.GUI;
+import io.yedox.imagine3d.utils.BlockUtils;
 import io.yedox.imagine3d.utils.FormatConverter;
 import io.yedox.imagine3d.utils.Logger;
 import processing.core.PApplet;
@@ -36,14 +38,14 @@ import processing.core.PVector;
 import java.time.LocalDateTime;
 
 public class WorldGenerator extends Thread {
-    public static int buildHeightLimit = 2;
-    private final PApplet pApplet;
+    public static int buildHeightLimit = 4;
     // Size of the block array
-    public int blockSize;
+    public static int blockSize;
+    private final PApplet pApplet;
     // Array which contains the blocks
-    public Block[][][] blocks;
+    public static Block[][][] blocks;
     // Something idk
-    public PVector generationProgress;
+    public static PVector generationProgress;
     // Contains the world that is used
     // to load and save from files
     public World world;
@@ -65,6 +67,7 @@ public class WorldGenerator extends Thread {
      * Initializes the voxel array
      */
     public void generateTerrain(PApplet applet) {
+
         for (int x = 0; x < blockSize; x++) {
             for (int y = 0; y < buildHeightLimit; y++) {
                 for (int z = 0; z < blockSize; z++) {
@@ -142,7 +145,7 @@ public class WorldGenerator extends Thread {
 
 
         Game.setCurrentScreen(Game.Screen.MAIN_GAME_SCREEN);
-
+        GUI.worldBlockLoader.start();
         this.world = new World(blocks, blockSize, new WorldMeta("World", WorldGeneratorType.FLAT, LocalDateTime.now()));
     }
 
@@ -206,16 +209,18 @@ public class WorldGenerator extends Thread {
      * Returns the block at the specified
      * position
      */
-    public Block getBlockAt(PVector position) {
-        for (int i = 0; i <= blockSize - 1; i++)
-            for (int j = 0; j <= buildHeightLimit - 1; j++)
-                for (int k = 0; k <= blockSize - 1; k++) {
-                    if (position.x == i && position.y == j && position.z == k) {
-                        return blocks[i][j][k];
-                    }
-                }
+    public Block getBlockAt(PVector pos) {
+        PVector position = BlockUtils.getBlockCoords(pos);
 
-        return null;
+//        for (int i = 0; i <= blockSize - 1; i++)
+//            for (int j = 0; j <= buildHeightLimit - 1; j++)
+//                for (int k = 0; k <= blockSize - 1; k++) {
+//                    if (position.x == i && position.y == j && position.z == k) {
+//                        return blocks[i][j][k];
+//                    }
+//                }
+
+        return blocks[(int) pos.x][(int) pos.y][(int) pos.z];
     }
 
     /**
