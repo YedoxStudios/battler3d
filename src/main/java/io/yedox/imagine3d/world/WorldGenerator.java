@@ -145,7 +145,7 @@ public class WorldGenerator extends Thread {
 
 
         Game.setCurrentScreen(Game.Screen.MAIN_GAME_SCREEN);
-        GUI.worldBlockLoader.start();
+//        GUI.worldBlockLoader.start();
         this.world = new World(blocks, blockSize, new WorldMeta("World", WorldGeneratorType.FLAT, LocalDateTime.now()));
     }
 
